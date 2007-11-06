@@ -22,7 +22,7 @@ class shorewall {
 
 	package { shorewall: ensure => installed }
 
-	# service { shorewall: ensure  => running, enable  => true, }
+	service { shorewall: ensure  => running, enable  => true, }
 	
 	# private
 	define managed_file () {
@@ -56,11 +56,11 @@ class shorewall {
 
 	# This file has to be managed in place, so shorewall can find it
 	file { "/etc/shorewall/shorewall.conf":
-		# use OS specific defaults, but use Debian/etch if no other is found
+		# use OS specific defaults, but use gentoo if no other is found
 		source => [
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$servername/shorewall/shorewall.conf.Debian.etch" ],
+			"puppet://$servername/shorewall/shorewall.conf.gentoo" ],
 		mode => 0644, owner => root, group => root,
 	}
 
