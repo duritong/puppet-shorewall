@@ -20,7 +20,14 @@ modules_dir { "shorewall": }
 
 class shorewall {
 
-	package { shorewall: ensure => installed }
+	package { 'shorewall':
+                ensure => present,
+                category => $operatingsystem ? {
+                        gentoo => 'net-firewall',
+                        default => '',
+                },
+        }
+
 
 	service { shorewall: ensure  => running, enable  => true, }
 	
