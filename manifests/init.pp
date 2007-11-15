@@ -166,7 +166,7 @@ class shorewall {
 	managed_file { routestopped: }
 	define routestopped($host = '-', $options = '') {
 		entry { "routestopped.d/${name}":
-			line => "${interface} ${host} ${options}",
+			line => "${name} ${host} ${options}",
 		}
 	}
 
