@@ -74,7 +74,7 @@ class shorewall {
 		source => [
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$servername/shorewall/shorewall.conf.gentoo" ],
+			"puppet://$servername/shorewall/shorewall.conf.Gentoo." ],
 		mode => 0644, owner => root, group => root,
 	}
 
