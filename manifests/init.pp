@@ -30,6 +30,13 @@ class shorewall {
 
 
 	service { shorewall: ensure  => running, enable  => true, }
+
+	file {
+        	"/var/lib/puppet/modules/shorewall":
+        		ensure => directory,
+        		force => true,
+        		mode => 0755, owner => root, group => root;
+        }
 	
 	# private
 	define managed_file () {
