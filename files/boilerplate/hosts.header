@@ -1,4 +1,5 @@
-horewall version 3.4 - Hosts file
+#
+# Shorewall version 3.4 - Hosts file
 #
 # For information about entries in this file, type "man shorewall-hosts"
 #
