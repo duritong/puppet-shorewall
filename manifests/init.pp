@@ -41,6 +41,15 @@ class shorewall {
 	# private
 	define managed_file () {
 		$dir = "/var/lib/puppet/modules/shorewall/${name}.d"
+
+		file {
+			"${dir}":
+				ensure => directory,
+	                        force => true,
+       				mode => 0755, owner => root, group => root;
+		}
+				
+		
 		concatenated_file { "/var/lib/puppet/modules/shorewall/$name":
 			dir => $dir,
 			mode => 0600,
