@@ -8,4 +8,3 @@
 #############################################################################################################
 #ACTION SOURCE          DEST            PROTO   DEST    SOURCE          ORIGINAL        RATE            USER/   MARK
 #                                               PORT    PORT(S)         DEST            LIMIT           GROUP
-#SECTION NEW
