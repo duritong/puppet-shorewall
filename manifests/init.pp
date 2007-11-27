@@ -182,8 +182,8 @@ class shorewall {
 	
 	# See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
 	managed_file { routestopped: }
-	define routestopped($host = '-', $options = '') {
-		entry { "routestopped.d/${name}":
+	define routestopped($host = '-', $options = '', $order='100') {
+		entry { "routestopped.d/${order}-${name}":
 			line => "${name} ${host} ${options}",
 		}
 	}
