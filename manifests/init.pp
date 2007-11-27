@@ -133,7 +133,7 @@ class shorewall {
 		$ratelimit = '-', $user = '-', $mark = '', $order)
 	{
 		entry { "rules.d/${order}-${name}":
-			line => "${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}",
+			line => "# ${name}\n${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}",
 		}
 	}
 
@@ -144,7 +144,7 @@ class shorewall {
 	# address = If  you  specify  an  address here, SNAT will be used and this will be the source address.
 	define masq($interface, $source, $address = '-', $proto = '-', $port = '-', $ipsec = '-', $mark = '', $order='100' ) {
 		entry { "masq.d/${order}-${name}":
-			line => "${interface} ${source} ${address} ${proto} ${port} ${ipsec} ${mark}"
+			line => "# ${name}\n${interface} ${source} ${address} ${proto} ${port} ${ipsec} ${mark}"
 		}
 	}
 
@@ -152,7 +152,7 @@ class shorewall {
 	managed_file { proxyarp: }
 	define proxyarp($interface, $external, $haveroute = yes, $persistent = no, $order='100') {
 		entry { "proxyarp.d/${order}-${name}":
-			line => "${name} ${interface} ${external} ${haveroute} ${persistent}"
+			line => "# ${name}\n${name} ${interface} ${external} ${haveroute} ${persistent}"
 		}
 	}
 
