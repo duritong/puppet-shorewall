@@ -140,9 +140,11 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Masq
 	managed_file{ masq: }
 	# mark is new in 3.4.4
-	define masq($interface, $address, $proto = '-', $port = '-', $ipsec = '-', $mark = '') {
-		entry { "masq.d/${name}":
-			line => "${interface} ${name} ${address} ${proto} ${port} ${ipsec} ${mark}"
+	# source (= subnet) = Set of hosts that you wish to masquerade.
+	# address = If  you  specify  an  address here, SNAT will be used and this will be the source address.
+	define masq($interface, $source, $address = '-', $proto = '-', $port = '-', $ipsec = '-', $mark = '', $order='100' ) {
+		entry { "masq.d/${order}-${name}":
+			line => "${interface} ${source} ${address} ${proto} ${port} ${ipsec} ${mark}"
 		}
 	}
 
