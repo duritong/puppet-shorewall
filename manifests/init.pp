@@ -98,16 +98,16 @@ class shorewall {
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
 	managed_file{ interfaces: }
-	define interface($zone, $broadcast = 'detect', $options = 'tcpflags,blacklist,norfc1918,routefilter,nosmurfs,logmartians') {
-		entry { "interfaces.d/${name}":
+	define interface($zone, $broadcast = 'detect', $options = 'tcpflags,blacklist,norfc1918,routefilter,nosmurfs,logmartians', $order='100') {
+		entry { "interfaces.d/${order}-${name}":
 			line => "${zone} ${name} ${broadcast} ${options}",
 		}
 	}
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#Hosts
 	managed_file { hosts: }
-	define host($zone, $options = 'tcpflags,blacklist,norfc1918') {
-		entry { "hosts.d/${name}":
+	define host($zone, $options = 'tcpflags,blacklist,norfc1918',$order='100') {
+		entry { "hosts.d/${order}-${name}":
 			line => "${zone} ${name} ${options}"
 		}
 	}
@@ -150,32 +150,32 @@ class shorewall {
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
 	managed_file { proxyarp: }
-	define proxyarp($interface, $external, $haveroute = yes, $persistent = no) {
-		entry { "proxyarp.d/${name}":
+	define proxyarp($interface, $external, $haveroute = yes, $persistent = no, $order='100') {
+		entry { "proxyarp.d/${order}-${name}":
 			line => "${name} ${interface} ${external} ${haveroute} ${persistent}"
 		}
 	}
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#NAT
 	managed_file { nat: }
-	define nat($interface, $internal, $all = 'no', $local = 'yes') {
-		entry { "nat.d/${name}":
+	define nat($interface, $internal, $all = 'no', $local = 'yes',$order='100') {
+		entry { "nat.d/${order}-${name}":
 			line => "${name} ${interface} ${internal} ${all} ${local}"
 		}
 	}
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
 	managed_file { blacklist: }
-	define blacklist($proto = '-', $port = '-') {
-		entry { "blacklist.d/${name}":
+	define blacklist($proto = '-', $port = '-', $order='100') {
+		entry { "blacklist.d/${order}-${name}":
 			line => "${name} ${proto} ${port}",
 		}
 	}
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
 	managed_file { rfc1918: }
-	define rfc1918($action = 'logdrop') {
-		entry { "rfc1918.d/${name}":
+	define rfc1918($action = 'logdrop', $order='100') {
+		entry { "rfc1918.d/${order}-${name}":
 			line => "${name} ${action}"
 		}
 	}
