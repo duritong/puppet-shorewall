@@ -29,13 +29,29 @@ class shorewall {
         }
 
 
-	service { shorewall: ensure  => running, enable  => true, }
+	service { shorewall: 
+        ensure  => running, 
+        enable  => true, 
+        subscribe => [ 
+            Exec[concat_zones], 
+            Exec[concat_interfaces], 
+            Exec[concat_hosts], 
+            Exec[concat_policy], 
+            Exec[concat_rules], 
+            Exec[concat_masq], 
+            Exec[concat_proxyarp], 
+            Exec[concat_nat], 
+            Exec[concat_blacklist], 
+            Exec[concat_rfc1918], 
+            Exec[concat_routestopped], 
+        ],
+    }
 
 	file {
         	"/var/lib/puppet/modules/shorewall":
         		ensure => directory,
         		force => true,
-        		mode => 0755, owner => root, group => root;
+        		mode => 0755, owner => root, group => 0;
         }
 	
 	# private
@@ -46,7 +62,7 @@ class shorewall {
 			"${dir}":
 				ensure => directory,
 	                        force => true,
-       				mode => 0755, owner => root, group => root;
+       				mode => 0755, owner => root, group => 0;
 		}
 				
 		
@@ -57,11 +73,11 @@ class shorewall {
 		file {
 			"${dir}/000-header":
 				source => "puppet://$servername/shorewall/boilerplate/${name}.header",
-				mode => 0600, owner => root, group => root,
+				mode => 0600, owner => root, group => 0,
 				notify => Exec["concat_${dir}"];
 			"${dir}/999-footer":
 				source => "puppet://$servername/shorewall/boilerplate/${name}.footer",
-				mode => 0600, owner => root, group => root,
+				mode => 0600, owner => root, group => 0,
 				notify => Exec["concat_${dir}"];
 		}
 	}
@@ -72,19 +88,21 @@ class shorewall {
 		$dir = dirname($target)
 		file { $target:
 			content => "${line}\n",
-			mode => 0600, owner => root, group => root,
+			mode => 0600, owner => root, group => 0,
 			notify => Exec["concat_${dir}"],
 		}
 	}
 
 	# This file has to be managed in place, so shorewall can find it
 	file { "/etc/shorewall/shorewall.conf":
-		# use OS specific defaults, but use gentoo if no other is found
+		# use OS specific defaults, but use Default if no other is found
 		source => [
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$servername/shorewall/shorewall.conf.Gentoo." ],
-		mode => 0644, owner => root, group => root,
+			"puppet://$servername/shorewall/shorewall.conf.Default",
+            ],
+		mode => 0644, owner => root, group => 0,
+        notify => Service[shorewall],
 	}
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#Zones
