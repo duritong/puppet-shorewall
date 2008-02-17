@@ -43,7 +43,7 @@ class shorewall {
             Exec[concat_nat], 
             Exec[concat_blacklist], 
             Exec[concat_rfc1918], 
-            Exec[concat_routestopped], 
+            Exec[concat_routestopped] 
         ],
     }
 
