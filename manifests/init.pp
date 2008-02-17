@@ -99,7 +99,7 @@ class shorewall {
 		source => [
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
 			"puppet://$servername/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$servername/shorewall/shorewall.conf.Default",
+			"puppet://$servername/shorewall/shorewall.conf.Default"
             ],
 		mode => 0644, owner => root, group => 0,
         notify => Service[shorewall],
