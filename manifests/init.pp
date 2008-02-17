@@ -32,19 +32,19 @@ class shorewall {
 	service { shorewall: 
         ensure  => running, 
         enable  => true, 
-        subscribe => [ 
-            Exec[concat_zones], 
-            Exec[concat_interfaces], 
-            Exec[concat_hosts], 
-            Exec[concat_policy], 
-            Exec[concat_rules], 
-            Exec[concat_masq], 
-            Exec[concat_proxyarp], 
-            Exec[concat_nat], 
-            Exec[concat_blacklist], 
-            Exec[concat_rfc1918], 
-            Exec[concat_routestopped] 
-        ],
+#        subscribe => [ 
+#            Exec[concat_zones], 
+#            Exec[concat_interfaces], 
+#            Exec[concat_hosts], 
+#            Exec[concat_policy], 
+#            Exec[concat_rules], 
+#            Exec[concat_masq], 
+#            Exec[concat_proxyarp], 
+#            Exec[concat_nat], 
+#            Exec[concat_blacklist], 
+#            Exec[concat_rfc1918], 
+#            Exec[concat_routestopped] 
+#        ],
     }
 
 	file {
