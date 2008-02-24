@@ -33,6 +33,7 @@ class shorewall {
         ensure  => running, 
         enable  => true, 
         hasstatus => true,
+        hasrestart => true,
         subscribe => [ 
             Exec["concat_/var/lib/puppet/modules/shorewall/zones"], 
             Exec["concat_/var/lib/puppet/modules/shorewall/interfaces"], 
