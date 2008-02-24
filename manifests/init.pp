@@ -32,19 +32,19 @@ class shorewall {
 	service { shorewall: 
         ensure  => running, 
         enable  => true, 
-#        subscribe => [ 
-#            Exec[concat_zones], 
-#            Exec[concat_interfaces], 
-#            Exec[concat_hosts], 
-#            Exec[concat_policy], 
-#            Exec[concat_rules], 
-#            Exec[concat_masq], 
-#            Exec[concat_proxyarp], 
-#            Exec[concat_nat], 
-#            Exec[concat_blacklist], 
-#            Exec[concat_rfc1918], 
-#            Exec[concat_routestopped] 
-#        ],
+        subscribe => [ 
+            Exec["concat_/var/lib/puppet/modules/shorewall/zones], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/interfaces], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/hosts], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/policy], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/rules], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/masq], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/proxyarp], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/nat], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/blacklist], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/rfc1918], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/routestopped] 
+        ],
     }
 
 	file {
@@ -58,11 +58,10 @@ class shorewall {
 	define managed_file () {
 		$dir = "/var/lib/puppet/modules/shorewall/${name}.d"
 
-		file {
-			"${dir}":
-				ensure => directory,
-	                        force => true,
-       				mode => 0755, owner => root, group => 0;
+		file {"${dir}":
+           ensure => directory,
+	       force => true,
+       	   mode => 0755, owner => root, group => 0;
 		}
 				
 		
