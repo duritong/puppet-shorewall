@@ -29,9 +29,10 @@ class shorewall {
         }
 
 
-	service { shorewall: 
+	service{shorewall: 
         ensure  => running, 
         enable  => true, 
+        hasstatus => true,
         subscribe => [ 
             Exec["concat_/var/lib/puppet/modules/shorewall/zones"], 
             Exec["concat_/var/lib/puppet/modules/shorewall/interfaces"], 
