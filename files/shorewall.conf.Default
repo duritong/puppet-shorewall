@@ -5,7 +5,7 @@
 #  /etc/shorewall/shorewall.conf V3.4 - Change the following variables to
 #  match your setup
 #
-#  This program is under GPL [http://www.gnu.org/copyleft/gpl.htm]
+#  This program is under GPL [http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt]
 #
 #  This file should be placed in /etc/shorewall
 #
@@ -14,7 +14,7 @@
 #  For information about the settings in this file, type "man shorewall.conf"
 #
 #  Additional information is available at 
-#  http://www.shorewall.net/Documentation.htm#Conf
+#  http://www.shorewall.net/3.0/Documentation.htm#Conf
 ###############################################################################
 #		       S T A R T U P   E N A B L E D
 ###############################################################################
@@ -72,7 +72,7 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
 
 SHOREWALL_SHELL=/bin/sh
 
-SUBSYSLOCK=""
+SUBSYSLOCK="/var/lock/subsys/shorewall"
 
 MODULESDIR=
 
