@@ -63,6 +63,7 @@ class shorewall {
 		file {"${dir}":
            ensure => directory,
 	       force => true,
+           purge => true,
        	   mode => 0755, owner => root, group => 0;
 		}
 				
