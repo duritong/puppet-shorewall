@@ -61,6 +61,7 @@ class shorewall {
 		$dir = "/var/lib/puppet/modules/shorewall/${name}.d"
 
 		file {"${dir}":
+           source => "puppet://$server/shorewall/empty", # so we can purge
            ensure => directory,
 	       force => true,
            purge => true,
