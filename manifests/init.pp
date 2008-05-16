@@ -58,17 +58,6 @@ class shorewall {
 	
 	# private
 	define managed_file () {
-		$dir = "/var/lib/puppet/modules/shorewall/${name}.d"
-
-		file {"${dir}":
-           source => "puppet://$server/shorewall/empty", # so we can purge
-           ensure => directory,
-	       force => true,
-           purge => true,
-       	   mode => 0755, owner => root, group => 0;
-		}
-				
-		
 		concatenated_file { "/var/lib/puppet/modules/shorewall/$name":
 			dir => $dir,
 			mode => 0600,
