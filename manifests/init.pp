@@ -62,6 +62,7 @@ class shorewall {
 			dir => $dir,
 			mode => 0600,
 		}
+        $dir = "/var/lib/puppet/modules/shorewall/${name}.d"
 		file {
 			"${dir}/000-header":
 				source => "puppet://$server/shorewall/boilerplate/${name}.header",
