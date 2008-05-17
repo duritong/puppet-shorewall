@@ -1,6 +1,8 @@
 # modules/shorewall/manifests/init.pp - manage firewalling with shorewall 3.x
 # Copyright (C) 2007 David Schmitt <david@schmitt.edv-bus.at>
 # See LICENSE for the full license granted to you.
+# adapted by immerda project group
+# admin+puppet(at)immerda.ch
 # 
 # Based on the work of ADNET Ghislain <gadnet@aqueos.com> from AQUEOS
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
