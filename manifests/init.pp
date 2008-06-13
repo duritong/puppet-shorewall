@@ -1,8 +1,7 @@
+#
 # modules/shorewall/manifests/init.pp - manage firewalling with shorewall 3.x
 # Copyright (C) 2007 David Schmitt <david@schmitt.edv-bus.at>
 # See LICENSE for the full license granted to you.
-# adapted by immerda project group
-# admin+puppet(at)immerda.ch
 # 
 # Based on the work of ADNET Ghislain <gadnet@aqueos.com> from AQUEOS
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
@@ -16,53 +15,32 @@
 #  * add 000-header and 999-footer files for all managed_files
 #  * added rule_section define and a few more parameters for rules
 #  * add managing for masq, proxyarp, blacklist, nat, rfc1918
-
+#
+# adapted by immerda project group - admin+puppet(at)immerda.ch
+# adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
+#
 
 modules_dir { "shorewall": }
 
-class shorewall {
+class shorewall { 
 
-	package { 'shorewall':
-                ensure => present,
-                category => $operatingsystem ? {
-                        gentoo => 'net-firewall',
-                        default => '',
-                },
-        }
-
-
-	service{shorewall: 
-        ensure  => running, 
-        enable  => true, 
-        hasstatus => true,
-        hasrestart => true,
-        subscribe => [ 
-            Exec["concat_/var/lib/puppet/modules/shorewall/zones"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/interfaces"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/hosts"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/policy"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/rules"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/masq"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/proxyarp"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/nat"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/blacklist"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/rfc1918"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/routestopped"] 
-        ],
+    case $operatingsystem {
+        gentoo: { include shorewall::gentoo }
+        default: { include shorewall::base }
     }
 
-	file {
+    file {
         	"/var/lib/puppet/modules/shorewall":
         		ensure => directory,
         		force => true,
         		mode => 0755, owner => root, group => 0;
-        }
-	
-	# private
+    }
+
+    # private
 	define managed_file () {
         $dir = "/var/lib/puppet/modules/shorewall/${name}.d"
 		concatenated_file { "/var/lib/puppet/modules/shorewall/$name":
-			dir => $dir,
+            dir => $dir,
 			mode => 0600,
 		}
 		file {
@@ -88,18 +66,6 @@ class shorewall {
 		}
 	}
 
-	# This file has to be managed in place, so shorewall can find it
-	file { "/etc/shorewall/shorewall.conf":
-		# use OS specific defaults, but use Default if no other is found
-		source => [
-			"puppet://$server/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
-			"puppet://$server/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$server/shorewall/shorewall.conf.Default"
-            ],
-		mode => 0644, owner => root, group => 0,
-        notify => Service[shorewall],
-	}
-
 	# See http://www.shorewall.net/3.0/Documentation.htm#Zones
 	managed_file{ zones: }
 	define zone($type, $options = '-', $in = '-', $out = '-', $parent = '-', $order = 100) {
@@ -111,9 +77,31 @@ class shorewall {
 
 	# See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
 	managed_file{ interfaces: }
-	define interface($zone, $broadcast = 'detect', $options = 'tcpflags,blacklist,norfc1918,routefilter,nosmurfs,logmartians', $order='100') {
+	define interface(
+		$zone,
+		$broadcast = 'detect',
+		$options = 'tcpflags,blacklist,routefilter,nosmurfs,logmartians',
+		$rfc1918 = false,
+		$dhcp = false,
+        $order = 100
+		)
+	{
+		if $rfc1918 {
+			if $dhcp {
+				$options_real = "${options},dhcp"
+			} else {
+				$options_real = $options
+			}
+		} else {
+			if $dhcp {
+				$options_real = "${options},norfc1918,dhcp"
+			} else {
+				$options_real = "${options},norfc1918"
+			}
+		}
+
 		entry { "interfaces.d/${order}-${name}":
-			line => "${zone} ${name} ${broadcast} ${options}",
+			line => "${zone} ${name} ${broadcast} ${options_real}",
 		}
 	}
 
@@ -195,11 +183,71 @@ class shorewall {
 	
 	# See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
 	managed_file { routestopped: }
-	define routestopped($host = '-', $options = '', $order='100') {
+	define routestopped($interface = '', $host = '-', $options = '', $order='100') {
+        $real_interface = $interface ? {
+            '' => $name,
+            default => $interface,
+        }
 		entry { "routestopped.d/${order}-${name}":
-			line => "${name} ${host} ${options}",
+			line => "${real_interface} ${host} ${options}",
 		}
 	}
 
+    # See http://www.shorewall.net/3.0/Documentation.htm#Variables 
+    managed_file { params: }
+    define params($value, $order='100'){
+        entry { "params.d/${order}-${name}":
+            line => "${name}=${value}",
+        }
+    }
+
 }
 
+class shorewall::base {
+
+	# service { shorewall: ensure  => running, enable  => true, }
+	package { 'shorewall':
+        ensure => present,
+    }
+
+    # This file has to be managed in place, so shorewall can find it
+	file { "/etc/shorewall/shorewall.conf":
+		# use OS specific defaults, but use Default if no other is found
+		source => [
+			"puppet://$server/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
+			"puppet://$server/shorewall/shorewall.conf.$operatingsystem",
+			"puppet://$server/shorewall/shorewall.conf.Default"
+            ],
+		mode => 0644, owner => root, group => 0,
+        require => Package[shorewall],
+        notify => Service[shorewall],
+	}
+
+	service{shorewall: 
+        ensure  => running, 
+        enable  => true, 
+        hasstatus => true,
+        hasrestart => true,
+        subscribe => [ 
+            Exec["concat_/var/lib/puppet/modules/shorewall/zones"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/interfaces"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/hosts"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/policy"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/rules"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/masq"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/proxyarp"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/nat"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/blacklist"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/rfc1918"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/routestopped"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/params"] 
+        ],
+        require => Package[shorewall],
+    }
+}
+
+class shorewall::gentoo inherits shorewall::base {
+    Package[shorewall]{
+        category => 'net-firewall',
+    }
+}
