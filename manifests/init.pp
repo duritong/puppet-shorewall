@@ -15,7 +15,6 @@
 #  * add 000-header and 999-footer files for all managed_files
 #  * added rule_section define and a few more parameters for rules
 #  * add managing for masq, proxyarp, blacklist, nat, rfc1918
-#
 # adapted by immerda project group - admin+puppet(at)immerda.ch
 # adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
 #
@@ -38,7 +37,7 @@ class shorewall {
 
     # private
 	define managed_file () {
-        $dir = "/var/lib/puppet/modules/shorewall/${name}.d"
+		$dir = "/var/lib/puppet/modules/shorewall/${name}.d"
 		concatenated_file { "/var/lib/puppet/modules/shorewall/$name":
             dir => $dir,
 			mode => 0600,
