@@ -213,10 +213,15 @@ class shorewall::base {
 	file { "/etc/shorewall/shorewall.conf":
 		# use OS specific defaults, but use Default if no other is found
 		source => [
-			"puppet://$server/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
-			"puppet://$server/shorewall/shorewall.conf.$operatingsystem",
-			"puppet://$server/shorewall/shorewall.conf.Default"
-            ],
+            "puppet://$server/files/shorewall/${fqdn}/shorewall.conf.$operatingsystem",
+            "puppet://$server/files/shorewall/${fqdn}/shorewall.conf",
+            "puppet://$server/files/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
+            "puppet://$server/files/shorewall/shorewall.conf.$operatingsystem",
+            "puppet://$server/files/shorewall/shorewall.conf",
+            "puppet://$server/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
+            "puppet://$server/shorewall/shorewall.conf.$operatingsystem",
+            "puppet://$server/shorewall/shorewall.conf.Default"
+        ],
 		mode => 0644, owner => root, group => 0,
         require => Package[shorewall],
         notify => Service[shorewall],
