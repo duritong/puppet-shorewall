@@ -25,6 +25,7 @@ class shorewall {
 
     case $operatingsystem {
         gentoo: { include shorewall::gentoo }
+        centos: { include shorewall::centos }
         default: { include shorewall::base }
     }
 
@@ -231,7 +232,6 @@ class shorewall::base {
         ensure  => running, 
         enable  => true, 
         hasstatus => true,
-        hasrestart => true,
         subscribe => [ 
             Exec["concat_/var/lib/puppet/modules/shorewall/zones"], 
             Exec["concat_/var/lib/puppet/modules/shorewall/interfaces"], 
