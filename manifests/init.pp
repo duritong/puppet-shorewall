@@ -25,7 +25,6 @@ class shorewall {
 
     case $operatingsystem {
         gentoo: { include shorewall::gentoo }
-        centos: { include shorewall::centos }
         default: { include shorewall::base }
     }
 
