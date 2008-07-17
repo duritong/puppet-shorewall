@@ -1,0 +1,17 @@
+# prevent startup with default configuration
+# set the below variable to 1 in order to allow shorewall to start
+startup=1
+
+# if your shorewall's configuration need to detect the ip address of a ppp
+# interface you must list such interface in "wait_interface" to get shorewall to
+# wait until the interface is configured otherwise the script will fail because
+# it won't be able to detect the address.
+#
+# Example:
+#    wait_interface="ppp0"
+# or 
+#    wait_interface="ppp0 ppp1"
+# or, if you have defined  in /etc/shorewall/params
+#    wait_interface=
+
+# EOF
