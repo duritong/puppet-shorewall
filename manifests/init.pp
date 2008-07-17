@@ -264,4 +264,7 @@ class shorewall::debian inherits shorewall::base {
         notify => Service['shorewall'],
         owner => root, group => 0, mode => 0644;
     }
+    Service['shorewall']{
+        status => '/sbin/shorewall status'
+    }
 }
