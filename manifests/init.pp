@@ -205,7 +205,6 @@ class shorewall {
 
 class shorewall::base {
 
-	# service { shorewall: ensure  => running, enable  => true, }
 	package { 'shorewall':
         ensure => present,
     }
