@@ -7,6 +7,7 @@
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
 #
 # Changes:
+#  * added extension_script define: http://shorewall.net/shorewall_extension_scripts.htm
 #  * FHS Layout: put configuration in /var/lib/puppet/modules/shorewall and
 #    adjust CONFIG_PATH
 #  * remove shorewall- prefix from defines in the shorewall namespace
@@ -17,7 +18,7 @@
 #  * add managing for masq, proxyarp, blacklist, nat, rfc1918
 # adapted by immerda project group - admin+puppet(at)immerda.ch
 # adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
-#
+# adapted by Riseup Networks - micah(shift+2)riseup.net
 
 modules_dir { "shorewall": }
 
@@ -201,6 +202,20 @@ class shorewall {
         }
     }
 
+    # See http://shorewall.net/shorewall_extension_scripts.htm
+    define extension_script($script = '') {
+      case $name {
+        'init', 'initdone', 'start', 'started', 'stop', 'stopped', 'clear', 'refresh', 'continue', 'maclog': {
+          managed_file { "${name}": }
+          entry { "${name}.d/500-${hostname}":
+            line => "${script}\n";
+          }
+        }
+        '', default: {
+          err("${name}: unknown shorewall extension script")
+        }
+      }
+    }
 }
 
 class shorewall::base {
