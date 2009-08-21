@@ -20,7 +20,7 @@
 # adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
 # adapted by Riseup Networks - micah(shift+2)riseup.net
 
-modules_dir { "shorewall": }
+module_dir { "shorewall": }
 
 class shorewall { 
 
