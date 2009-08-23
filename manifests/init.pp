@@ -71,7 +71,7 @@ class shorewall {
 	managed_file{ zones: }
 	define zone($type, $options = '-', $in = '-', $out = '-', $parent = '-', $order = 100) {
 		$real_name = $parent ? { '-' => $name, default => "${name}:${parent}" }
-		entry { "zones.d/${order}-${name}":
+		entry { "zones.d/${order}-${title}":
 			line => "${real_name} ${type} ${options} ${in} ${out}"
 		}
 	}
@@ -101,7 +101,7 @@ class shorewall {
 			}
 		}
 
-		entry { "interfaces.d/${order}-${name}":
+		entry { "interfaces.d/${order}-${title}":
 			line => "${zone} ${name} ${broadcast} ${options_real}",
 		}
 	}
@@ -109,7 +109,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Hosts
 	managed_file { hosts: }
 	define host($zone, $options = 'tcpflags,blacklist,norfc1918',$order='100') {
-		entry { "hosts.d/${order}-${name}":
+		entry { "hosts.d/${order}-${title}":
 			line => "${zone} ${name} ${options}"
 		}
 	}
@@ -117,7 +117,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Policy
 	managed_file { policy: }
 	define policy($sourcezone, $destinationzone, $policy, $shloglevel = '-', $limitburst = '-', $order) {
-		entry { "policy.d/${order}-${name}":
+		entry { "policy.d/${order}-${title}":
 			line => "# ${name}\n${sourcezone} ${destinationzone} ${policy} ${shloglevel} ${limitburst}",
 		}
 	}
@@ -125,7 +125,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Rules
 	managed_file { rules: }
 	define rule_section($order) {
-		entry { "rules.d/${order}-${name}":
+		entry { "rules.d/${order}-${title}":
 			line => "SECTION ${name}",
 		}
 	}
@@ -134,7 +134,7 @@ class shorewall {
 		$destinationport = '-', $sourceport = '-', $originaldest = '-',
 		$ratelimit = '-', $user = '-', $mark = '', $order)
 	{
-		entry { "rules.d/${order}-${name}":
+		entry { "rules.d/${order}-${title}":
 			line => "# ${name}\n${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}",
 		}
 	}
@@ -145,7 +145,7 @@ class shorewall {
 	# source (= subnet) = Set of hosts that you wish to masquerade.
 	# address = If  you  specify  an  address here, SNAT will be used and this will be the source address.
 	define masq($interface, $source, $address = '-', $proto = '-', $port = '-', $ipsec = '-', $mark = '', $order='100' ) {
-		entry { "masq.d/${order}-${name}":
+		entry { "masq.d/${order}-${title}":
 			line => "# ${name}\n${interface} ${source} ${address} ${proto} ${port} ${ipsec} ${mark}"
 		}
 	}
@@ -153,7 +153,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
 	managed_file { proxyarp: }
 	define proxyarp($interface, $external, $haveroute = yes, $persistent = no, $order='100') {
-		entry { "proxyarp.d/${order}-${name}":
+		entry { "proxyarp.d/${order}-${title}":
 			line => "# ${name}\n${name} ${interface} ${external} ${haveroute} ${persistent}"
 		}
 	}
@@ -161,7 +161,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#NAT
 	managed_file { nat: }
 	define nat($interface, $internal, $all = 'no', $local = 'yes',$order='100') {
-		entry { "nat.d/${order}-${name}":
+		entry { "nat.d/${order}-${title}":
 			line => "${name} ${interface} ${internal} ${all} ${local}"
 		}
 	}
@@ -169,7 +169,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
 	managed_file { blacklist: }
 	define blacklist($proto = '-', $port = '-', $order='100') {
-		entry { "blacklist.d/${order}-${name}":
+		entry { "blacklist.d/${order}-${title}":
 			line => "${name} ${proto} ${port}",
 		}
 	}
@@ -177,7 +177,7 @@ class shorewall {
 	# See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
 	managed_file { rfc1918: }
 	define rfc1918($action = 'logdrop', $order='100') {
-		entry { "rfc1918.d/${order}-${name}":
+		entry { "rfc1918.d/${order}-${title}":
 			line => "${name} ${action}"
 		}
 	}
@@ -189,7 +189,7 @@ class shorewall {
             '' => $name,
             default => $interface,
         }
-		entry { "routestopped.d/${order}-${name}":
+		entry { "routestopped.d/${order}-${title}":
 			line => "${real_interface} ${host} ${options}",
 		}
 	}
@@ -197,7 +197,7 @@ class shorewall {
     # See http://www.shorewall.net/3.0/Documentation.htm#Variables 
     managed_file { params: }
     define params($value, $order='100'){
-        entry { "params.d/${order}-${name}":
+        entry { "params.d/${order}-${title}":
             line => "${name}=${value}",
         }
     }
