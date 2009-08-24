@@ -7,6 +7,7 @@
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
 #
 # Changes:
+#  * added support for traffic shapping: http://www.shorewall.net/traffic_shaping.htm
 #  * added extension_script define: http://shorewall.net/shorewall_extension_scripts.htm
 #  * FHS Layout: put configuration in /var/lib/puppet/modules/shorewall and
 #    adjust CONFIG_PATH
@@ -204,7 +205,7 @@ class shorewall {
 
     # See http://www.shorewall.net/3.0/traffic_shaping.htm
     managed_file { tcdevices: }
-    define tcdevices($in_bandwidth, $out_bandwidth, $options = '-', $redirected_interfaces = '', $order='100'){
+    define tcdevices($in_bandwidth, $out_bandwidth, $options = '', $redirected_interfaces = '', $order='100'){
         entry { "tcdevices.d/${order}-${title}":
             line => "${name} ${in_bandwidth} ${out_bandwidth} ${options} ${redirected_interfaces}",
         }
@@ -212,7 +213,7 @@ class shorewall {
 
     # See http://www.shorewall.net/3.0/traffic_shaping.htm
     managed_file { tcrules: }
-    define tcrules($source, $destination, $protocol = 'all', $ports, $client_ports = '-', $order='1'){
+    define tcrules($source, $destination, $protocol = 'all', $ports, $client_ports = '', $order='1'){
         entry { "tcrules.d/${order}-${title}":
             line => "# ${name}\n${order} ${source} ${destination} ${protocol} ${ports} ${client_ports}",
         }
