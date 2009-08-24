@@ -202,6 +202,30 @@ class shorewall {
         }
     }
 
+    # See http://www.shorewall.net/3.0/traffic_shaping.htm
+    managed_file { tcdevices: }
+    define tcdevices($in_bandwidth, $out_bandwidth, $order='100'){
+        entry { "tcdevices.d/${order}-${title}":
+            line => "${name} ${in_bandwidth} ${out_bandwidth}",
+        }
+    }
+
+    # See http://www.shorewall.net/3.0/traffic_shaping.htm
+    managed_file { tcrules: }
+    define tcrules($source, $destination, $protocol, $ports , $order='1'){
+        entry { "tcrules.d/${order}-${title}":
+            line => "# ${name}\n${order} ${source} ${destination} ${protocol} ${ports}",
+        }
+    }
+
+    # See http://www.shorewall.net/3.0/traffic_shaping.htm
+    managed_file { tcclasses: }
+    define tcclasses($rate, $ceil, $priority, $options , $order='1'){
+        entry { "tcclasses.d/${order}-${title}":
+            line => "${name} ${order} ${rate} ${ceil} ${priority} ${options}",
+        }
+    }
+
     # See http://shorewall.net/shorewall_extension_scripts.htm
     define extension_script($script = '') {
       case $name {
