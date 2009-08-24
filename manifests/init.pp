@@ -204,25 +204,25 @@ class shorewall {
 
     # See http://www.shorewall.net/3.0/traffic_shaping.htm
     managed_file { tcdevices: }
-    define tcdevices($in_bandwidth, $out_bandwidth, $order='100'){
+    define tcdevices($in_bandwidth, $out_bandwidth, $options = '-', $redirected_interfaces = '', $order='100'){
         entry { "tcdevices.d/${order}-${title}":
-            line => "${name} ${in_bandwidth} ${out_bandwidth}",
+            line => "${name} ${in_bandwidth} ${out_bandwidth} ${options} ${redirected_interfaces}",
         }
     }
 
     # See http://www.shorewall.net/3.0/traffic_shaping.htm
     managed_file { tcrules: }
-    define tcrules($source, $destination, $protocol, $ports , $order='1'){
+    define tcrules($source, $destination, $protocol = 'all', $ports, $client_ports = '-', $order='1'){
         entry { "tcrules.d/${order}-${title}":
-            line => "# ${name}\n${order} ${source} ${destination} ${protocol} ${ports}",
+            line => "# ${name}\n${order} ${source} ${destination} ${protocol} ${ports} ${client_ports}",
         }
     }
 
     # See http://www.shorewall.net/3.0/traffic_shaping.htm
     managed_file { tcclasses: }
-    define tcclasses($rate, $ceil, $priority, $options , $order='1'){
+    define tcclasses($interface, $rate, $ceil, $priority, $options = '' , $order='1'){
         entry { "tcclasses.d/${order}-${title}":
-            line => "${name} ${order} ${rate} ${ceil} ${priority} ${options}",
+            line => "# ${name}\n${interface} ${order} ${rate} ${ceil} ${priority} ${options}",
         }
     }
 
