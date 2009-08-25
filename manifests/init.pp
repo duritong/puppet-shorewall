@@ -284,7 +284,10 @@ class shorewall::base {
             Exec["concat_/var/lib/puppet/modules/shorewall/blacklist"], 
             Exec["concat_/var/lib/puppet/modules/shorewall/rfc1918"], 
             Exec["concat_/var/lib/puppet/modules/shorewall/routestopped"], 
-            Exec["concat_/var/lib/puppet/modules/shorewall/params"] 
+            Exec["concat_/var/lib/puppet/modules/shorewall/params"],
+            Exec["concat_/var/lib/puppet/modules/shorewall/tcdevices"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/tcrules"], 
+            Exec["concat_/var/lib/puppet/modules/shorewall/tcclasses"],
         ],
         require => Package[shorewall],
     }
