@@ -1,12 +1,37 @@
 #
 # modules/shorewall/manifests/init.pp - manage firewalling with shorewall 3.x
 # Copyright (C) 2007 David Schmitt <david@schmitt.edv-bus.at>
+# adapted by immerda project group - admin+puppet(at)immerda.ch
+# adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
+# Copyright (c) 2009 Riseup Networks - micah(shift+2)riseup.net
 # See LICENSE for the full license granted to you.
 # 
 # Based on the work of ADNET Ghislain <gadnet@aqueos.com> from AQUEOS
 # at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
 #
+#
+# If you need to install a specific version of shorewall other than
+# the default one that would be installed by 'ensure => present', then
+# you can set the following variable and that specific version will be
+# installed instead:
+#
+# $shorewall_ensure_version = "4.0.15-1"
+#
+# Debian specific settings:
+#
+# To set any of the following, simply set them as variables in y our manifests
+# before the class is included, for example:
+#
+# $shorewall_startboot = 1
+#
+# shorewall_startboot:   specify if shorewall should be enabled at boot
+#                        valid options are: 1 (start at boot), 0 (do not start),
+#                        Default: 1 -> start at boot
+# 
 # Changes:
+#  * added Debian support to specify if shorewall should be enabled on boot or not
+#  * added support for specifying shorewall package version
+#  * updated indentation and formatting to standardize on puppet emacs/vim modes
 #  * added support for traffic shapping: http://www.shorewall.net/traffic_shaping.htm
 #  * added extension_script define: http://shorewall.net/shorewall_extension_scripts.htm
 #  * FHS Layout: put configuration in /var/lib/puppet/modules/shorewall and
@@ -17,9 +42,6 @@
 #  * add 000-header and 999-footer files for all managed_files
 #  * added rule_section define and a few more parameters for rules
 #  * add managing for masq, proxyarp, blacklist, nat, rfc1918
-# adapted by immerda project group - admin+puppet(at)immerda.ch
-# adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
-# adapted by Riseup Networks - micah(shift+2)riseup.net
 
 module_dir { "shorewall": }
 
@@ -244,11 +266,12 @@ class shorewall {
 }
 
 class shorewall::base {
-  
-  package { 'shorewall':
-    ensure => present,
-  }
 
+  if $shorewall_ensure_version == '' { $shorewall_ensure_version = 'present' }
+  package { 'shorewall':
+    ensure => $shorewall_ensure_version,
+  }
+  
   # This file has to be managed in place, so shorewall can find it
   file { "/etc/shorewall/shorewall.conf":
     # use OS specific defaults, but use Default if no other is found
@@ -300,13 +323,19 @@ class shorewall::gentoo inherits shorewall::base {
 }
 
 class shorewall::debian inherits shorewall::base {
-  file{'/etc/default/shorewall':
-    source => "puppet://$server/shorewall/debian/default",
+
+  # prepare variables to use in templates
+  case $shorewall_startboot {
+    '': { $shorewall_startboot = '1' }
+  }
+  
+  file { '/etc/default/shorewall':
+    content => template("shorewall/debian/default"),
     require => Package['shorewall'],
     notify => Service['shorewall'],
     owner => root, group => 0, mode => 0644;
   }
-  Service['shorewall']{
+  Service['shorewall'] {
     status => '/sbin/shorewall status'
   }
 }
