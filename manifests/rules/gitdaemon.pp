@@ -1,4 +1,4 @@
-class shorewall::gitdaemon {
+class shorewall::rules::gitdaemon {
         shorewall::rule {'net-me-tcp_gitdaemon':
             source          => 'net',
             destination     => '$FW',
