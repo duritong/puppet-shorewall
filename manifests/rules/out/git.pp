@@ -1,4 +1,4 @@
-class shorewall::rules::git {
+class shorewall::rules::out::git {
     shorewall::rule{'me-net-git-tcp':
         source          => '$FW',
         destination     => 'net',
