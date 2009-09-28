@@ -1,9 +1,9 @@
-class shorewall::rules::apache {
-    shorewall::rule { 'net-me-http-tcp':
+class shorewall::rules::https {
+    shorewall::rule { 'net-me-https-tcp':
         source          => 'net',
         destination     => '$FW',
         proto           => 'tcp',
-        destinationport => '80',
+        destinationport => '443',
         order           => 240,
         action          => 'ACCEPT';
     }
