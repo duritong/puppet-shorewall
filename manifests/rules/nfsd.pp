@@ -95,4 +95,21 @@ class shorewall::rules::nfsd {
         order           => 240,
         action          => 'ACCEPT';
     }
+    shorewall::rule { 'net-me-rpc.nfsd-tcp':
+        source          => 'net',
+        destination     => '$FW',
+        proto           => 'tcp',
+        destinationport => '2049',
+        order           => 240,
+        action          => 'ACCEPT';
+    }
+    shorewall::rule { 'net-me-rpc.nfsd-udp':
+        source          => 'net',
+        destination     => '$FW',
+        proto           => 'udp',
+        destinationport => '2049',
+        order           => 240,
+        action          => 'ACCEPT';
+    }
+
 }
