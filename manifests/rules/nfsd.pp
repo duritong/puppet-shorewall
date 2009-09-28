@@ -15,27 +15,11 @@ class shorewall::rules::nfsd {
         order           => 240,
         action          => 'ACCEPT';
     }
-    shorewall::rule { 'net-me-rpc.nfsd-tcp':
-        source          => 'net',
-        destination     => '$FW',
-        proto           => 'tcp',
-        destinationport => '2049',
-        order           => 240,
-        action          => 'ACCEPT';
-    }
-    shorewall::rule { 'net-me-rpc.nfsd-udp':
-        source          => 'net',
-        destination     => '$FW',
-        proto           => 'udp',
-        destinationport => '2049',
-        order           => 240,
-        action          => 'ACCEPT';
-    }
     shorewall::rule { 'net-me-rpc.statd-tcp':
         source          => 'net',
         destination     => '$FW',
         proto           => 'tcp',
-        destinationport => '4000',
+        destinationport => '662',
         order           => 240,
         action          => 'ACCEPT';
     }
@@ -43,7 +27,23 @@ class shorewall::rules::nfsd {
         source          => 'net',
         destination     => '$FW',
         proto           => 'udp',
-        destinationport => '4000',
+        destinationport => '662',
+        order           => 240,
+        action          => 'ACCEPT';
+    }
+    shorewall::rule { 'me-net-rpc.statd-tcp':
+        source          => 'net',
+        destination     => '$FW',
+        proto           => 'tcp',
+        destinationport => '2020',
+        order           => 240,
+        action          => 'ACCEPT';
+    }
+    shorewall::rule { 'me-net-rpc.statd-udp':
+        source          => 'net',
+        destination     => '$FW',
+        proto           => 'udp',
+        destinationport => '2020',
         order           => 240,
         action          => 'ACCEPT';
     }
@@ -51,7 +51,7 @@ class shorewall::rules::nfsd {
         source          => 'net',
         destination     => '$FW',
         proto           => 'tcp',
-        destinationport => '4001',
+        destinationport => '32803',
         order           => 240,
         action          => 'ACCEPT';
     }
@@ -59,7 +59,7 @@ class shorewall::rules::nfsd {
         source          => 'net',
         destination     => '$FW',
         proto           => 'udp',
-        destinationport => '4001',
+        destinationport => '32769',
         order           => 240,
         action          => 'ACCEPT';
     }
@@ -67,7 +67,7 @@ class shorewall::rules::nfsd {
         source          => 'net',
         destination     => '$FW',
         proto           => 'tcp',
-        destinationport => '4002',
+        destinationport => '892',
         order           => 240,
         action          => 'ACCEPT';
     }
@@ -75,7 +75,23 @@ class shorewall::rules::nfsd {
         source          => 'net',
         destination     => '$FW',
         proto           => 'udp',
-        destinationport => '4002',
+        destinationport => '892',
+        order           => 240,
+        action          => 'ACCEPT';
+    }
+    shorewall::rule { 'net-me-rpc.rquotad-tcp':
+        source          => 'net',
+        destination     => '$FW',
+        proto           => 'tcp',
+        destinationport => '875',
+        order           => 240,
+        action          => 'ACCEPT';
+    }
+    shorewall::rule { 'net-me-rpc.rquoata-udp':
+        source          => 'net',
+        destination     => '$FW',
+        proto           => 'udp',
+        destinationport => '875',
         order           => 240,
         action          => 'ACCEPT';
     }
