@@ -8,7 +8,7 @@ class shorewall::rules::puppet {
   case $shorewall_puppetserver_signport {
     '': { $shorewall_puppetserver_signport = '8141' }
   }
-  shorewall::param{
+  shorewall::params{
         'PUPPETSERVER':             value => $shorewall_puppetserver;
         'PUPPETSERVER_PORT':        value => $shorewall_puppetserver_port;
         'PUPPETSERVER_SIGN_PORT':   value => $shorewall_puppetserver_signport;
