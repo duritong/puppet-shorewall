@@ -1,13 +1,12 @@
 class shorewall::base {
-
-        package { 'shorewall':
+    package { 'shorewall':
         ensure => present,
     }
 
     # This file has to be managed in place, so shorewall can find it
-        file { "/etc/shorewall/shorewall.conf":
-                # use OS specific defaults, but use Default if no other is found
-                source => [
+    file { "/etc/shorewall/shorewall.conf":
+      # use OS specific defaults, but use Default if no other is found
+      source => [
             "puppet://$server/files/shorewall/${fqdn}/shorewall.conf.$operatingsystem",
             "puppet://$server/files/shorewall/${fqdn}/shorewall.conf",
             "puppet://$server/files/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
@@ -17,12 +16,12 @@ class shorewall::base {
             "puppet://$server/shorewall/shorewall.conf.$operatingsystem",
             "puppet://$server/shorewall/shorewall.conf.Default"
         ],
-                mode => 0644, owner => root, group => 0,
         require => Package[shorewall],
         notify => Service[shorewall],
-        }
+        owner => root, group => 0, mode => 0644;
+    }
 
-        service{shorewall:
+    service{shorewall:
         ensure  => running,
         enable  => true,
         hasstatus => true,
