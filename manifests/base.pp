@@ -7,11 +7,11 @@ class shorewall::base {
     file { "/etc/shorewall/shorewall.conf":
       # use OS specific defaults, but use Default if no other is found
       source => [
-            "puppet://$server/files/shorewall/${fqdn}/shorewall.conf.$operatingsystem",
-            "puppet://$server/files/shorewall/${fqdn}/shorewall.conf",
-            "puppet://$server/files/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
-            "puppet://$server/files/shorewall/shorewall.conf.$operatingsystem",
-            "puppet://$server/files/shorewall/shorewall.conf",
+            "puppet://$server/modules/site-shorewall/${fqdn}/shorewall.conf.$operatingsystem",
+            "puppet://$server/modules/site-shorewall/${fqdn}/shorewall.conf",
+            "puppet://$server/modules/site-shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
+            "puppet://$server/modules/site-shorewall/shorewall.conf.$operatingsystem",
+            "puppet://$server/modules/site-shorewall/shorewall.conf",
             "puppet://$server/modules/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
             "puppet://$server/modules/shorewall/shorewall.conf.$operatingsystem",
             "puppet://$server/modules/shorewall/shorewall.conf.Default"
