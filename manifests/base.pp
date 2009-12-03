@@ -14,7 +14,7 @@ class shorewall::base {
             "puppet://$server/modules/site-shorewall/shorewall.conf",
             "puppet://$server/modules/shorewall/shorewall.conf.$operatingsystem.$lsbdistcodename",
             "puppet://$server/modules/shorewall/shorewall.conf.$operatingsystem",
-            "puppet://$server/modules/shorewall/shorewall.conf.Default"
+            "puppet://$server/modules/shorewall/shorewall.conf"
         ],
         require => Package[shorewall],
         notify => Service[shorewall],
