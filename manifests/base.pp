@@ -1,5 +1,5 @@
 class shorewall::base {
-    package { 'shorewall':
+    package { 'shorewall-shell':
         ensure => present,
     }
 
@@ -16,7 +16,7 @@ class shorewall::base {
             "puppet://$server/modules/shorewall/shorewall.conf.$operatingsystem",
             "puppet://$server/modules/shorewall/shorewall.conf"
         ],
-        require => Package[shorewall],
+        require => Package[shorewall-shell],
         notify => Service[shorewall],
         owner => root, group => 0, mode => 0644;
     }
@@ -40,6 +40,6 @@ class shorewall::base {
             Exec["concat_/var/lib/puppet/modules/shorewall/routestopped"],
             Exec["concat_/var/lib/puppet/modules/shorewall/params"]
         ],
-        require => Package[shorewall],
+        require => Package[shorewall-shell],
     }
 }

@@ -5,7 +5,9 @@ class shorewall {
     case $operatingsystem {
         gentoo: { include shorewall::gentoo }
         debian: { include shorewall::debian }
-        default: { include shorewall::base }
+        ubuntu: { include shorewall::debian }
+        default: { notice "unknown operatingsystem: $operatingsystem" 
+		   include shorewall::base }
     }
 
     file {"/var/lib/puppet/modules/shorewall":
