@@ -1,0 +1,76 @@
+This module manages the configuration of Shorewall (http://www.shorewall.net/)
+
+see also: http://reductivelabs.com/trac/puppet/wiki/Recipes/AqueosShorewall
+ 
+Example from node.pp:
+
+node xy {
+	include config::site-shorewall
+	shorewall::rule {
+		'incoming-ssh': source => 'all', destination => '$FW',  action  => 'SSH/ACCEPT', order => 200;
+		'incoming-puppetmaster': source => 'all', destination => '$FW',  action  => 'Puppermaster/ACCEPT', order => 300;
+		'incoming-imap': source => 'all', destination => '$FW',  action  => 'IMAP/ACCEPT', order => 300;
+		'incoming-smtp': source => 'all', destination => '$FW',  action  => 'SMTP/ACCEPT', order => 300;
+	}
+}
+
+
+class config::site-shorewall {
+        include shorewall
+
+	# If you want logging:
+        #shorewall::params {
+        #       'LOG':            value => 'debug';
+        #	'MAILSERVER':     value => $shorewall_mailserver;
+        #}
+
+        shorewall::zone {'net':
+                type => 'ipv4';
+        }
+
+        shorewall::rule_section { 'NEW':
+                order => 10;
+        }
+
+        case $shorewall_rfc1918_maineth {
+                '': {$shorewall_rfc1918_maineth = true }
+        }
+
+        case $shorewall_main_interface {
+                '': { $shorewall_main_interface = 'eth0' }
+        }
+
+        shorewall::interface {"$shorewall_main_interface":
+                zone    => 'net',
+                rfc1918  => $shorewall_rfc1918_maineth,
+                options => 'tcpflags,blacklist,nosmurfs';
+        }
+
+        shorewall::policy {
+                'fw-to-fw':
+                  sourcezone              =>      '$FW',
+                  destinationzone         =>      '$FW',
+                  policy                  =>      'ACCEPT',
+                  order                   =>      100;
+                'fw-to-net':
+                sourcezone              =>      '$FW',
+                destinationzone         =>      'net',
+                policy                  =>      'ACCEPT',
+                shloglevel              =>      '$LOG',
+                order                   =>      110;
+                'net-to-fw':
+                sourcezone              =>      'net',
+                destinationzone         =>      '$FW',
+                policy                  =>      'DROP',
+                shloglevel              =>      '$LOG',
+                order                   =>      120;
+        }       
+
+        
+        # default Rules : ICMP 
+        shorewall::rule { 'allicmp-to-host': source => 'all', destination => '$FW', order  => 200, action  => 'AllowICMPs/ACCEPT';
+        }
+ 
+}
+
+
