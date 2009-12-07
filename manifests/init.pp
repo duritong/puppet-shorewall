@@ -4,7 +4,13 @@ class shorewall {
 
     case $operatingsystem {
         gentoo: { include shorewall::gentoo }
-        debian,ubuntu: { include shorewall::debian }
+        debian: { include shorewall::debian }
+        ubuntu: {
+          case $lsbdistcodename {
+            karmic: { include shorewall::ubuntu::karmic }
+            default: { include shorewall::debian }
+          }
+        }
         default: { notice "unknown operatingsystem: $operatingsystem" 
 		   include shorewall::base }
     }
