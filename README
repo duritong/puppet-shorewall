@@ -1,12 +1,23 @@
+Puppet Module for Shorewall
+---------------------------
 This module manages the configuration of Shorewall (http://www.shorewall.net/)
 
-Versions:
--forked from http://git.puppet.immerda.ch/?p=module-shorewall.git;a=summary
+Versions
+--------
+- forked from http://git.puppet.immerda.ch/?p=module-shorewall.git;a=summary
 
+Todo
+----
+- check if shorewall compiles without errors, otherwise fail !
 
+Documentation
+-------------
 
 see also: http://reductivelabs.com/trac/puppet/wiki/Recipes/AqueosShorewall
  
+Example
+-------
+
 Example from node.pp:
 
 node xy {
