@@ -1,4 +1,7 @@
 class shorewall::debian inherits shorewall::base {
+    case $shorewall_startup {
+      '': { $shorewall_startup = 1 }
+    }
     file{'/etc/default/shorewall':
         #source => "puppet://$server/modules/shorewall/debian/default",
 	content => template("shorewall/debian_default.erb"),
