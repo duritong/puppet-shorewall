@@ -21,6 +21,7 @@ Example
 Example from node.pp:
 
 node xy {
+	$shorewall_startup="0"  # create shorewall ruleset but don't startup
 	include config::site-shorewall
 	shorewall::rule {
 		'incoming-ssh': source => 'all', destination => '$FW',  action  => 'SSH/ACCEPT', order => 200;
