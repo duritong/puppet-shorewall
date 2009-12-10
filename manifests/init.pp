@@ -5,6 +5,7 @@ class shorewall {
     case $operatingsystem {
         gentoo: { include shorewall::gentoo }
         debian: { include shorewall::debian }
+        centos: { include shorewall::base }
         ubuntu: {
           case $lsbdistcodename {
             karmic: { include shorewall::ubuntu::karmic }
