@@ -1,4 +1,4 @@
-class shorewall::rules::out::xmppp {
+class shorewall::rules::out::xmpp {
     shorewall::rule{'me-net-xmpp-tcp':
         source          => '$FW',
         destination     => 'net',
