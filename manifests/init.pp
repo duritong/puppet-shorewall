@@ -1,6 +1,7 @@
 class shorewall { 
 
-  modules_dir { "shorewall": }
+  include common::moduledir
+  module_dir { "shorewall": }
 
   case $operatingsystem {
     gentoo: { include shorewall::gentoo }
