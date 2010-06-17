@@ -4,7 +4,7 @@ class shorewall::rules::keyserver {
       source      => 'net',
   		destination     => '$FW',
 	  	proto           => 'tcp',
-		  destinationport => '11371',
+		  destinationport => '11371,11372',
    		order           => 240,
 	    action          => 'ACCEPT';
 	}
