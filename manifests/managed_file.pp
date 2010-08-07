@@ -6,11 +6,11 @@ define shorewall::managed_file () {
     }       
     file {
         "${dir}/000-header":
-            source => "puppet://$server/modules/shorewall/boilerplate/${name}.header",
+            source => "puppet:///modules/shorewall/boilerplate/${name}.header",
             mode => 0600, owner => root, group => 0,
             notify => Exec["concat_${dir}"];
         "${dir}/999-footer":
-            source => "puppet://$server/modules/shorewall/boilerplate/${name}.footer",
+            source => "puppet:///modules/shorewall/boilerplate/${name}.footer",
             mode => 0600, owner => root, group => 0,
             notify => Exec["concat_${dir}"];
     }       
