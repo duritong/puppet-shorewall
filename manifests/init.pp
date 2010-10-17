@@ -15,7 +15,7 @@ class shorewall {
     }
     default: {
       notice "unknown operatingsystem: $operatingsystem" 
-		  include shorewall::base
+      include shorewall::base
     }
   }
 
@@ -49,4 +49,11 @@ class shorewall {
   shorewall::managed_file { routestopped: }
   # See http://www.shorewall.net/3.0/Documentation.htm#Variables 
   shorewall::managed_file { params: }
+  # See http://www.shorewall.net/3.0/traffic_shaping.htm
+  shorewall::managed_file { tcdevices: }
+  # See http://www.shorewall.net/3.0/traffic_shaping.htm
+  shorewall::managed_file { tcrules: }
+  # See http://www.shorewall.net/3.0/traffic_shaping.htm
+  shorewall::managed_file { tcclasses: }
+  
 }

@@ -3,7 +3,7 @@ define shorewall::blacklist(
     $port = '-',
     $order='100'
 ){
-    shorewall::entry{"blacklist.d/${order}-${name}":
+    shorewall::entry{"blacklist.d/${order}-${title}":
         line => "${name} ${proto} ${port}",
     }           
 }

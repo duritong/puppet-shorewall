@@ -3,7 +3,6 @@ class shorewall::debian inherits shorewall::base {
       '': { $shorewall_startup = "1" }
     }
     file{'/etc/default/shorewall':
-        #source => "puppet:///modules/shorewall/debian/default",
         content => template("shorewall/debian_default.erb"),
         require => Package['shorewall'],
         notify => Service['shorewall'],

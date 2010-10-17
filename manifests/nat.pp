@@ -5,7 +5,7 @@ define shorewall::nat(
     $local = 'yes',
     $order='100'
 ){
-    shorewall::entry{"nat.d/${order}-${name}":
+    shorewall::entry{"nat.d/${order}-${title}":
         line => "${name} ${interface} ${internal} ${all} ${local}"
     }           
 }

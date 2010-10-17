@@ -1,14 +1,39 @@
+modules/shorewall/manifests/init.pp - manage firewalling with shorewall 3.x
+
 Puppet Module for Shorewall
 ---------------------------
 This module manages the configuration of Shorewall (http://www.shorewall.net/)
 
-Versions
---------
-- forked from http://git.puppet.immerda.ch/?p=module-shorewall.git;a=summary
+Copyright
+---------
+
+Copyright (C) 2007 David Schmitt <david@schmitt.edv-bus.at>
+adapted by immerda project group - admin+puppet(at)immerda.ch
+adapted by Puzzle ITC - haerry+puppet(at)puzzle.ch
+Copyright (c) 2009 Riseup Networks - micah(shift+2)riseup.net
+Copyright (c) 2010 intrigeri - intrigeri(at)boum.org
+See LICENSE for the full license granted to you.
+
+Based on the work of ADNET Ghislain <gadnet@aqueos.com> from AQUEOS
+at https://reductivelabs.com/trac/puppet/wiki/AqueosShorewall
+
+Merged from:
+- git://git.puppet.immerda.ch/module-shorewall.git
+- git://labs.riseup.net/module_shorewall
 
 Todo
 ----
 - check if shorewall compiles without errors, otherwise fail !
+
+Configuration
+-------------
+
+If you need to install a specific version of shorewall other than
+the default one that would be installed by 'ensure => present', then
+you can set the following variable and that specific version will be
+installed instead:
+
+    $shorewall_ensure_version = "4.0.15-1"
 
 Documentation
 -------------

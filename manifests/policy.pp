@@ -5,7 +5,7 @@ define shorewall::policy(
     $limitburst = '-',
     $order
 ){
-    shorewall::entry{"policy.d/${order}-${name}":
+    shorewall::entry{"policy.d/${order}-${title}":
         line => "# ${name}\n${sourcezone} ${destinationzone} ${policy} ${shloglevel} ${limitburst}",
     }
 }

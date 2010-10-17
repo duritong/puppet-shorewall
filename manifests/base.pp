@@ -1,6 +1,6 @@
 class shorewall::base {
     package { 'shorewall':
-        ensure => present,
+        ensure => $shorewall_ensure_version,
     }
 
     # This file has to be managed in place, so shorewall can find it
@@ -38,7 +38,10 @@ class shorewall::base {
             File["/var/lib/puppet/modules/shorewall/blacklist"],
             File["/var/lib/puppet/modules/shorewall/rfc1918"],
             File["/var/lib/puppet/modules/shorewall/routestopped"],
-            File["/var/lib/puppet/modules/shorewall/params"]
+            File["/var/lib/puppet/modules/shorewall/params"],
+            File["/var/lib/puppet/modules/shorewall/tcdevices"],
+            File["/var/lib/puppet/modules/shorewall/tcrules"],
+            File["/var/lib/puppet/modules/shorewall/tcclasses"],
         ],
         require => Package[shorewall],
     }
