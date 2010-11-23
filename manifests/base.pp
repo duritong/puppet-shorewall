@@ -38,7 +38,8 @@ class shorewall::base {
             File["/var/lib/puppet/modules/shorewall/blacklist"],
             File["/var/lib/puppet/modules/shorewall/rfc1918"],
             File["/var/lib/puppet/modules/shorewall/routestopped"],
-            File["/var/lib/puppet/modules/shorewall/params"]
+            File["/var/lib/puppet/modules/shorewall/params"],
+            File["/var/lib/puppet/modules/shorewall/providers"],
         ],
         require => Package[shorewall],
     }

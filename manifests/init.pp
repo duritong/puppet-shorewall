@@ -49,4 +49,6 @@ class shorewall {
   shorewall::managed_file { routestopped: }
   # See http://www.shorewall.net/3.0/Documentation.htm#Variables 
   shorewall::managed_file { params: }
+  # http://www.shorewall.net/manpages/shorewall-providers.html
+  shorewall::managed_file { providers: }
 }
