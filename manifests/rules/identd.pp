@@ -1,10 +1,9 @@
-class shorewall::rules::ssh($ports) {
-  $flatted_ports = join($ports,',')
-  shorewall::rule { 'net-me-tcp_ssh':
+class shorewall::rules::identd {
+  shorewall::rule { 'net-me-identd-tcp':
     source          => 'net',
     destination     => '$FW',
     proto           => 'tcp',
-    destinationport => $flatted_ports,
+    destinationport => '113',
     order           => 240,
     action          => 'ACCEPT';
   }
