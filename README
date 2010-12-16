@@ -49,10 +49,10 @@ node xy {
 	$shorewall_startup="0"  # create shorewall ruleset but don't startup
 	include config::site-shorewall
 	shorewall::rule {
-		'incoming-ssh': source => 'all', destination => '$FW',  action  => 'SSH/ACCEPT', order => 200;
-		'incoming-puppetmaster': source => 'all', destination => '$FW',  action  => 'Puppetmaster/ACCEPT', order => 300;
-		'incoming-imap': source => 'all', destination => '$FW',  action  => 'IMAP/ACCEPT', order => 300;
-		'incoming-smtp': source => 'all', destination => '$FW',  action  => 'SMTP/ACCEPT', order => 300;
+		'incoming-ssh': source => 'all', destination => '$FW',  action  => 'SSH(ACCEPT)', order => 200;
+		'incoming-puppetmaster': source => 'all', destination => '$FW',  action  => 'Puppetmaster(ACCEPT)', order => 300;
+		'incoming-imap': source => 'all', destination => '$FW',  action  => 'IMAP(ACCEPT)', order => 300;
+		'incoming-smtp': source => 'all', destination => '$FW',  action  => 'SMTP(ACCEPT)', order => 300;
 	}
 }
 
@@ -110,7 +110,7 @@ class config::site-shorewall {
 
         
         # default Rules : ICMP 
-        shorewall::rule { 'allicmp-to-host': source => 'all', destination => '$FW', order  => 200, action  => 'AllowICMPs/ACCEPT';
+        shorewall::rule { 'allicmp-to-host': source => 'all', destination => '$FW', order  => 200, action  => 'AllowICMPs(ACCEPT)';
         }
  
 }
