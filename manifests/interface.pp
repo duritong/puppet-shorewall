@@ -7,28 +7,23 @@ define shorewall::interface(
     $dhcp = false,
     $order = 100
 ){
-    if $add_options == '' {
-      $added_options = ''
-    } else {
-      $added_options = ",${add_options}"
+    $added_opts = $add_options ? {
+        ''      => '',
+        default => ",${add_options}",
     }
 
-    if $rfc1918 {
-        if $dhcp {
-            $options_real = "${options},dhcp"
-        } else {
-            $options_real = "$options"
-        }
-    } else {
-        if $dhcp {
-            $options_real = "${options},norfc1918,dhcp"
-        } else {
-            $options_real = "${options},norfc1918"
-        }
+    $dhcp_opt = $dhcp ? {
+        false   => '',
+        default => ',dhcp',
+    }
+
+    $rfc1918_opt = $rfc1918 ? {
+        false   => ',norfc1918',
+        default => '',
     }
 
     shorewall::entry { "interfaces.d/${order}-${title}":
-        line => "${zone} ${name} ${broadcast} ${options_real}${added_options}",
+        line => "${zone} ${name} ${broadcast} ${options}${dhcp_opt}${rfc1918_opt}${added_opts}",
     }
 }
 
