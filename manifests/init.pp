@@ -5,7 +5,10 @@ class shorewall {
 
   case $operatingsystem {
     gentoo: { include shorewall::gentoo }
-    debian: { include shorewall::debian }
+    debian: {
+      include shorewall::debian
+      $dist_tor_user = 'debian-tor'
+    }
     centos: { include shorewall::base }
     ubuntu: {
     case $lsbdistcodename {
@@ -16,6 +19,19 @@ class shorewall {
     default: {
       notice "unknown operatingsystem: $operatingsystem" 
       include shorewall::base
+    }
+  }
+
+  case $tor_transparent_proxy_host {
+    '': { $tor_transparent_proxy_host = '127.0.0.1' }
+  }
+  case $tor_transparent_proxy_port {
+    '': { $tor_transparent_proxy_port = '9040' }
+  }
+  if $tor_user == '' {
+    $tor_user = $dist_tor_user ? {
+      ''      => 'tor',
+      default => $dist_tor_user,
     }
   }
 

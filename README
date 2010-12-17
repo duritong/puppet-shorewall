@@ -39,7 +39,76 @@ Documentation
 -------------
 
 see also: http://reductivelabs.com/trac/puppet/wiki/Recipes/AqueosShorewall
- 
+
+Torify
+------
+
+The shorewall::rules::torify define can be used to force some outgoing
+TCP traffic through the Tor transparent proxy. The corresponding
+non-TCP traffic is rejected accordingly.
+
+Beware! This define only is part of a torified setup. DNS requests and
+IPv6, amongst others, might leak network activity you would prefer not
+to. You really need to read proper documentation about these matters
+before using this feature e.g.:
+
+  https://www.torproject.org/download/download.html.en#warning
+
+The Tor transparent proxy location defaults to 127.0.0.1:9040 and can
+be configured by setting the $tor_transparent_proxy_host and
+$tor_transparent_proxy_port variables before including the main
+shorewall class.
+
+Example usage follows.
+
+Torify any outgoing TCP traffic originating from user bob or alice and
+aimed at 6.6.6.6 or 7.7.7.7:
+
+  shorewall::rules::torify {
+    'torify-some-bits':
+      users        => [ 'bob', 'alice' ],
+      destinations => [ '6.6.6.6', '7.7.7.7' ];
+  }
+
+Torify any outgoing TCP traffic to 8.8.8.8:
+
+  shorewall::rules::torify {
+    'torify-to-this-host':
+      destinations  => [ '8.8.8.8' ];
+  }
+
+When no destination nor user is provided any outgoing TCP traffic (see
+restrictions bellow) is torified. In that case the user running the
+Tor client ($tor_user) is whitelisted; this variable defaults to
+"debian-tor" on Debian systems and to "tor" on others. if this does
+not suit your configuration you need to set the $tor_user variable
+before including the main shorewall class.
+
+When no destination is provided traffic directed to RFC1918 addresses
+is by default allowed and (obviously) not torified. This behaviour can
+be changed by setting the allow_rfc1918 parameter to false.
+
+Torify any outgoing TCP traffic but connections to RFC1918 addresses:
+
+  shorewall::rules::torify {
+    'torify-everything-but-lan':
+  }
+
+Torify any outgoing TCP traffic:
+
+  shorewall::rules::torify {
+    'torify-everything:
+      allow_rfc1918 => false;
+  }
+
+In some cases (e.g. when providing no specific destination nor user
+and denying access to RFC1918 addresses) UDP DNS requests may be
+rejected. This is intentional: it does not make sense leaking -via DNS
+requests- network activity that would otherwise be torified. In that
+case you probably want to read proper documentation about such
+matters, enable the Tor DNS resolver and redirect DNS requests through
+it.
+
 Example
 -------
 
