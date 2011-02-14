@@ -1,4 +1,8 @@
 class shorewall::base {
+    case $shorewall_ensure_version {
+      '': { $shorewall_ensure_version = 'present' }
+    }
+
     package { 'shorewall':
         ensure => $shorewall_ensure_version,
     }
