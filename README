@@ -46,7 +46,7 @@ class config::site-shorewall {
         }
 
         shorewall::rule_section { 'NEW':
-                order => 10;
+                order => 100;
         }
 
         case $shorewall_rfc1918_maineth {
