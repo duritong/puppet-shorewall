@@ -7,9 +7,11 @@ define shorewall::managed_file () {
   concat::fragment {
     "${name}-header":
       source => "puppet:///modules/shorewall/boilerplate/${name}.header",
+      target => "/etc/shorewall/puppet/$name",
       order => '000';
     "${name}-footer":
       source => "puppet:///modules/shorewall/boilerplate/${name}.footer",
+      target => "/etc/shorewall/puppet/$name",
       order => '999';
   }       
 } 
