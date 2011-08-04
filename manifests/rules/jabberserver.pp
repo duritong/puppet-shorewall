@@ -4,7 +4,7 @@ class shorewall::rules::jabberserver {
             source          => 'net',
             destination     => '$FW',
             proto           => 'tcp',
-            destinationport => '5222,5223,5269,7777',
+            destinationport => '5222,5223,5269',
             order           => 240,
             action          => 'ACCEPT';
     'me-net-tcp_jabber_s2s':
