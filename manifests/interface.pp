@@ -20,7 +20,7 @@ define shorewall::interface(
         }
     }
 
-    shorewall::entry { "interfaces.d/${order}-${name}":
+    shorewall::entry { "interfaces-${order}-${name}":
         line => "${zone} ${name} ${broadcast} ${options_real}",
     }
 }

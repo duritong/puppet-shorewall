@@ -79,7 +79,7 @@ SUBSYSLOCK=""
 MODULESDIR=
 
 # add puppet delivered files in front
-CONFIG_PATH=/var/lib/puppet/modules/shorewall:/etc/shorewall:/usr/share/shorewall
+CONFIG_PATH=/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall
 
 RESTOREFILE=
 

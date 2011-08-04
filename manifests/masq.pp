@@ -10,7 +10,7 @@ define shorewall::masq(
     $mark = '',
     $order='100'
 ){
-    shorewall::entry{"masq.d/${order}-${name}":
+    shorewall::entry{"masq-${order}-${name}":
         line => "# ${name}\n${interface} ${source} ${address} ${proto} ${port} ${ipsec} ${mark}"
     }
 }

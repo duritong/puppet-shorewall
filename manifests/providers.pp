@@ -9,7 +9,7 @@ define shorewall::providers(
     $copy = '',
     $order='100'
 ){
-    shorewall::entry{"providers.d/${order}-${name}":
+    shorewall::entry{"providers-${order}-${name}":
         line => "# ${name}\n${provider} ${number} ${mark} ${duplicate} ${interface} ${gateway} ${options} ${copy}"
     }
 }
