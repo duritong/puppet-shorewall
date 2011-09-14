@@ -46,6 +46,7 @@ class shorewall::base {
             File["/var/lib/puppet/modules/shorewall/tcdevices"],
             File["/var/lib/puppet/modules/shorewall/tcrules"],
             File["/var/lib/puppet/modules/shorewall/tcclasses"],
+            File["/var/lib/puppet/modules/shorewall/tunnel"],
         ],
         require => Package[shorewall],
     }

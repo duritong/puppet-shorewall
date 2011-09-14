@@ -71,5 +71,7 @@ class shorewall {
   shorewall::managed_file { tcrules: }
   # See http://www.shorewall.net/3.0/traffic_shaping.htm
   shorewall::managed_file { tcclasses: }
+  # See http://www.shorewall.net/manpages/shorewall-tunnels.html
+  shorewall::managed_file { tunnel: }
   
 }
