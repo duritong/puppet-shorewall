@@ -1,10 +1,12 @@
-class shorewall::rules::ssh($ports) {
-  $flatted_ports = join($ports,',')
+class shorewall::rules::ssh(
+  $ports,
+  $source = hiera('shorewall_ssh_in_source','net')
+) {
   shorewall::rule { 'net-me-tcp_ssh':
-    source          => 'net',
+    source          => $shorewall::rules::ssh::source,
     destination     => '$FW',
     proto           => 'tcp',
-    destinationport => $flatted_ports,
+    destinationport => join($shorewall::rules::ssh::ports,','),
     order           => 240,
     action          => 'ACCEPT';
   }
