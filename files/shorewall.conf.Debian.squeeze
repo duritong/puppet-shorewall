@@ -1,6 +1,6 @@
 ####
 #### Managed by puppet, modify only on the puppetmaster
-####
+###
 ###############################################################################
 #
 #  Shorewall Version 4 -- /etc/shorewall/shorewall.conf
