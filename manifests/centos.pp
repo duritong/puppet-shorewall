@@ -5,6 +5,7 @@ class shorewall::centos inherits shorewall::base {
     file{'/etc/shorewall/params':
       ensure => link,
       target => '/etc/shorewall/puppet/params',
+      before => Service['shorewall']
     }
   }
 }
