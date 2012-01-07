@@ -18,6 +18,8 @@ define shorewall::rules::torify(
   $allow_rfc1918 = true
 ){
 
+  include shorewall::rules::torify::non_torified_users
+
   $originaldest = join($destinations,',')
 
   shorewall::rules::torify::user {

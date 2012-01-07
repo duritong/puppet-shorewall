@@ -14,11 +14,6 @@ define shorewall::rules::torify::redirect_tcp_to_tor(
       default => $originaldest,
     }
 
-    $user_real = $user ? {
-      '-'     => "!${shorewall::tor_user}",
-      default => $user,
-    }
-
     $destzone = $shorewall::tor_transparent_proxy_host ? {
       '127.0.0.1' => '$FW',
       default     => 'net'
@@ -30,7 +25,7 @@ define shorewall::rules::torify::redirect_tcp_to_tor(
         destination  => "${destzone}:${shorewall::tor_transparent_proxy_host}:${shorewall::tor_transparent_proxy_port}",
         proto        => 'tcp:syn',
         originaldest => $originaldest_real,
-        user         => $user_real,
+        user         => $user,
         order        => 110,
         action       => 'DNAT';
     }
