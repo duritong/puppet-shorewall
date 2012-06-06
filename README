@@ -21,8 +21,9 @@ Example
 Example from node.pp:
 
 node xy {
-	$shorewall_startup="0"  # create shorewall ruleset but don't startup
-	include config::site-shorewall
+	class{'config::site_shorewall':
+	  startup => "0"  # create shorewall ruleset but don't startup
+  }
 	shorewall::rule {
 		'incoming-ssh': source => 'all', destination => '$FW',  action  => 'SSH/ACCEPT', order => 200;
 		'incoming-puppetmaster': source => 'all', destination => '$FW',  action  => 'Puppetmaster/ACCEPT', order => 300;
@@ -32,62 +33,60 @@ node xy {
 }
 
 
-class config::site-shorewall {
-        include shorewall
+class config::site_shorewall($startup = '1') {
+  class{'shorewall':
+    startup => $startup
+  }
 
-	# If you want logging:
-        #shorewall::params {
-        #       'LOG':            value => 'debug';
-        #	'MAILSERVER':     value => $shorewall_mailserver;
-        #}
+  # If you want logging:
+  #shorewall::params {
+  # 'LOG':  value => 'debug';
+  #}
 
-        shorewall::zone {'net':
-                type => 'ipv4';
-        }
+  shorewall::zone {'net':
+    type => 'ipv4';
+  }
 
-        shorewall::rule_section { 'NEW':
-                order => 100;
-        }
+  shorewall::rule_section { 'NEW':
+    order => 100;
+  }
 
-        case $shorewall_rfc1918_maineth {
-                '': {$shorewall_rfc1918_maineth = true }
-        }
+  $shorewall_main_interface hiera('shorewall_main_interface','eth0')
+  shorewall::interface { $shorewall_main_interface:
+    zone    => 'net',
+    rfc1918  => hiera('shorewall_rfc1918_maineth',true)
+    options => 'tcpflags,blacklist,nosmurfs';
+  }
 
-        case $shorewall_main_interface {
-                '': { $shorewall_main_interface = 'eth0' }
-        }
-
-        shorewall::interface {"$shorewall_main_interface":
-                zone    => 'net',
-                rfc1918  => $shorewall_rfc1918_maineth,
-                options => 'tcpflags,blacklist,nosmurfs';
-        }
-
-        shorewall::policy {
-                'fw-to-fw':
-                  sourcezone              =>      '$FW',
-                  destinationzone         =>      '$FW',
-                  policy                  =>      'ACCEPT',
-                  order                   =>      100;
-                'fw-to-net':
-                sourcezone              =>      '$FW',
-                destinationzone         =>      'net',
-                policy                  =>      'ACCEPT',
-                shloglevel              =>      '$LOG',
-                order                   =>      110;
-                'net-to-fw':
-                sourcezone              =>      'net',
-                destinationzone         =>      '$FW',
-                policy                  =>      'DROP',
-                shloglevel              =>      '$LOG',
-                order                   =>      120;
-        }       
+  shorewall::policy {
+    'fw-to-fw':
+      sourcezone              =>      '$FW',
+      destinationzone         =>      '$FW',
+      policy                  =>      'ACCEPT',
+      order                   =>      100;
+    'fw-to-net':
+      sourcezone              =>      '$FW',
+      destinationzone         =>      'net',
+      policy                  =>      'ACCEPT',
+      shloglevel              =>      '$LOG',
+      order                   =>      110;
+    'net-to-fw':
+      sourcezone              =>      'net',
+      destinationzone         =>      '$FW',
+      policy                  =>      'DROP',
+      shloglevel              =>      '$LOG',
+      order                   =>      120;
+  }       
 
         
-        # default Rules : ICMP 
-        shorewall::rule { 'allicmp-to-host': source => 'all', destination => '$FW', order  => 200, action  => 'AllowICMPs/ACCEPT';
-        }
- 
+  # default Rules : ICMP 
+  shorewall::rule {
+    'allicmp-to-host':
+      source => 'all',
+      destination => '$FW',
+      order  => 200,
+      action  => 'AllowICMPs/ACCEPT';
+  }
 }
 
 

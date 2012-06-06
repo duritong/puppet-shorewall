@@ -1,5 +1,5 @@
 class shorewall::centos inherits shorewall::base {
-  if $lsbmajdistrelease == '6' {
+  if $::lsbmajdistrelease == '6' {
     # workaround for
     # http://comments.gmane.org/gmane.comp.security.shorewall/26991
     file{'/etc/shorewall/params':

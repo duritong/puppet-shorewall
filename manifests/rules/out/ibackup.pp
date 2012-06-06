@@ -1,10 +1,9 @@
-class shorewall::rules::out::ibackup {
-    case $shorewall_ibackup_host {
-      '': { fail("You need to define \$shorewall_ibackup_host for ${fqdn}") }
-    }
+class shorewall::rules::out::ibackup(
+  $backup_host = hiera('shorewall_ibackup_host')
+) {
     shorewall::rule { 'me-net-tcp_backupssh':
         source          => '$FW',
-        destination     => "net:${shorewall_ibackup_host}",
+        destination     => "net:${backup_host}",
         proto           => 'tcp',
         destinationport => 'ssh',
         order           => 240,

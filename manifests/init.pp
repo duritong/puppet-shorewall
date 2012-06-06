@@ -1,17 +1,19 @@
-class shorewall { 
+class shorewall(
+  $startup = '1'
+) {
 
-  case $operatingsystem {
+  case $::operatingsystem {
     gentoo: { include shorewall::gentoo }
     debian: { include shorewall::debian }
     centos: { include shorewall::centos }
     ubuntu: {
-    case $lsbdistcodename {
+    case $::lsbdistcodename {
       karmic: { include shorewall::ubuntu::karmic }
       default: { include shorewall::debian }
       }
     }
     default: {
-      notice "unknown operatingsystem: $operatingsystem" 
+      notice "unknown operatingsystem: ${::operatingsystem}"
 		  include shorewall::base
     }
   }
@@ -38,7 +40,7 @@ class shorewall {
   shorewall::managed_file { rfc1918: }
   # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
   shorewall::managed_file { routestopped: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Variables 
+  # See http://www.shorewall.net/3.0/Documentation.htm#Variables
   shorewall::managed_file { params: }
   # http://www.shorewall.net/manpages/shorewall-providers.html
   shorewall::managed_file { providers: }

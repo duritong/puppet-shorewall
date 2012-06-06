@@ -1,14 +1,10 @@
 define shorewall::routestopped(
-    $interface = '',
+    $interface = $name,
     $host = '-',
     $options = '',
     $order='100'
 ){
-    $real_interface = $interface ? { 
-        '' => $name,
-        default => $interface,
-    }   
     shorewall::entry{"routestopped-${order}-${name}":
-        line => "${real_interface} ${host} ${options}",
-    }           
+        line => "${interface} ${host} ${options}",
+    }
 }

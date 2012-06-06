@@ -8,14 +8,14 @@ class shorewall::base {
       '/etc/shorewall/shorewall.conf':
         # use OS specific defaults, but use Default if no other is found
         source => [
-            "puppet:///modules/site-shorewall/${fqdn}/shorewall.conf.${operatingsystem}",
-            "puppet:///modules/site-shorewall/${fqdn}/shorewall.conf",
-            "puppet:///modules/site-shorewall/shorewall.conf.${operatingsystem}.${lsbdistcodename}",
-            "puppet:///modules/site-shorewall/shorewall.conf.${operatingsystem}",
-            "puppet:///modules/site-shorewall/shorewall.conf",
-            "puppet:///modules/shorewall/shorewall.conf.${operatingsystem}.${lsbdistcodename}",
-            "puppet:///modules/shorewall/shorewall.conf.${operatingsystem}.${lsbmajdistrelease}",
-            "puppet:///modules/shorewall/shorewall.conf.${operatingsystem}",
+            "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf.${::operatingsystem}",
+            "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf",
+            "puppet:///modules/site_shorewall/shorewall.conf.${::operatingsystem}.${::lsbdistcodename}",
+            "puppet:///modules/site_shorewall/shorewall.conf.${::operatingsystem}",
+            "puppet:///modules/site_shorewall/shorewall.conf",
+            "puppet:///modules/shorewall/shorewall.conf.${::operatingsystem}.${::lsbdistcodename}",
+            "puppet:///modules/shorewall/shorewall.conf.${::operatingsystem}.${::lsbmajdistrelease}",
+            "puppet:///modules/shorewall/shorewall.conf.${::operatingsystem}",
             "puppet:///modules/shorewall/shorewall.conf"
         ],
         require => Package[shorewall],
