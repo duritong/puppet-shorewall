@@ -51,10 +51,9 @@ class config::site_shorewall($startup = '1') {
     order => 100;
   }
 
-  $shorewall_main_interface hiera('shorewall_main_interface','eth0')
-  shorewall::interface { $shorewall_main_interface:
+  shorewall::interface { 'eth0':
     zone    => 'net',
-    rfc1918  => hiera('shorewall_rfc1918_maineth',true)
+    rfc1918  => true,
     options => 'tcpflags,blacklist,nosmurfs';
   }
 
