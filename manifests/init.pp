@@ -36,7 +36,7 @@ class shorewall(
   case $non_torified_users {
     '': { $non_torified_users = [] }
   }
-  $real_non_torified_users = uniq_flatten([ $tor_user, $non_torified_users ])
+  $real_non_torified_users = uniq_flatten($tor_user, $non_torified_users)
 
   # See http://www.shorewall.net/3.0/Documentation.htm#Zones
   shorewall::managed_file{ zones: }
