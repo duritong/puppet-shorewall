@@ -88,11 +88,8 @@ When no destination is provided traffic directed to RFC1918 addresses
 is by default allowed and (obviously) not torified. This behaviour can
 be changed by setting the allow_rfc1918 parameter to false.
 
-Torify any outgoing TCP traffic but
-  - connections to RFC1918 addresses
-  - connections from users bob and alice:
+Torify any outgoing TCP traffic but connections to RFC1918 addresses:
 
-  $non_torified_users = [ 'bob', 'alice' ]
   shorewall::rules::torify {
     'torify-everything-but-lan':
   }
