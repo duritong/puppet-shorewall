@@ -3,7 +3,8 @@ define shorewall::extension_script($script = '') {
     case $name {
         'init', 'initdone', 'start', 'started', 'stop', 'stopped', 'clear', 'refresh', 'continue', 'maclog': {
           file { "/etc/shorewall/puppet/${name}":
-            content => "${script}\n";
+            content => "${script}\n",
+            notify => Service[shorewall];
           }
         }
         '', default: {
