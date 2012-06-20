@@ -1,9 +1,8 @@
-class shorewall { 
+class shorewall(
+  $startup = '1'
+) {
 
-  include common::moduledir
-  module_dir { "shorewall": }
-
-  case $operatingsystem {
+  case $::operatingsystem {
     gentoo: { include shorewall::gentoo }
     debian: {
       include shorewall::debian
@@ -11,7 +10,7 @@ class shorewall {
     }
     centos: { include shorewall::base }
     ubuntu: {
-    case $lsbdistcodename {
+    case $::lsbdistcodename {
       karmic: { include shorewall::ubuntu::karmic }
       default: { include shorewall::debian }
       }
@@ -39,12 +38,6 @@ class shorewall {
   }
   $real_non_torified_users = uniq_flatten([ $tor_user, $non_torified_users ])
 
-  file {"/var/lib/puppet/modules/shorewall":
-    ensure => directory,
-    force => true,
-    owner => root, group => 0, mode => 0755; 
-  }
-
   # See http://www.shorewall.net/3.0/Documentation.htm#Zones
   shorewall::managed_file{ zones: }
   # See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
@@ -67,7 +60,7 @@ class shorewall {
   shorewall::managed_file { rfc1918: }
   # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
   shorewall::managed_file { routestopped: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Variables 
+  # See http://www.shorewall.net/3.0/Documentation.htm#Variables
   shorewall::managed_file { params: }
   # See http://www.shorewall.net/3.0/traffic_shaping.htm
   shorewall::managed_file { tcdevices: }
@@ -75,5 +68,6 @@ class shorewall {
   shorewall::managed_file { tcrules: }
   # See http://www.shorewall.net/3.0/traffic_shaping.htm
   shorewall::managed_file { tcclasses: }
-  
+  # http://www.shorewall.net/manpages/shorewall-providers.html
+  shorewall::managed_file { providers: }
 }

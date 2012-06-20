@@ -1,7 +1,3 @@
-####
-#### Managed by puppet, modify only on the puppetmaster
-####
-
 ###############################################################################
 #
 #  Shorewall Version 4 -- /etc/shorewall/shorewall.conf
@@ -22,7 +18,7 @@ STARTUP_ENABLED=Yes
 VERBOSITY=1
 
 ###############################################################################
-#			       L O G G I N G
+#		                L O G G I N G
 ###############################################################################
 
 LOGFILE=/var/log/messages
@@ -73,8 +69,7 @@ SUBSYSLOCK=""
 
 MODULESDIR=
 
-# add puppet delivered files in front
-CONFIG_PATH=/var/lib/puppet/modules/shorewall:/etc/shorewall:/usr/share/shorewall
+CONFIG_PATH="/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"
 
 RESTOREFILE=
 
@@ -126,6 +121,15 @@ CLAMPMSS=No
 ROUTE_FILTER=Yes
 
 DETECT_DNAT_IPADDRS=No
+=======
+MARK_IN_FORWARD_CHAIN=Yes
+
+CLAMPMSS=No
+
+ROUTE_FILTER=No
+
+DETECT_DNAT_IPADDRS=YES
+>>>>>>> immerda/master
 
 MUTEX_TIMEOUT=60
 

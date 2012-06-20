@@ -5,7 +5,7 @@ define shorewall::proxyarp(
     $persistent = no,
     $order='100'
     ){
-    shorewall::entry{"proxyarp.d/${order}-${title}":
+    shorewall::entry{"proxyarp-${order}-${name}":
         line => "# ${name}\n${name} ${interface} ${external} ${haveroute} ${persistent}"
     }
 }
