@@ -37,7 +37,7 @@ class shorewall {
   case $non_torified_users {
     '': { $non_torified_users = [] }
   }
-  $real_non_torified_users = uniq_flatten($tor_user, $non_torified_users)
+  $real_non_torified_users = uniq_flatten([ $tor_user, $non_torified_users ])
 
   file {"/var/lib/puppet/modules/shorewall":
     ensure => directory,
