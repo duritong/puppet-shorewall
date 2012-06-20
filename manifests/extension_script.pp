@@ -3,7 +3,7 @@ define shorewall::extension_script($script = '') {
     case $name {
         'init', 'initdone', 'start', 'started', 'stop', 'stopped', 'clear', 'refresh', 'continue', 'maclog': {
             shorewall::managed_file { "${name}": }
-            shorewall::entry { "${name}.d/500-${hostname}":
+            shorewall::entry { "extension_script-${order}-${name}":
                 line => "${script}\n";
             }
         }
