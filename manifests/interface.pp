@@ -22,7 +22,7 @@ define shorewall::interface(
         default => '',
     }
 
-    shorewall::entry { "interfaces.d/${order}-${name}":
+    shorewall::entry { "interfaces-${order}-${name}":
         line => "${zone} ${name} ${broadcast} ${options}${dhcp_opt}${rfc1918_opt}${added_opts}",
     }
 }
