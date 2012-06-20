@@ -16,7 +16,7 @@ class shorewall(
       }
     }
     default: {
-      notice "unknown operatingsystem: $operatingsystem" 
+      notice "unknown operatingsystem: ${::operatingsystem}" 
       include shorewall::base
     }
   }
