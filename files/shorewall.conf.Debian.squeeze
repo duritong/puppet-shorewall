@@ -1,3 +1,7 @@
+####
+#### Managed by puppet, modify only on the puppetmaster
+####
+
 ###############################################################################
 #
 #  Shorewall Version 4 -- /etc/shorewall/shorewall.conf
@@ -18,7 +22,7 @@ STARTUP_ENABLED=Yes
 VERBOSITY=1
 
 ###############################################################################
-#		                L O G G I N G
+#			       L O G G I N G
 ###############################################################################
 
 LOGFILE=/var/log/messages
@@ -121,14 +125,6 @@ CLAMPMSS=No
 ROUTE_FILTER=Yes
 
 DETECT_DNAT_IPADDRS=No
-
-MARK_IN_FORWARD_CHAIN=Yes
-
-CLAMPMSS=No
-
-ROUTE_FILTER=No
-
-DETECT_DNAT_IPADDRS=YES
 
 MUTEX_TIMEOUT=60
 
