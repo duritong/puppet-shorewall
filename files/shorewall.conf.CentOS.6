@@ -42,6 +42,8 @@ LOGLIMIT=
 
 MACLIST_LOG_LEVEL=info
 
+RELATED_LOG_LEVEL=
+
 SFILTER_LOG_LEVEL=info
 
 SMURF_LOG_LEVEL=info
@@ -54,13 +56,17 @@ TCP_FLAGS_LOG_LEVEL=info
 #	L O C A T I O N	  O F	F I L E S   A N D   D I R E C T O R I E S
 ###############################################################################
 
-CONFIG_PATH="/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"
+CONFIG_PATH="/etc/shorewall/puppet:${CONFDIR}/shorewall:${SHAREDIR}/shorewall"
+
+GEOIPDIR=/usr/share/xt_geoip/LE
 
 IPTABLES=
 
 IP=
 
 IPSET=
+
+LOCKFILE=
 
 MODULESDIR=
 
@@ -139,7 +145,7 @@ FORWARD_CLEAR_MARK=
 
 IMPLICIT_CONTINUE=Yes
 
-HIGH_ROUTE_MARKS=No
+IPSET_WARNINGS=Yes
 
 IP_FORWARDING=On
 
@@ -149,7 +155,7 @@ LEGACY_FASTSTART=Yes
 
 LOAD_HELPERS_ONLY=No
 
-MACLIST_TABLE=mangle
+MACLIST_TABLE=filter
 
 MACLIST_TTL=
 
@@ -191,7 +197,7 @@ TRACK_PROVIDERS=No
 
 USE_DEFAULT_RT=No
 
-WIDE_TC_MARKS=No
+USE_PHYSICAL_NAMES=No
 
 ZONE2ZONE=2
 
@@ -201,13 +207,29 @@ ZONE2ZONE=2
 
 BLACKLIST_DISPOSITION=DROP
 
-MACLIST_DISPOSITION=DROP
+MACLIST_DISPOSITION=REJECT
+
+RELATED_DISPOSITION=ACCEPT
 
 SMURF_DISPOSITION=DROP
 
 SFILTER_DISPOSITION=DROP
 
 TCP_FLAGS_DISPOSITION=DROP
+
+################################################################################
+#                      P A C K E T  M A R K  L A Y O U T
+################################################################################
+
+TC_BITS=
+
+PROVIDER_BITS=
+
+PROVIDER_OFFSET=
+
+MASK_BITS=
+
+ZONE_BITS=0
 
 ################################################################################
 #                            L E G A C Y  O P T I O N
