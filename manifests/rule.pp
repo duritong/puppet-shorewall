@@ -13,8 +13,8 @@ define shorewall::rule(
     $mark = '',
     $order
 ){
-    shorewall::entry{"rules.d/${order}-${title}":
-        ensure => $ensure,
-        line => "# ${name}\n${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}",
-    }
+  shorewall::entry{"rules-${order}-${name}":
+    ensure => $ensure,
+    line => "# ${name}\n${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}",
+  }
 }

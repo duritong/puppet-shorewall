@@ -1,7 +1,6 @@
 ####
 #### Managed by puppet, modify only on the puppetmaster
-####
-
+###
 ###############################################################################
 #
 #  Shorewall Version 4 -- /etc/shorewall/shorewall.conf
@@ -22,7 +21,7 @@ STARTUP_ENABLED=Yes
 VERBOSITY=1
 
 ###############################################################################
-#			       L O G G I N G
+#		                L O G G I N G
 ###############################################################################
 
 LOGFILE=/var/log/messages
@@ -49,7 +48,7 @@ TCP_FLAGS_LOG_LEVEL=info
 
 SMURF_LOG_LEVEL=info
 
-LOG_MARTIANS=Yes
+LOG_MARTIANS=No
 
 ###############################################################################
 #	L O C A T I O N	  O F	F I L E S   A N D   D I R E C T O R I E S
@@ -73,8 +72,7 @@ SUBSYSLOCK=""
 
 MODULESDIR=
 
-# add puppet delivered files in front
-CONFIG_PATH=/var/lib/puppet/modules/shorewall:/etc/shorewall:/usr/share/shorewall
+CONFIG_PATH="/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"
 
 RESTOREFILE=
 
@@ -103,7 +101,7 @@ RCP_COMMAND='scp ${files} ${root}@${system}:${destination}'
 #			F I R E W A L L	  O P T I O N S
 ###############################################################################
 
-IP_FORWARDING=Keep
+IP_FORWARDING=On
 
 ADD_IP_ALIASES=No
 
@@ -119,13 +117,13 @@ TC_PRIOMAP="2 3 3 3 2 3 1 1 2 2 2 2 2 2 2 2"
 
 CLEAR_TC=Yes
 
-MARK_IN_FORWARD_CHAIN=No
+MARK_IN_FORWARD_CHAIN=Yes
 
 CLAMPMSS=No
 
-ROUTE_FILTER=Yes
+ROUTE_FILTER=No
 
-DETECT_DNAT_IPADDRS=No
+DETECT_DNAT_IPADDRS=YES
 
 MUTEX_TIMEOUT=60
 
@@ -137,7 +135,7 @@ DELAYBLACKLISTLOAD=No
 
 MODULE_SUFFIX=ko
 
-DISABLE_IPV6=No
+DISABLE_IPV6=Yes
 
 BRIDGING=No
 
@@ -147,7 +145,7 @@ PKTTYPE=Yes
 
 NULL_ROUTE_RFC1918=No
 
-MACLIST_TABLE=filter
+MACLIST_TABLE=mangle
 
 MACLIST_TTL=
 
@@ -157,7 +155,7 @@ MAPOLDACTIONS=No
 
 FASTACCEPT=No
 
-IMPLICIT_CONTINUE=No
+IMPLICIT_CONTINUE=Yes
 
 HIGH_ROUTE_MARKS=No
 
@@ -211,8 +209,9 @@ FORWARD_CLEAR_MARK=Yes
 
 BLACKLIST_DISPOSITION=DROP
 
-MACLIST_DISPOSITION=REJECT
+MACLIST_DISPOSITION=DROP
 
 TCP_FLAGS_DISPOSITION=DROP
 
 #LAST LINE -- DO NOT REMOVE
+

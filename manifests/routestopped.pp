@@ -1,5 +1,5 @@
 define shorewall::routestopped(
-    $interface = '',
+    $interface = $name,
     $host = '-',
     $options = '',
     $order='100'
@@ -8,7 +8,7 @@ define shorewall::routestopped(
         '' => $name,
         default => $interface,
     }   
-    shorewall::entry{"routestopped.d/${order}-${title}":
+    shorewall::entry{"routestopped-${order}-${name}":
         line => "${real_interface} ${host} ${options}",
     }           
 }

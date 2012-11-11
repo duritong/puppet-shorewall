@@ -2,21 +2,12 @@
 #### Managed by puppet, modify only on the puppetmaster
 ####
 ###############################################################################
-#  /etc/shorewall/shorewall.conf V4.0 - Change the following variables to
-#  match your setup
 #
-#  This program is under GPL
-#
-#  This file should be placed in /etc/shorewall
-#
-#  (c) 1999,2000,2001,2002,2003,2004,2005,
-#      2006,2007 - Tom Eastep (teastep@shorewall.net)
-#
+#  Shorewall Version 4 -- /etc/shorewall/shorewall.conf
 #
 #  For information about the settings in this file, type "man shorewall.conf"
 #
-#  Additional information is available at 
-#  http://www.shorewall.net/Documentation.htm#Conf
+#  Manpage also online at http://www.shorewall.net/manpages/shorewall.conf.html
 ###############################################################################
 #		       S T A R T U P   E N A B L E D
 ###############################################################################
@@ -30,15 +21,16 @@ STARTUP_ENABLED=Yes
 VERBOSITY=1
 
 ###############################################################################
-#                              C O M P I L E R
-#      (setting this to 'perl' requires installation of Shorewall-perl)
+#		                L O G G I N G
 ###############################################################################
 
-SHOREWALL_COMPILER=shell
+BLACKLIST_LOGLEVEL=
 
-###############################################################################
-#			       L O G G I N G
-###############################################################################
+LOG_MARTIANS=No
+
+LOG_VERBOSITY=2
+
+LOGALLNEW=
 
 LOGFILE=/var/log/messages
 
@@ -46,139 +38,162 @@ LOGFORMAT="Shorewall:%s:%s:"
 
 LOGTAGONLY=No
 
-LOGRATE=
-
-LOGBURST=
-
-LOGALLNEW=
-
-BLACKLIST_LOGLEVEL=
+LOGLIMIT=
 
 MACLIST_LOG_LEVEL=info
 
-TCP_FLAGS_LOG_LEVEL=info
-
-RFC1918_LOG_LEVEL=info
+SFILTER_LOG_LEVEL=info
 
 SMURF_LOG_LEVEL=info
 
-LOG_MARTIANS=No
+STARTUP_LOG=/var/log/shorewall-init.log
+
+TCP_FLAGS_LOG_LEVEL=info
 
 ###############################################################################
 #	L O C A T I O N	  O F	F I L E S   A N D   D I R E C T O R I E S
 ###############################################################################
 
+CONFIG_PATH="/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"
+
 IPTABLES=
 
-PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+IP=
 
-SHOREWALL_SHELL=/bin/sh
-
-SUBSYSLOCK=""
+IPSET=
 
 MODULESDIR=
 
-# add puppet delivered files in front
-CONFIG_PATH=/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall
+PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin"
 
-RESTOREFILE=
+PERL=/usr/bin/perl
 
-IPSECFILE=zones
+RESTOREFILE=restore
 
-LOCKFILE=
+SHOREWALL_SHELL=/bin/sh
+
+SUBSYSLOCK=/var/lock/subsys/shorewall
+
+TC=
 
 ###############################################################################
 #		D E F A U L T   A C T I O N S / M A C R O S
 ###############################################################################
 
-DROP_DEFAULT="Drop"
-REJECT_DEFAULT="Reject"
-ACCEPT_DEFAULT="none"
-QUEUE_DEFAULT="none"
-NFQUEUE_DEFAULT="none"
+ACCEPT_DEFAULT=none
+DROP_DEFAULT=Drop
+NFQUEUE_DEFAULT=none
+QUEUE_DEFAULT=none
+REJECT_DEFAULT=Reject
 
 ###############################################################################
 #                        R S H / R C P  C O M M A N D S
 ###############################################################################
 
-RSH_COMMAND='ssh ${root}@${system} ${command}'
 RCP_COMMAND='scp ${files} ${root}@${system}:${destination}'
+RSH_COMMAND='ssh ${root}@${system} ${command}'
 
 ###############################################################################
 #			F I R E W A L L	  O P T I O N S
 ###############################################################################
 
-IP_FORWARDING=Keep
+ACCOUNTING=Yes
 
-ADD_IP_ALIASES=Yes
+ACCOUNTING_TABLE=filter
+
+ADD_IP_ALIASES=No
 
 ADD_SNAT_ALIASES=No
 
-RETAIN_ALIASES=No
-
-TC_ENABLED=Internal
-
-TC_EXPERT=No
-
-CLEAR_TC=Yes
-
-MARK_IN_FORWARD_CHAIN=No
-
-CLAMPMSS=No
-
-ROUTE_FILTER=Yes
-
-DETECT_DNAT_IPADDRS=No
-
-MUTEX_TIMEOUT=60
-
 ADMINISABSENTMINDED=Yes
+
+AUTO_COMMENT=Yes
+
+AUTOMAKE=No
 
 BLACKLISTNEWONLY=Yes
 
-DELAYBLACKLISTLOAD=No
+CLAMPMSS=No
 
-MODULE_SUFFIX=
+CLEAR_TC=Yes
+
+COMPLETE=No
+
+DELETE_THEN_ADD=Yes
+
+DETECT_DNAT_IPADDRS=YES
 
 DISABLE_IPV6=Yes
 
-BRIDGING=No
+DONT_LOAD=
 
-DYNAMIC_ZONES=No
+DYNAMIC_BLACKLIST=Yes
 
-PKTTYPE=Yes
+EXPAND_POLICIES=Yes
 
-RFC1918_STRICT=No
-
-MACLIST_TABLE=filter
-
-MACLIST_TTL=
-
-SAVE_IPSETS=No
-
-MAPOLDACTIONS=No
+EXPORTMODULES=Yes
 
 FASTACCEPT=No
+
+FORWARD_CLEAR_MARK=
 
 IMPLICIT_CONTINUE=Yes
 
 HIGH_ROUTE_MARKS=No
 
-USE_ACTIONS=Yes
-
-OPTIMIZE=0
-
-EXPORTPARAMS=Yes
-
-EXPAND_POLICIES=Yes
+IP_FORWARDING=On
 
 KEEP_RT_TABLES=No
 
-DELETE_THEN_ADD=Yes
+LEGACY_FASTSTART=Yes
+
+LOAD_HELPERS_ONLY=No
+
+MACLIST_TABLE=mangle
+
+MACLIST_TTL=
+
+MANGLE_ENABLED=Yes
+
+MAPOLDACTIONS=No
+
+MARK_IN_FORWARD_CHAIN=Yes
+
+MODULE_SUFFIX=ko
 
 MULTICAST=No
 
-DONT_LOAD=
+MUTEX_TIMEOUT=60
+
+NULL_ROUTE_RFC1918=No
+
+OPTIMIZE=0
+
+OPTIMIZE_ACCOUNTING=No
+
+REQUIRE_INTERFACE=No
+
+RESTORE_DEFAULT_ROUTE=Yes
+
+RETAIN_ALIASES=No
+
+ROUTE_FILTER=No
+
+SAVE_IPSETS=No
+
+TC_ENABLED=Internal
+
+TC_EXPERT=No
+
+TC_PRIOMAP="2 3 3 3 2 3 1 1 2 2 2 2 2 2 2 2"
+
+TRACK_PROVIDERS=No
+
+USE_DEFAULT_RT=No
+
+WIDE_TC_MARKS=No
+
+ZONE2ZONE=2
 
 ###############################################################################
 #			P A C K E T   D I S P O S I T I O N
@@ -186,8 +201,17 @@ DONT_LOAD=
 
 BLACKLIST_DISPOSITION=DROP
 
-MACLIST_DISPOSITION=REJECT
+MACLIST_DISPOSITION=DROP
+
+SMURF_DISPOSITION=DROP
+
+SFILTER_DISPOSITION=DROP
 
 TCP_FLAGS_DISPOSITION=DROP
 
-#LAST LINE -- DO NOT REMOVE
+################################################################################
+#                            L E G A C Y  O P T I O N
+#                      D O  N O T  D E L E T E  O R  A L T E R
+################################################################################
+
+IPSECFILE=zones
