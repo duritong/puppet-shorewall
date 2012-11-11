@@ -7,10 +7,6 @@ define shorewall::rules::torify::user(
 
   include shorewall::rules::torify::allow_tor_transparent_proxy
 
-  if $originaldest == '-' and $user == '-' {
-    include shorewall::rules::torify::allow_tor_user
-  }
-
   shorewall::rules::torify::redirect_tcp_to_tor {
     "redirect-to-tor-user=${user}-to=${originaldest}":
       user         => $user,
