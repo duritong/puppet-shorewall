@@ -72,4 +72,6 @@ class shorewall {
   # See http://www.shorewall.net/3.0/traffic_shaping.htm
   shorewall::managed_file { tcclasses: }
   
+  shorewall::managed_file { rtrules: }
+  
 }
