@@ -2,7 +2,7 @@ define shorewall::rtrules(
     $source = '-',
     $destination = '-',
     $provider,
-    $priority,
+    $priority = '10000',
     $mark,
 ){
     shorewall::entry { "rtrules.d/${mark}-${title}":
