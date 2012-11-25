@@ -43,6 +43,7 @@ class shorewall::base {
             File["/var/lib/puppet/modules/shorewall/tcrules"],
             File["/var/lib/puppet/modules/shorewall/tcclasses"],
             File["/var/lib/puppet/modules/shorewall/rtrules"],
+            File["/var/lib/puppet/modules/shorewall/providers"],
         ],
         require => Package[shorewall],
     }

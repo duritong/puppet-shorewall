@@ -73,5 +73,6 @@ class shorewall {
   shorewall::managed_file { tcclasses: }
   
   shorewall::managed_file { rtrules: }
+  shorewall::managed_file { providers: }
   
 }
