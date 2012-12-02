@@ -31,7 +31,6 @@ class shorewall::rules::libvirt::host (
   }
 
   shorewall::rule::accept::from_vmz {
-    'accept_ftp_from_vmz':      action => 'FTP(ACCEPT)';
     'accept_dns_from_vmz':      action => 'DNS(ACCEPT)';
     'accept_tftp_from_vmz':     action => 'TFTP(ACCEPT)';
     'accept_debproxy_from_vmz': proto => 'tcp', destinationport => '8000', action => 'ACCEPT';
