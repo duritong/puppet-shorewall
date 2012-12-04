@@ -6,14 +6,6 @@ class shorewall::base {
     # This file has to be managed in place, so shorewall can find it
     file {
       '/etc/shorewall/shorewall.conf':
-        # use OS specific defaults, but use Default if no other is found
-        source => [
-            "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf.${::operatingsystem}",
-            "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf",
-            "puppet:///modules/site_shorewall/shorewall.conf.${::operatingsystem}.${::lsbdistcodename}",
-            "puppet:///modules/site_shorewall/shorewall.conf.${::operatingsystem}",
-            "puppet:///modules/site_shorewall/shorewall.conf",
-        ],
         require => Package[shorewall],
         notify => Service[shorewall],
         owner => root, group => 0, mode => 0644;
