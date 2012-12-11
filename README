@@ -60,7 +60,11 @@ class site_shorewall::config inherits shorewall::base {
 }
 
 NOTE: if you distribute a file, you cannot also use augeas, puppet and augeas
-will fight forever
+will fight forever. Secondly, you will *need* to make sure that if you are shipping your own
+shorewall.conf that you have the following value set in your shorewall.conf otherwise this
+module will not work:
+
+    CONFIG_PATH="/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"
 
 Documentation
 -------------
