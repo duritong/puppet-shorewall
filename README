@@ -110,18 +110,7 @@ rejected. This is intentional: it does not make sense leaking -via DNS
 requests- network activity that would otherwise be torified. In that
 case you probably want to read proper documentation about such
 matters, enable the Tor DNS resolver and redirect DNS requests through
-it,
-
-either globally:
-
-  shorewall::rules::torify::redirect_dns_to_tor { '-': }
-
-or for specific users:
-
-  shorewall::rules::torify::redirect_dns_to_tor { ['bob', 'alice' ]: }
-
-The $tor_dns_host and $tor_dns_port variables must be set before
-these defines are setup.
+it.
 
 Example
 -------

@@ -27,12 +27,6 @@ class shorewall(
   case $tor_transparent_proxy_port {
     '': { $tor_transparent_proxy_port = '9040' }
   }
-  case $tor_dns_host {
-    '': { $tor_dns_host = '127.0.0.1' }
-  }
-  case $tor_dns_port {
-    '': { $tor_dns_port = '8853' }
-  }
   if $tor_user == '' {
     $tor_user = $dist_tor_user ? {
       ''      => 'tor',
