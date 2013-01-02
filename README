@@ -35,6 +35,37 @@ installed instead:
 
     $shorewall_ensure_version = "4.0.15-1"
 
+The main shorewall.conf is not managed by this module, rather the default one
+that your operatingsystem provides is used, and any modifications you wish to do
+to it should be configured with augeas, for example, to set IP_FORWARDING=Yes in
+shorewall.conf, simply do this:
+
+  augeas { 'enable_ip_forwarding':
+    changes => 'set /files/etc/shorewall/shorewall.conf/IP_FORWARDING Yes',
+    lens    => 'Shellvars.lns',
+    incl    => '/etc/shorewall/shorewall.conf',
+    notify  => Service[shorewall];
+  }
+
+NOTE: this requires the augeas ruby bindings newer than 0.7.3. 
+
+If you need to, you can provide an entire shorewall.conf by overriding the file
+resource, for example:
+
+class site_shorewall::config inherits shorewall::base {
+
+    File["/etc/shorewall/shorewall.conf"] {
+      source => "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf.${::operatingsystem}",
+    }
+}
+
+NOTE: if you distribute a file, you cannot also use augeas, puppet and augeas
+will fight forever. Secondly, you will *need* to make sure that if you are shipping your own
+shorewall.conf that you have the following value set in your shorewall.conf otherwise this
+module will not work:
+
+    CONFIG_PATH="/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"
+
 Documentation
 -------------
 
