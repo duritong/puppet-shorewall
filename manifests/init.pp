@@ -63,8 +63,7 @@ class shorewall(
   shorewall::managed_file { providers: }
   # See http://www.shorewall.net/manpages/shorewall-tunnels.html
   shorewall::managed_file { tunnel: }
-  
+  # See http://www.shorewall.net/MultiISP.html
   shorewall::managed_file { rtrules: }
-  shorewall::managed_file { providers: }
   
 }
