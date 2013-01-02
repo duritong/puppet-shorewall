@@ -1,6 +1,7 @@
 class shorewall::base {
+
     package { 'shorewall':
-        ensure => $shorewall_ensure_version,
+        ensure => $shorewall::ensure_version,
     }
 
     # This file has to be managed in place, so shorewall can find it

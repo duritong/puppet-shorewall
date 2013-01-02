@@ -1,5 +1,12 @@
 class shorewall(
-  $startup = '1'
+  $startup                    = '1',
+  $ensure_version             = 'present',
+  $tor_transparent_proxy_host = '127.0.0.1',
+  $tor_transparent_proxy_port = '9040',
+  $tor_user                   = $::operatingsystem ? {
+    'Debian' => 'debian-tor',
+    default  => 'tor'
+  }
 ) {
 
   case $::operatingsystem {
@@ -18,19 +25,6 @@ class shorewall(
     default: {
       notice "unknown operatingsystem: ${::operatingsystem}" 
       include shorewall::base
-    }
-  }
-
-  case $tor_transparent_proxy_host {
-    '': { $tor_transparent_proxy_host = '127.0.0.1' }
-  }
-  case $tor_transparent_proxy_port {
-    '': { $tor_transparent_proxy_port = '9040' }
-  }
-  if $tor_user == '' {
-    $tor_user = $dist_tor_user ? {
-      ''      => 'tor',
-      default => $dist_tor_user,
     }
   }
 
@@ -66,4 +60,7 @@ class shorewall(
   shorewall::managed_file { tcclasses: }
   # http://www.shorewall.net/manpages/shorewall-providers.html
   shorewall::managed_file { providers: }
+  # See http://www.shorewall.net/manpages/shorewall-tunnels.html
+  shorewall::managed_file { tunnel: }
+  
 }
