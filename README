@@ -49,14 +49,11 @@ shorewall.conf, simply do this:
 
 NOTE: this requires the augeas ruby bindings newer than 0.7.3. 
 
-If you need to, you can provide an entire shorewall.conf by overriding the file
-resource, for example:
+If you need to, you can provide an entire shorewall.conf by passing its
+source to the main class:
 
-class site_shorewall::config inherits shorewall::base {
-
-    File["/etc/shorewall/shorewall.conf"] {
-      source => "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf.${::operatingsystem}",
-    }
+class{'shorewall':
+  conf_source => "puppet:///modules/site_shorewall/${::fqdn}/shorewall.conf.${::operatingsystem}",
 }
 
 NOTE: if you distribute a file, you cannot also use augeas, puppet and augeas

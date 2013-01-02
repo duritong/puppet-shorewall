@@ -1,5 +1,6 @@
 class shorewall(
   $startup                    = '1',
+  $conf_source                = false,
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
