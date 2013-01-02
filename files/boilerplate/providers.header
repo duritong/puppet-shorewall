@@ -6,4 +6,4 @@
 # For additional information, see http://shorewall.net/MultiISP.html
 #
 ############################################################################################
-#NAME   NUMBER  MARK    DUPLICATE       INTERFACE       GATEWAY         OPTIONS         COPY
+#NAME	NUMBER	MARK	DUPLICATE	INTERFACE	GATEWAY		OPTIONS		COPY

@@ -63,4 +63,7 @@ class shorewall(
   # See http://www.shorewall.net/manpages/shorewall-tunnels.html
   shorewall::managed_file { tunnel: }
   
+  shorewall::managed_file { rtrules: }
+  shorewall::managed_file { providers: }
+  
 }

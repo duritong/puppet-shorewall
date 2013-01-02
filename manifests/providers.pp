@@ -1,16 +1,16 @@
+# manage providers
 define shorewall::providers(
-    $provider,
-    $number = '',
-    $mark = '',
-    $duplicate = 'main',
-    $interface = '',
-    $gateway = '',
-    $options = '',
-    $copy = '',
-    $order='100'
+  $provider   = $name,
+  $number     = '',
+  $mark       = '',
+  $duplicate  = 'main',
+  $interface  = '',
+  $gateway    = '',
+  $options    = '',
+  $copy       = '',
+  $order      = '100'
 ){
-    shorewall::entry{"providers-${order}-${name}":
-        line => "# ${name}\n${provider} ${number} ${mark} ${duplicate} ${interface} ${gateway} ${options} ${copy}"
-    }
+  shorewall::entry{"providers-${order}-${name}":
+    line => "# ${name}\n${provider} ${number} ${mark} ${duplicate} ${interface} ${gateway} ${options} ${copy}"
+  }
 }
-
