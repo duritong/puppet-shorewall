@@ -22,11 +22,14 @@ class shorewall::base {
       }
     }
 
+    include augeas
+
     augeas { 'shorewall_module_config_path':
       changes => 'set /files/etc/shorewall/shorewall.conf/CONFIG_PATH \'"/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"\'',
       lens    => 'Shellvars.lns',
       incl    => '/etc/shorewall/shorewall.conf',
-      notify  => Service[shorewall];
+      notify  => Service[shorewall],
+      require => Class[augeas];
     }
 
     service{shorewall:
