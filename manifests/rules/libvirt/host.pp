@@ -45,10 +45,12 @@ class shorewall::rules::libvirt::host (
     }
   }
 
-  shorewall::masq {
-    "masq-${masq_iface}":
-      interface => "$masq_iface",
-      source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+  if $masq_iface {
+    shorewall::masq {
+      "masq-${masq_iface}":
+        interface => "$masq_iface",
+        source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+    }
   }
 
 }
