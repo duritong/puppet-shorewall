@@ -5,10 +5,17 @@ class shorewall::rules::libvirt::host (
   ) {
 
   define shorewall::rule::accept::from_vmz (
-    $proto = '-', $destinationport = '-', $action = 'ACCEPT' ) {
-      shorewall::rule { "$name":
-        source => $vmz, destination => '$FW', order => 300,
-        proto => $proto, destinationport => $destinationport, action => $action;
+    $proto           = '-',
+    $destinationport = '-',
+    $action          = 'ACCEPT'
+    ) {
+      shorewall::rule { $name:
+        source          => $shorewall::rules::libvirt::host::vmz,
+        destination     => '$FW',
+        order           => 300,
+        proto           => $proto,
+        destinationport => $destinationport,
+        action          => $action;
       }
     }
 
@@ -32,9 +39,14 @@ class shorewall::rules::libvirt::host (
   }
 
   shorewall::rule::accept::from_vmz {
-    'accept_dns_from_vmz':      action => 'DNS(ACCEPT)';
-    'accept_tftp_from_vmz':     action => 'TFTP(ACCEPT)';
-    'accept_puppet_from_vmz':   proto => 'tcp', destinationport => '8140', action => 'ACCEPT';
+    'accept_dns_from_vmz':
+      action          => 'DNS(ACCEPT)';
+    'accept_tftp_from_vmz':
+      action          => 'TFTP(ACCEPT)';
+    'accept_puppet_from_vmz':
+      proto           => 'tcp',
+      destinationport => '8140',
+      action          => 'ACCEPT';
   }
 
   if $debproxy_port {
@@ -48,8 +60,8 @@ class shorewall::rules::libvirt::host (
   if $masq_iface {
     shorewall::masq {
       "masq-${masq_iface}":
-        interface => "$masq_iface",
-        source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+        interface => $masq_iface,
+        source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
     }
   }
 
