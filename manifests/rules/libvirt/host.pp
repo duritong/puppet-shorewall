@@ -1,6 +1,7 @@
 class shorewall::rules::libvirt::host (
-  $vmz        = 'vmz',
-  $masq_iface = 'eth0',
+  $vmz           = 'vmz',
+  $masq_iface    = 'eth0',
+  $debproxy_port = 8000,
   ) {
 
   define shorewall::rule::accept::from_vmz (
@@ -33,8 +34,15 @@ class shorewall::rules::libvirt::host (
   shorewall::rule::accept::from_vmz {
     'accept_dns_from_vmz':      action => 'DNS(ACCEPT)';
     'accept_tftp_from_vmz':     action => 'TFTP(ACCEPT)';
-    'accept_debproxy_from_vmz': proto => 'tcp', destinationport => '8000', action => 'ACCEPT';
     'accept_puppet_from_vmz':   proto => 'tcp', destinationport => '8140', action => 'ACCEPT';
+  }
+
+  if $debproxy_port {
+    shorewall::rule::accept::from_vmz { 'accept_debproxy_from_vmz':
+      proto           => 'tcp',
+      destinationport => $debproxy_port,
+      action          => 'ACCEPT';
+    }
   }
 
   shorewall::masq {
