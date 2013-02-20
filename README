@@ -4,6 +4,12 @@ Puppet Module for Shorewall
 ---------------------------
 This module manages the configuration of Shorewall (http://www.shorewall.net/)
 
+Requirements
+------------
+
+This module requires the augeas module, you can find that here:
+https://labs.riseup.net/code/projects/shared-augeas
+
 Copyright
 ---------
 
