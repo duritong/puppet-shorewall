@@ -26,6 +26,7 @@ class shorewall::base {
       changes => 'set /files/etc/shorewall/shorewall.conf/CONFIG_PATH \'"/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"\'',
       lens    => 'Shellvars.lns',
       incl    => '/etc/shorewall/shorewall.conf',
+      require => Package[shorewall],
       notify  => Service[shorewall];
     }
 
