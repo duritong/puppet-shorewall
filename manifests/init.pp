@@ -1,3 +1,4 @@
+# Manage shorewall on your system
 class shorewall(
   $startup                    = '1',
   $conf_source                = false,
@@ -29,41 +30,44 @@ class shorewall(
     }
   }
 
-  # See http://www.shorewall.net/3.0/Documentation.htm#Zones
-  shorewall::managed_file{ zones: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
-  shorewall::managed_file{ interfaces: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Hosts
-  shorewall::managed_file { hosts: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Policy
-  shorewall::managed_file { policy: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Rules
-  shorewall::managed_file { rules: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Masq
-  shorewall::managed_file{ masq: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
-  shorewall::managed_file { proxyarp: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#NAT
-  shorewall::managed_file { nat: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
-  shorewall::managed_file { blacklist: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
-  shorewall::managed_file { rfc1918: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
-  shorewall::managed_file { routestopped: }
-  # See http://www.shorewall.net/3.0/Documentation.htm#Variables
-  shorewall::managed_file { params: }
-  # See http://www.shorewall.net/3.0/traffic_shaping.htm
-  shorewall::managed_file { tcdevices: }
-  # See http://www.shorewall.net/3.0/traffic_shaping.htm
-  shorewall::managed_file { tcrules: }
-  # See http://www.shorewall.net/3.0/traffic_shaping.htm
-  shorewall::managed_file { tcclasses: }
-  # http://www.shorewall.net/manpages/shorewall-providers.html
-  shorewall::managed_file { providers: }
-  # See http://www.shorewall.net/manpages/shorewall-tunnels.html
-  shorewall::managed_file { tunnel: }
-  # See http://www.shorewall.net/MultiISP.html
-  shorewall::managed_file { rtrules: }
-
+  shorewall::managed_file{
+    [
+      # See http://www.shorewall.net/3.0/Documentation.htm#Zones
+      'zones',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
+      'interfaces',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Hosts
+      'hosts',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Policy
+      'policy',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Rules
+      'rules',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Masq
+      'masq',
+      # See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
+      'proxyarp',
+      # See http://www.shorewall.net/3.0/Documentation.htm#NAT
+      'nat',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
+      'blacklist',
+      # See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
+      'rfc1918',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
+      'routestopped',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Variables
+      'params',
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      'tcdevices',
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      'tcrules',
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      'tcclasses',
+      # http://www.shorewall.net/manpages/shorewall-providers.html
+      'providers',
+      # See http://www.shorewall.net/manpages/shorewall-tunnels.html
+      'tunnel',
+      # See http://www.shorewall.net/MultiISP.html
+      'rtrules',
+    ]:;
+  }
 }
