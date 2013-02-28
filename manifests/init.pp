@@ -16,7 +16,7 @@ class shorewall(
       include shorewall::debian
       $dist_tor_user = 'debian-tor'
     }
-    centos: { include shorewall::base }
+    centos: { include shorewall::centos }
     ubuntu: {
     case $::lsbdistcodename {
       karmic: { include shorewall::ubuntu::karmic }
@@ -24,7 +24,7 @@ class shorewall(
       }
     }
     default: {
-      notice "unknown operatingsystem: ${::operatingsystem}" 
+      notice "unknown operatingsystem: ${::operatingsystem}"
       include shorewall::base
     }
   }
@@ -65,5 +65,5 @@ class shorewall(
   shorewall::managed_file { tunnel: }
   # See http://www.shorewall.net/MultiISP.html
   shorewall::managed_file { rtrules: }
-  
+
 }
