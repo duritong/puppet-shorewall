@@ -27,15 +27,15 @@ class shorewall::base {
     }
   } else {
 
-  Class['augeas'] -> Class['shorewall::base']
+    Class['augeas'] -> Class['shorewall::base']
 
-  augeas { 'shorewall_module_config_path':
-    changes => 'set /files/etc/shorewall/shorewall.conf/CONFIG_PATH \'"/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"\'',
-    lens    => 'Shellvars.lns',
-    incl    => '/etc/shorewall/shorewall.conf',
-    notify  => Service['shorewall'],
-    require => Package['shorewall'];
-  }
+    augeas { 'shorewall_module_config_path':
+      changes => 'set /files/etc/shorewall/shorewall.conf/CONFIG_PATH \'"/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"\'',
+      lens    => 'Shellvars.lns',
+      incl    => '/etc/shorewall/shorewall.conf',
+      notify  => Service['shorewall'],
+      require => Package['shorewall'];
+    }
   }
 
   service{'shorewall':
