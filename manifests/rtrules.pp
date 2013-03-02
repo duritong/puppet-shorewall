@@ -5,7 +5,7 @@ define shorewall::rtrules(
     $priority = '10000',
     $mark,
 ){
-    shorewall::entry { "rtrules.d/${mark}-${title}":
+    shorewall::entry { "rtrules-${mark}-${name}":
         line => "# ${name}\n${source} ${destination} ${provider} ${priority} ${mark}",
     }
 }
