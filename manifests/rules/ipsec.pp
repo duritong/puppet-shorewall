@@ -11,13 +11,13 @@ define shorewall::rules::ipsec() {
       action          => 'ACCEPT';
     "me-${name}-ipsec-udp":
       source          => '$FW',
-      destination     => $name
+      destination     => $name,
       proto           => 'udp',
       destinationport => '500',
       order           => 240,
       action          => 'ACCEPT';
     "${name}-me-ipsec":
-      source          => $name
+      source          => $name,
       destination     => '$FW',
       proto           => 'esp',
       order           => 240,
