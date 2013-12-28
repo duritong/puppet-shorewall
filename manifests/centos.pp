@@ -1,6 +1,6 @@
 # things needed on centos
 class shorewall::centos inherits shorewall::base {
-  if $::lsbmajdistrelease > 5 {
+  if $::operatingsystemmajrelease > 5 {
     augeas{'enable_shorewall':
       context => '/files/etc/sysconfig/shorewall',
       changes => 'set startup 1',
