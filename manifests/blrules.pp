@@ -30,6 +30,6 @@ class shorewall::blrules (
     notify  => Service['shorewall'],
     owner   => root,
     group   => 0,
-    mode    => 0644;
+    mode    => '0644';
   }
 }
