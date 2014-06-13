@@ -7,7 +7,7 @@ class shorewall::rules::jabberserver {
             destinationport => '5222,5223,5269',
             order           => 240,
             action          => 'ACCEPT';
-    'net-me-udp_jabber':
+    'net-me-udp_jabber_stun_server':
             source          => 'net',
             destination     => '$FW',
             proto           => 'udp',
