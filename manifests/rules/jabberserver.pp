@@ -1,19 +1,14 @@
 # open ports used by a jabberserver
 # in and outbound.
-class shorewall::rules::jabberserver {
+class shorewall::rules::jabberserver(
+  $open_stun = true,
+) {
   shorewall::rule {
     'net-me-tcp_jabber':
             source          => 'net',
             destination     => '$FW',
             proto           => 'tcp',
             destinationport => '5222,5223,5269',
-            order           => 240,
-            action          => 'ACCEPT';
-    'net-me-udp_jabber_stun_server':
-            source          => 'net',
-            destination     => '$FW',
-            proto           => 'udp',
-            destinationport => '3478',
             order           => 240,
             action          => 'ACCEPT';
     'me-net-tcp_jabber_s2s':
@@ -25,4 +20,15 @@ class shorewall::rules::jabberserver {
             action          => 'ACCEPT';
   }
 
+  if $open_stun {
+    shorewall::rule {
+      'net-me-udp_jabber_stun_server':
+            source          => 'net',
+            destination     => '$FW',
+            proto           => 'udp',
+            destinationport => '3478',
+            order           => 240,
+            action          => 'ACCEPT';
+    }
+  }
 }
