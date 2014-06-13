@@ -1,3 +1,5 @@
+# open ports used by a jabberserver
+# in and outbound.
 class shorewall::rules::jabberserver {
   shorewall::rule {
     'net-me-tcp_jabber':
