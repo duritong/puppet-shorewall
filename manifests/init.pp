@@ -13,17 +13,8 @@ class shorewall(
 
   case $::operatingsystem {
     gentoo: { include shorewall::gentoo }
-    debian: {
-      include shorewall::debian
-      $dist_tor_user = 'debian-tor'
-    }
+    debian,ubuntu: {
     centos: { include shorewall::centos }
-    ubuntu: {
-    case $::lsbdistcodename {
-      karmic: { include shorewall::ubuntu::karmic }
-      default: { include shorewall::debian }
-      }
-    }
     default: {
       notice "unknown operatingsystem: ${::operatingsystem}"
       include shorewall::base
