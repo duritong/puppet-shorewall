@@ -13,7 +13,7 @@ class shorewall(
 
   case $::operatingsystem {
     gentoo: { include shorewall::gentoo }
-    debian,ubuntu: {
+    debian,ubuntu: { include shorewall::debian }
     centos: { include shorewall::centos }
     default: {
       notice "unknown operatingsystem: ${::operatingsystem}"
