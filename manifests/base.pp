@@ -10,14 +10,14 @@ class shorewall::base {
     '/etc/shorewall/shorewall.conf':
       require => Package[shorewall],
       notify  => Service[shorewall],
-      owner   => root,
-      group   => 0,
+      owner   => 'root',
+      group   => 'root',
       mode    => '0644';
     '/etc/shorewall/puppet':
       ensure  => directory,
       require => Package[shorewall],
-      owner   => root,
-      group   => 0,
+      owner   => 'root',
+      group   => 'root',
       mode    => '0644';
   }
 
