@@ -10,14 +10,14 @@ class shorewall::base {
     '/etc/shorewall/shorewall.conf':
       require => Package[shorewall],
       notify  => Service[shorewall],
-      owner   => root,
-      group   => 0,
+      owner   => 'root',
+      group   => 'root',
       mode    => '0644';
     '/etc/shorewall/puppet':
       ensure  => directory,
       require => Package[shorewall],
-      owner   => root,
-      group   => 0,
+      owner   => 'root',
+      group   => 'root',
       mode    => '0644';
   }
 
@@ -26,8 +26,6 @@ class shorewall::base {
       source => $shorewall::conf_source,
     }
   } else {
-
-  require augeas
 
   augeas { 'shorewall_module_config_path':
     changes => 'set /files/etc/shorewall/shorewall.conf/CONFIG_PATH \'"/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"\'',
