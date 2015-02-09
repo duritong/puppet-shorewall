@@ -1,4 +1,4 @@
-modules/shorewall/manifests/init.pp - manage firewalling with shorewall 3.x
+modules/shorewall/manifests/init.pp - manage firewalling with shorewall
 
 Puppet Module for Shorewall
 ---------------------------
