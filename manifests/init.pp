@@ -68,6 +68,8 @@ class shorewall(
       'tunnel',
       # See http://www.shorewall.net/MultiISP.html
       'rtrules',
+      # See http://www.shorewall.net/manpages/shorewall-mangle.html
+      'mangle',
     ]:;
   }
 }
