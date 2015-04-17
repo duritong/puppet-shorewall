@@ -5,7 +5,7 @@ define shorewall::tunnel(
     $gateway_zones = '',
     $order = '1'
 ) {
-    shorewall::entry { "tunnel-${order}-${name}":
+    shorewall::entry { "tunnels-${order}-${name}":
         line => "# ${name}\n${tunnel_type} ${zone} ${gateway} ${gateway_zones}",
     }
 }
