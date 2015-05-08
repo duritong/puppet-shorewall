@@ -2,6 +2,8 @@ class shorewall::rules::libvirt::host (
   $vmz           = 'vmz',
   $masq_iface    = 'eth0',
   $debproxy_port = 8000,
+  $accept_dhcp   = true,
+  $vmz_iface     = 'virbr0',
   ) {
 
   define shorewall::rule::accept::from_vmz (
@@ -47,6 +49,15 @@ class shorewall::rules::libvirt::host (
       proto           => 'tcp',
       destinationport => '8140',
       action          => 'ACCEPT';
+  }
+
+  if $accept_dhcp {
+    shorewall::mangle { 'CHECKSUM:T':
+      source          => '-',
+      destination     => $vmz_iface,
+      proto           => 'udp',
+      destinationport => '68';
+    }
   }
 
   if $debproxy_port {
