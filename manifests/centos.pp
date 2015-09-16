@@ -9,5 +9,15 @@ class shorewall::centos inherits shorewall::base {
       require => Package['shorewall'],
       notify  => Service['shorewall'],
     }
+    if $::operatingsystemmajrelease > 6 {
+      augeas{'enable_shorewall_config':
+        context => '/files/etc/shorewall/shorewall.conf',
+        changes => 'set STARTUP_ENABLED yes',
+        lens    => 'Shellvars.lns',
+        incl    => '/etc/shorewall/shorewall.conf',
+        require => Package['shorewall'],
+        notify  => Service['shorewall'],
+      }
+    }
   }
 }
