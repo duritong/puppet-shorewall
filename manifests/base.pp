@@ -44,10 +44,10 @@ class shorewall::base {
     notify      => Service['shorewall'],
   }
   service{'shorewall':
-    ensure      => running,
-    enable      => true,
-    hasstatus   => true,
-    hasrestart  => true,
-    require     => Package['shorewall'],
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => Package['shorewall'],
   }
 }

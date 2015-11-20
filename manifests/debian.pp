@@ -1,11 +1,11 @@
+# debian specific things
 class shorewall::debian inherits shorewall::base {
   file{'/etc/default/shorewall':
-    content => template("shorewall/debian_default.erb"),
+    content => template('shorewall/debian_default.erb'),
     require => Package['shorewall'],
     notify  => Exec['shorewall_check'],
-    owner   => 'root', group => 'root', mode => '0644';
-  }
-  Service['shorewall']{
-    status => '/sbin/shorewall status'
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644';
   }
 }
