@@ -50,4 +50,28 @@ class shorewall::base {
     hasrestart => true,
     require    => Package['shorewall'],
   }
+
+  file{'/etc/cron.daily/shorewall_check':}
+  if $shorewall::daily_check {
+    File['/etc/cron.daily/shorewall_check']{
+      content => '#!/bin/bash
+
+output=$(shorewall check 2>&1)
+if [ $? -gt 0 ]; then
+  echo "Error while checking firewall!"
+  echo $output
+  exit 1
+fi
+exit 0
+',
+      owner   => root,
+      group   => 0,
+      mode    => '0700',
+      require => Service['shorewall'],
+    }
+  } else {
+    File['/etc/cron.daily/shorewall_check']{
+      ensure => absent,
+    }
+  }
 }

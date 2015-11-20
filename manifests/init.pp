@@ -45,6 +45,7 @@ class shorewall(
   $tunnels_defaults           = {},
   $rtrules                    = {},
   $rtrules_defaults           = {},
+  $daily_check                = true,
 ) {
 
   case $::operatingsystem {
