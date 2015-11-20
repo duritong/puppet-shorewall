@@ -4,7 +4,7 @@ define shorewall::extension_script($script = '') {
         'init', 'initdone', 'start', 'started', 'stop', 'stopped', 'clear', 'refresh', 'continue', 'maclog': {
           file { "/etc/shorewall/puppet/${name}":
             content => "${script}\n",
-            notify => Service[shorewall];
+            notify  => Exec['shorewall_check'];
           }
         }
         '', default: {

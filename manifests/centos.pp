@@ -7,7 +7,7 @@ class shorewall::centos inherits shorewall::base {
       lens    => 'Shellvars.lns',
       incl    => '/etc/sysconfig/shorewall',
       require => Package['shorewall'],
-      notify  => Service['shorewall'],
+      notify  => Exec['shorewall_check'],
     }
   }
 }
