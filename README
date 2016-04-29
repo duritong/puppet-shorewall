@@ -1,4 +1,4 @@
-modules/shorewall/manifests/init.pp - manage firewalling with shorewall 3.x
+modules/shorewall/manifests/init.pp - manage firewalling with shorewall
 
 Puppet Module for Shorewall
 ---------------------------
@@ -7,8 +7,8 @@ This module manages the configuration of Shorewall (http://www.shorewall.net/)
 Requirements
 ------------
 
-This module requires the augeas module, you can find that here:
-https://labs.riseup.net/code/projects/shared-augeas
+This module requires the concat module, you can find that here:
+https://github.com/puppetlabs/puppetlabs-concat.git
 
 Copyright
 ---------
