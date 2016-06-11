@@ -27,6 +27,7 @@ class shorewall::base {
     }
   } else {
 
+    include ::augeas
     Class['augeas'] -> Class['shorewall::base']
 
     augeas { 'shorewall_module_config_path':
