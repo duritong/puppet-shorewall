@@ -1,6 +1,6 @@
 # Manage shorewall on your system
 class shorewall(
-  $startup                    = '1',
+  $startup                    = true,
   $conf_source                = false,
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
