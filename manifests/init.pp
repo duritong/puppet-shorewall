@@ -2,6 +2,10 @@
 class shorewall(
   $startup                    = true,
   $conf_source                = false,
+  $settings                   = {
+    'LOG_MARTIANS' => 'No',
+    'DISABLE_IPV6' => 'Yes',
+  },
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
