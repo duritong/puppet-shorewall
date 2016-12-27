@@ -95,6 +95,8 @@ class shorewall(
       'tunnels',
       # See http://www.shorewall.net/MultiISP.html
       'rtrules',
+      # See http://shorewall.net/manpages/shorewall-conntrack.html
+      'conntrack',
     ]:;
   }
 
