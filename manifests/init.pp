@@ -3,6 +3,7 @@ class shorewall(
   $startup                    = '1',
   $conf_source                = false,
   $ensure_version             = 'present',
+  $use_hiera_data             = false,
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
   $tor_user                   = $::operatingsystem ? {
@@ -98,23 +99,64 @@ class shorewall(
     ]:;
   }
 
-  create_resources('shorewall::zone',$zones,$zones_defaults)
-  create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
-  create_resources('shorewall::host',$hosts,$hosts_defaults)
-  create_resources('shorewall::policy',$policy,$policy_defaults)
-  create_resources('shorewall::rule',$rules,$rules_defaults)
-  create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults)
-  create_resources('shorewall::masq',$masq,$masq_defaults)
-  create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
-  create_resources('shorewall::nat',$nat,$nat_defaults)
-  create_resources('shorewall::blacklist',$blacklist,$blacklist_defaults)
-  create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
-  create_resources('shorewall::routestopped',$routestopped,
-    $routestopped_defaults)
-  create_resources('shorewall::params',$params,$params_defaults)
-  create_resources('shorewall::tcdevices',$tcdevices,$tcdevices_defaults)
-  create_resources('shorewall::tcrules',$tcrules,$tcrules_defaults)
-  create_resources('shorewall::tcclasses',$tcclasses,$tcclasses_defaults)
-  create_resources('shorewall::tunnel',$tunnels,$tunnels_defaults)
-  create_resources('shorewall::rtrules',$rtrules,$rtrules_defaults)
+  case $use_hiera_data {
+    false: {
+      create_resources('shorewall::zone',$zones,$zones_defaults)
+      create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
+      create_resources('shorewall::host',$hosts,$hosts_defaults)
+      create_resources('shorewall::policy',$policy,$policy_defaults)
+      create_resources('shorewall::rule',$rules,$rules_defaults)
+      create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults)
+      create_resources('shorewall::masq',$masq,$masq_defaults)
+      create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
+      create_resources('shorewall::nat',$nat,$nat_defaults)
+      create_resources('shorewall::blacklist',$blacklist,$blacklist_defaults)
+      create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
+      create_resources('shorewall::routestopped',$routestopped,$routestopped_defaults)
+      create_resources('shorewall::params',$params,$params_defaults)
+      create_resources('shorewall::tcdevices',$tcdevices,$tcdevices_defaults)
+      create_resources('shorewall::tcrules',$tcrules,$tcrules_defaults)
+      create_resources('shorewall::tcclasses',$tcclasses,$tcclasses_defaults)
+      create_resources('shorewall::tunnel',$tunnels,$tunnels_defaults)
+      create_resources('shorewall::rtrules',$rtrules,$rtrules_defaults)
+    }
+    true: {
+      $set_zone = hiera('shorewall::zone', {})
+      create_resources('shorewall::zone', $set_zone)
+      $set_interface = hiera('shorewall::interface', {})
+      create_resources('shorewall::interface', $set_interface)
+      $set_host = hiera('shorewall::host', {})
+      create_resources('shorewall::host', $set_host)
+      $set_policy = hiera('shorewall::policy', {})
+      create_resources('shorewall::policy', $set_policy)
+      $set_rule = hiera('shorewall::rule', {})
+      create_resources('shorewall::rule', $set_rule)
+      $set_rule_section = hiera('shorewall::rule_section', {})
+      create_resources('shorewall::rule_section', $set_rule_section)
+      $set_masq = hiera('shorewall::masq', {})
+      create_resources('shorewall::masq', $set_masq)
+      $set_proxyarp = hiera('shorewall::proxyarp', {})
+      create_resources('shorewall::proxyarp', $set_proxyarp)
+      $set_nat = hiera('shorewall::nat', {})
+      create_resources('shorewall::nat', $set_nat)
+      $set_blacklist = hiera('shorewall::blacklist', {})
+      create_resources('shorewall::blacklist', $set_blacklist)
+      $set_rfc1918 = hiera('shorewall::rfc1918', {})
+      create_resources('shorewall::rfc1918', $set_rfc1918)
+      $set_routestopped = hiera('shorewall::routestopped', {})
+      create_resources('shorewall::routestopped', $set_routestopped)
+      $set_params = hiera('shorewall::params', {})
+      create_resources('shorewall::params', $set_params)
+      $set_tcdevices = hiera('shorewall::tcdevices', {})
+      create_resources('shorewall::tcdevices', $set_tcdevices)
+      $set_tcrules = hiera('shorewall::tcrules', {})
+      create_resources('shorewall::tcrules', $set_tcrules)
+      $set_tcclasses = hiera('shorewall::tcclasses', {})
+      create_resources('shorewall::tcclasses', $set_tcclasses)
+      $set_tunnel = hiera('shorewall::tunnel', {})
+      create_resources('shorewall::tunnel', $set_tunnel)
+      $set_rtrules = hiera('shorewall::rtrules', {})
+      create_resources('shorewall::rtrules', $set_rtrules)
+    }
+  }
 }
