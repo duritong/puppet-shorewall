@@ -97,7 +97,7 @@ class shorewall(
       # http://www.shorewall.net/manpages/shorewall-providers.html
       'providers',
       # See http://www.shorewall.net/manpages/shorewall-tunnels.html
-      'tunnel',
+      'tunnels',
       # See http://www.shorewall.net/MultiISP.html
       'rtrules',
       # See http://www.shorewall.net/manpages/shorewall-mangle.html

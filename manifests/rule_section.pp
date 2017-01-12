@@ -2,12 +2,11 @@
 define shorewall::rule_section(
   $order
 ){
-  if $::operatingsystem == 'CentOS' and versioncmp($::operatingsystemmajrelease,'6') > 0 {
-    $prefix = '?SECTION'
-  } else {
-    $prefix = 'SECTION'
+  $rule_section_prefix = $shorewall_major_version ? {
+    '5' => '?'
   }
+
   shorewall::entry{"rules-${order}-${name}":
-    line => "${prefix} ${name}",
+    line => "${rule_section_prefix}SECTION ${name}",
   }
 }
