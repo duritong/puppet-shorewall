@@ -18,8 +18,7 @@
 #                          'net  all tcp 22', #ssh
 #                       ],
 #  }
-
-
+#
 class shorewall::blrules (
   $whitelists,
   $drops,

@@ -3,7 +3,7 @@
 
 # This file is brought to you by puppet
 
-startup=<%= scope.lookupvar('shorewall::startup') == "0" ? '0' : '1' %>
+startup=<%= ['0',false].include?(scope['shorewall::startup']) ? '0' : '1' %>
 
 # if your Shorewall configuration requires detection of the ip address of a ppp
 # interface, you must list such interfaces in "wait_interface" to get Shorewall to

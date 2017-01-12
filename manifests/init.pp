@@ -1,7 +1,11 @@
 # Manage shorewall on your system
 class shorewall(
-  $startup                    = '1',
+  $startup                    = true,
   $conf_source                = false,
+  $settings                   = {
+    'LOG_MARTIANS' => 'No',
+    'DISABLE_IPV6' => 'Yes',
+  },
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
@@ -45,15 +49,16 @@ class shorewall(
   $tunnels_defaults           = {},
   $rtrules                    = {},
   $rtrules_defaults           = {},
+  $daily_check                = true,
 ) {
 
   case $::operatingsystem {
-    gentoo: { include shorewall::gentoo }
-    debian,ubuntu: { include shorewall::debian }
-    centos: { include shorewall::centos }
+    'Gentoo': { include ::shorewall::gentoo }
+    'Debian','Ubuntu': { include ::shorewall::debian }
+    'CentOS': { include ::shorewall::centos }
     default: {
       notice "unknown operatingsystem: ${::operatingsystem}"
-      include shorewall::base
+      include ::shorewall::base
     }
   }
 
@@ -97,6 +102,8 @@ class shorewall(
       'rtrules',
       # See http://shorewall.net/manpages/shorewall-conntrack.html
       'conntrack',
+      # See http://www.shorewall.net/manpages/shorewall-mangle.html
+      'mangle',
     ]:;
   }
 
