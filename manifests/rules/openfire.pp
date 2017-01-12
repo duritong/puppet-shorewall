@@ -1,5 +1,5 @@
 class shorewall::rules::openfire {
-  include shorewall::rules::jaberserver
+  include shorewall::rules::jabberserver
 
   shorewall::rule { 'me-all-openfire-tcp':
     source          => '$FW',
