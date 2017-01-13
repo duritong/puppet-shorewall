@@ -2,7 +2,7 @@
 define shorewall::rule_section(
   $order,
 ){
-  if versioncmp($shorewall_major_version,'5') < 0 {
+  if versioncmp($shorewall_major_version,'4') > 0 {
     $rule_section_prefix = '?'
   } else {
     $rule_section_prefix = ''
