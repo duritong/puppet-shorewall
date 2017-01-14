@@ -1,0 +1,10 @@
+#
+# Shorewall -- /etc/shorewall/conntrack
+#
+# For information about entries in this file, type "man shorewall-conntrack"
+#
+?FORMAT 3
+######################################################################################################
+#ACTION     SOURCE    DEST    PROTO DPORT   SPORT USER  SWITCH
+
+?if $AUTOHELPERS && __CT_TARGET
