@@ -27,7 +27,8 @@ class shorewall::base {
     }
   } else {
 
-    include ::augeas
+    # riseup commented due to redeclare
+    #include ::augeas
     Class['augeas'] -> Class['shorewall::base']
 
     augeas { 'shorewall_module_config_path':
