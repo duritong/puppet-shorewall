@@ -1,7 +1,11 @@
 # Manage shorewall on your system
 class shorewall(
-  $startup                    = '1',
+  $startup                    = true,
   $conf_source                = false,
+  $settings                   = {
+    'LOG_MARTIANS' => 'No',
+    'DISABLE_IPV6' => 'Yes',
+  },
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
@@ -93,9 +97,11 @@ class shorewall(
       # http://www.shorewall.net/manpages/shorewall-providers.html
       'providers',
       # See http://www.shorewall.net/manpages/shorewall-tunnels.html
-      'tunnel',
+      'tunnels',
       # See http://www.shorewall.net/MultiISP.html
       'rtrules',
+      # See http://shorewall.net/manpages/shorewall-conntrack.html
+      'conntrack',
       # See http://www.shorewall.net/manpages/shorewall-mangle.html
       'mangle',
     ]:;

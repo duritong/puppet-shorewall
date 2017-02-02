@@ -27,16 +27,21 @@ class shorewall::base {
     }
   } else {
 
-    # riseup commented due to redeclare
-    #include ::augeas
-    Class['augeas'] -> Class['shorewall::base']
-
-    augeas { 'shorewall_module_config_path':
-      changes => 'set /files/etc/shorewall/shorewall.conf/CONFIG_PATH \'"/etc/shorewall/puppet:/etc/shorewall:/usr/share/shorewall"\'',
-      lens    => 'Shellvars.lns',
-      incl    => '/etc/shorewall/shorewall.conf',
-      notify  => Exec['shorewall_check'],
-      require => Package['shorewall'];
+    if str2bool($shorewall::startup) {
+      $startup_str = 'Yes'
+    } else {
+      $startup_str = 'No'
+    }
+    shorewall::config_setting{
+      'CONFIG_PATH':
+        value => "\"\${CONFDIR}/shorewall/puppet:\${CONFDIR}/shorewall:\${SHAREDIR}/shorewall\"";
+      'STARTUP_ENABLED':
+        value => $startup_str;
+    }
+    $cfs =  keys($shorewall::settings)
+    shorewall::config_settings{
+      $cfs:
+        settings => $shorewall::settings;
     }
   }
 
