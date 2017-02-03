@@ -5,6 +5,9 @@ This module manages the configuration of Shorewall (http://www.shorewall.net/)
 Requirements
 ------------
 
+This module requires the augeas module, you can find that here:
+https://gitlab.com/shared-puppet-modules-group/augeas.git
+
 This module requires the concat module, you can find that here:
 https://github.com/puppetlabs/puppetlabs-concat.git
 
