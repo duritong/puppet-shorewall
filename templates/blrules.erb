@@ -1,0 +1,15 @@
+#
+# Shorewall version 4.4 - Rule-based Blacklisting
+#
+# For information about entries in this file, type "man shorewall-blrules"
+#
+# Please see http://shorewall.net/blacklisting_support.htm for additional
+# information.
+#
+###############################################################################
+<% @whitelists.each do |value| -%>
+WHITELIST       <%= value %>
+<% end -%>
+<% @drops.each do |value| -%>
+REJECT <%= value %>
+<% end -%>
