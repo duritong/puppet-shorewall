@@ -8,7 +8,7 @@ define shorewall::rule_section(
     $rule_section_prefix = ''
   }
 
-  shorewall::entry{"rules-${order}-${name}":
-    line => "${rule_section_prefix}SECTION ${name}",
-  }
+    shorewall::entry{"rules-${order}-${name}":
+        line => "${rule_section_prefix}SECTION ${name}",
+    }       
 }
