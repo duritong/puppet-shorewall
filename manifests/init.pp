@@ -29,6 +29,8 @@ class shorewall(
   $nat_defaults               = {},
   $routestopped               = {},
   $routestopped_defaults      = {},
+  $stoppedrules               = {},
+  $stoppedrules_defaults      = {},
   $params                     = {},
   $params_defaults            = {},
   $tcdevices                  = {},
@@ -72,6 +74,8 @@ class shorewall(
       'proxyarp',
       # See http://www.shorewall.net/3.0/Documentation.htm#NAT
       'nat',
+      # See http://www.shorewall.net/manpages/shorewall-stoppedrules.html
+      'stoppedrules',
       # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
       'routestopped',
       # See http://www.shorewall.net/3.0/Documentation.htm#Variables
@@ -102,6 +106,8 @@ class shorewall(
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)
+  create_resources('shorewall::stoppedrules',$stoppedrules,
+    $stoppedrules_defaults)
   create_resources('shorewall::routestopped',$routestopped,
     $routestopped_defaults)
   create_resources('shorewall::params',$params,$params_defaults)
