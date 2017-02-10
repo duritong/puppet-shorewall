@@ -4,7 +4,6 @@
 #
 #  shorewall::interface { 'br0':
 #    zone    => 'net',
-#    rfc1918  => true,
 #    options => 'tcpflags,nosmurfs,routeback,bridge';
 #  }
 #

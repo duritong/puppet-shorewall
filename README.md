@@ -186,7 +186,6 @@ Example from node.pp:
 
       shorewall::interface { 'eth0':
         zone    => 'net',
-        rfc1918  => true,
         options => 'tcpflags,nosmurfs';
       }
 
