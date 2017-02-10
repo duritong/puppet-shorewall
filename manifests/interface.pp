@@ -3,7 +3,6 @@ define shorewall::interface(
     $broadcast = 'detect',
     $options = 'tcpflags,routefilter,nosmurfs,logmartians',
     $add_options = '',
-    $rfc1918 = false,
     $dhcp = false,
     $order = 100
 ){
@@ -17,13 +16,8 @@ define shorewall::interface(
         default => ',dhcp',
     }
 
-    $rfc1918_opt = $rfc1918 ? {
-        false   => ',norfc1918',
-        default => '',
-    }
-
     shorewall::entry { "interfaces-${order}-${name}":
-        line => "${zone} ${name} ${broadcast} ${options}${dhcp_opt}${rfc1918_opt}${added_opts}",
+        line => "${zone} ${name} ${broadcast} ${options}${dhcp_opt}${added_opts}",
     }
 }
 
