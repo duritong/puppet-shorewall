@@ -5,11 +5,11 @@
 #  shorewall::interface { 'br0':
 #    zone    => 'net',
 #    rfc1918  => true,
-#    options => 'tcpflags,blacklist,nosmurfs,routeback,bridge';
+#    options => 'tcpflags,nosmurfs,routeback,bridge';
 #  }
 #
 #  class { 'shorewall::blrules':
-#    options         => 'tcpflags,blacklist,nosmurfs,routeback,bridge',
+#    options         => 'tcpflags,nosmurfs,routeback,bridge',
 #    whitelists    =>  [
 #                          "net:10.0.0.1,192.168.0.1 all",
 #                        ],

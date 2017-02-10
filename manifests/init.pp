@@ -27,8 +27,6 @@ class shorewall(
   $proxyarp_defaults          = {},
   $nat                        = {},
   $nat_defaults               = {},
-  $blacklist                  = {},
-  $blacklist_defaults         = {},
   $rfc1918                    = {},
   $rfc1918_defaults           = {},
   $routestopped               = {},
@@ -76,8 +74,6 @@ class shorewall(
       'proxyarp',
       # See http://www.shorewall.net/3.0/Documentation.htm#NAT
       'nat',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
-      'blacklist',
       # See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
       'rfc1918',
       # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
@@ -110,7 +106,6 @@ class shorewall(
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)
-  create_resources('shorewall::blacklist',$blacklist,$blacklist_defaults)
   create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
   create_resources('shorewall::routestopped',$routestopped,
     $routestopped_defaults)

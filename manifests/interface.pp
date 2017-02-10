@@ -1,7 +1,7 @@
 define shorewall::interface(
     $zone,
     $broadcast = 'detect',
-    $options = 'tcpflags,blacklist,routefilter,nosmurfs,logmartians',
+    $options = 'tcpflags,routefilter,nosmurfs,logmartians',
     $add_options = '',
     $rfc1918 = false,
     $dhcp = false,
