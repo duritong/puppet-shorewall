@@ -1,10 +1,12 @@
 #
-# Shorewall version 4 - Interfaces File
+# Shorewall -- /etc/shorewall/interfaces
 #
 # For information about entries in this file, type "man shorewall-interfaces"
 #
-# For additional information, see
+# The manpage is also online at
 # http://www.shorewall.net/manpages/shorewall-interfaces.html
 #
+# FIXME: need to switch to format 2
+#?FORMAT 2
 ###############################################################################
-#ZONE   INTERFACE       BROADCAST       OPTIONS
+#ZONE		INTERFACE		OPTIONS
