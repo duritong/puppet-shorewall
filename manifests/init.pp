@@ -29,6 +29,8 @@ class shorewall(
   $nat_defaults               = {},
   $routestopped               = {},
   $routestopped_defaults      = {},
+  $stoppedrules               = {},
+  $stoppedrules_defaults      = {},
   $params                     = {},
   $params_defaults            = {},
   $tcdevices                  = {},
@@ -56,37 +58,39 @@ class shorewall(
 
   shorewall::managed_file{
     [
-      # See http://www.shorewall.net/3.0/Documentation.htm#Zones
+      # See http://www.shorewall.net/manpages/shorewall-zones.html
       'zones',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Interfaces
+      # See http://www.shorewall.net/manpages/shorewall-interfaces.html
       'interfaces',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Hosts
+      # See http://www.shorewall.net/manpages/shorewall-hosts.html
       'hosts',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Policy
+      # See http://www.shorewall.net/manpages/shorewall-policy.html
       'policy',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Rules
+      # See http://www.shorewall.net/manpages/shorewall-rules.html
       'rules',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Masq
+      # See http://www.shorewall.net/manpages/shorewall-masq.html
       'masq',
-      # See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
+      # See http://www.shorewall.net/manpages/shorewall-proxyarp.html
       'proxyarp',
-      # See http://www.shorewall.net/3.0/Documentation.htm#NAT
+      # See http://www.shorewall.net/manpages/shorewall-nat.html
       'nat',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
+      # See http://www.shorewall.net/manpages/shorewall-stoppedrules.html
+      'stoppedrules',
+      # Deprecated http://www.shorewall.net/4.2/manpages/shorewall-routestopped.html
       'routestopped',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Variables
+      # See http://www.shorewall.net/manpages/shorewall-params.html
       'params',
-      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      # See http://www.shorewall.net/manpages/shorewall-tcdevices.html
       'tcdevices',
-      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      # Deprecated http://www.shorewall.net/4.6/manpages/shorewall-tcrules.htmle 
       'tcrules',
-      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      # See http://www.shorewall.net/manpages/shorewall-tcclasses.html
       'tcclasses',
-      # http://www.shorewall.net/manpages/shorewall-providers.html
+      # See http://www.shorewall.net/manpages/shorewall-providers.html
       'providers',
       # See http://www.shorewall.net/manpages/shorewall-tunnels.html
       'tunnel',
-      # See http://www.shorewall.net/MultiISP.html
+      # See http://www.shorewall.net/manpages/shorewall-rtrules.html
       'rtrules',
       # See http://www.shorewall.net/manpages/shorewall-mangle.html
       'mangle',
@@ -102,6 +106,8 @@ class shorewall(
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)
+  create_resources('shorewall::stoppedrules',$stoppedrules,
+    $stoppedrules_defaults)
   create_resources('shorewall::routestopped',$routestopped,
     $routestopped_defaults)
   create_resources('shorewall::params',$params,$params_defaults)

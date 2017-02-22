@@ -1,13 +1,10 @@
 #
-# Shorewall version 4 - Stop File
+# Shorewall -- /etc/shorewall/stop
 #
-# /etc/shorewall/stop
-#
-#	Add commands below that you want to be executed at the beginning of a
-#	"shorewall stop" command.
+# Add commands below that you want to be executed at the beginning of a
+# "shorewall stop" command.
 #
 # See http://shorewall.net/shorewall_extension_scripts.htm for additional
 # information.
 #
 ###############################################################################
-#LAST LINE - ADD YOUR ENTRIES ABOVE THIS ONE - DO NOT REMOVE
