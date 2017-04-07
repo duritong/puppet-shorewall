@@ -38,10 +38,10 @@ class shorewall::base {
       'STARTUP_ENABLED':
         value => $startup_str;
     }
-    $cfs =  keys($shorewall::settings)
+    $cfs =  keys($shorewall::merged_settings)
     shorewall::config_settings{
       $cfs:
-        settings => $shorewall::settings;
+        settings => $shorewall::merged_settings;
     }
   }
 

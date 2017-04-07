@@ -2,10 +2,7 @@
 class shorewall(
   $startup                    = true,
   $conf_source                = false,
-  $settings                   = {
-    'LOG_MARTIANS' => 'No',
-    'DISABLE_IPV6' => 'Yes',
-  },
+  $settings                   = {},
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
@@ -51,6 +48,17 @@ class shorewall(
   $rtrules_defaults           = {},
   $daily_check                = true,
 ) {
+
+  $disable_ipv6 = $ipaddress6 ? {
+    undef   => 'Yes',
+    default => 'No',
+  }
+  $def_settings = {
+    'LOG_MARTIANS' => 'No',
+    'DISABLE_IPV6' => $disable_ipv6,
+  }
+
+  $merged_settings = merge($def_settings,$settings)
 
   case $::operatingsystem {
     'Gentoo': { include ::shorewall::gentoo }
