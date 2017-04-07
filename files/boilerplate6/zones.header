@@ -9,3 +9,4 @@
 ###############################################################################
 #ZONE		TYPE		OPTIONS		IN_OPTIONS	OUT_OPTIONS
 
+fw		firewall
