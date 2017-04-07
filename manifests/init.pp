@@ -3,6 +3,8 @@ class shorewall(
   $startup                    = true,
   $conf_source                = false,
   $settings                   = {},
+  $settings6                  = {},
+  $shorewall6                 = 'auto',
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
@@ -59,6 +61,14 @@ class shorewall(
   }
 
   $merged_settings = merge($def_settings,$settings)
+
+  $with_shorewall6 = $shorewall6 ? {
+    'auto' => $ipaddress6 ? {
+      undef   => false,
+      default => true,
+    },
+    default => str2bool($shorewall6),
+  }
 
   case $::operatingsystem {
     'Gentoo': { include ::shorewall::gentoo }
