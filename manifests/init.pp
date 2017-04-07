@@ -124,6 +124,9 @@ class shorewall(
       'mangle',
     ]:;
   }
+  Shorewall::Managed_file['zones']{
+    shorewall6 => true,
+  }
 
   create_resources('shorewall::zone',$zones,$zones_defaults)
   create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
