@@ -30,13 +30,13 @@ class shorewall::base {
         notify  => Exec['shorewall6_check'],
         owner   => 'root',
         group   => 'root',
-        mode    => '0644';
+        mode    => '0600';
       '/etc/shorewall6/puppet':
         ensure  => directory,
         require => Package['shorewall6'],
         owner   => 'root',
         group   => 'root',
-        mode    => '0644';
+        mode    => '0600';
     }
   }
 
