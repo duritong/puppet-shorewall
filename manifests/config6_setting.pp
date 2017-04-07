@@ -5,7 +5,7 @@
 #    'CONFIG_PATH':
 #      value => '"/etc/shorewall6/puppet:/etc/shorewall6:/usr/share/shorewall6"'
 #  }
-define shorewall::config_setting(
+define shorewall::config6_setting(
   $value,
 ){
   augeas { "shorewall6_module_${name}":
