@@ -66,13 +66,14 @@ class shorewall::base {
     command     => 'shorewall check',
     refreshonly => true,
     notify      => Service['shorewall'],
+    require     => Package['shorewall'],
   }
   service{'shorewall':
     ensure     => running,
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Package['shorewall'],
+    require    => Exec['shorewall_check'],
   }
 
   if $shorewall::with_shorewall6 {
@@ -92,13 +93,14 @@ class shorewall::base {
       command     => 'shorewall6 check',
       refreshonly => true,
       notify      => Service['shorewall6'],
+      require     => Package['shorewall6'],
     }
     service{'shorewall6':
       ensure     => running,
       enable     => true,
       hasstatus  => true,
       hasrestart => true,
-      require    => Package['shorewall6'],
+      require    => Exec['shorewall6_check'],
     }
   }
 
