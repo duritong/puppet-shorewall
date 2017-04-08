@@ -37,6 +37,8 @@ class shorewall(
   $routestopped               = {},
   $routestopped_defaults      = {},
   $params                     = {},
+  $params4                    = {},
+  $params6                    = {},
   $params_defaults            = {},
   $tcdevices                  = {},
   $tcdevices_defaults         = {},
@@ -142,6 +144,8 @@ class shorewall(
   create_resources('shorewall::routestopped',$routestopped,
     $routestopped_defaults)
   create_resources('shorewall::params',$params,$params_defaults)
+  create_resources('shorewall::params',$params4,merge({shorewall6 => false,},$params_defaults))
+  create_resources('shorewall::params',$params6,merge({shorewall => false,},$params_defaults))
   create_resources('shorewall::tcdevices',$tcdevices,$tcdevices_defaults)
   create_resources('shorewall::tcrules',$tcrules,$tcrules_defaults)
   create_resources('shorewall::tcclasses',$tcclasses,$tcclasses_defaults)
