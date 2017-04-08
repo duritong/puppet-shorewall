@@ -40,7 +40,18 @@ define shorewall::interface(
   }
 
   shorewall::entry { "interfaces-${order}-${name}":
-    line => "${zone} ${name} ${broadcast} ${all_options2}",
+    line       => "${zone} ${name} ${broadcast} ${all_options2}",
+    shorewall  => true,
+    shorewall6 => false,
+  }
+  if $shorewall::with_shorewall6 {
+    # logmartians is not available on shorewall6
+    $all_options3 = regsubst($all_options2,',logmartians','')
+    shorewall::entry { "interfaces-${order}-${name}_6":
+      line       => "${zone} ${name} ${broadcast} ${all_options3}",
+      shorewall  => false,
+      shorewall6 => true,
+    }
   }
 }
 
