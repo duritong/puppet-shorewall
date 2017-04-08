@@ -1,5 +1,6 @@
 Facter.add("shorewall_major_version") do
   setcode do
-    Facter::Util::Resolution.exec('shorewall version').split('.').first || nil
+    v = Facter.value('shorewall_version')
+    v.nil? ? nil : v.split('.').first
   end
 end
