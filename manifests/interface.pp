@@ -48,7 +48,7 @@ define shorewall::interface(
     # logmartians is not available on shorewall6
     $all_options3 = regsubst($all_options2,',logmartians','')
     shorewall::entry { "interfaces-${order}-${name}_6":
-      line       => "${zone} ${name} ${broadcast} ${all_options3}",
+      line       => "${zone} ${name} ${all_options3}",
       shorewall  => false,
       shorewall6 => true,
     }
