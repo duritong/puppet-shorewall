@@ -117,7 +117,7 @@ class shorewall::base {
 output=\$((shorewall check${shorewall6_check_str}) 2>&1)
 if [ \$? -gt 0 ]; then
   echo 'Error while checking firewall!'
-  echo \$output
+  echo \"\${output}\"
   exit 1
 fi
 exit 0
