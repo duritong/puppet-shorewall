@@ -21,6 +21,8 @@ class shorewall(
   $policy                     = {},
   $policy_defaults            = {},
   $rules                      = {},
+  $rules4                     = {},
+  $rules6                     = {},
   $rules_defaults             = {},
   $rulesections               = {},
   $rulesections_defaults      = {},
@@ -126,7 +128,7 @@ class shorewall(
       'mangle',
     ]:;
   }
-  Shorewall::Managed_file['zones','interfaces','params']{
+  Shorewall::Managed_file['zones','interfaces','params','rules']{
     shorewall6 => true,
   }
 
@@ -135,6 +137,8 @@ class shorewall(
   create_resources('shorewall::host',$hosts,$hosts_defaults)
   create_resources('shorewall::policy',$policy,$policy_defaults)
   create_resources('shorewall::rule',$rules,$rules_defaults)
+  create_resources('shorewall::rule4',$rules4,$rules_defaults)
+  create_resources('shorewall::rule6',$rules6,$rules_defaults)
   create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults)
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)

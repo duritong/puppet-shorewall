@@ -1,0 +1,11 @@
+#
+# Shorewall6 -- /etc/shorewall6/rules
+#
+# For information on the settings in this file, type "man shorewall6-rules"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages6/shorewall6-rules.html
+#
+##############################################################################################################################################################
+#ACTION		SOURCE		DEST		PROTO	DPORT	SPORT	ORIGDEST	RATE	USER	MARK	CONNLIMIT	TIME	HEADERS	SWITCH	HELPER
+

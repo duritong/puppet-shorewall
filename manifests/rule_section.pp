@@ -9,6 +9,8 @@ define shorewall::rule_section(
   }
 
   shorewall::entry{"rules-${order}-${name}":
-    line => "${rule_section_prefix}SECTION ${name}",
+    line       => "${rule_section_prefix}SECTION ${name}",
+    shorewall  => true,
+    shorewall6 => true,
   }
 }
