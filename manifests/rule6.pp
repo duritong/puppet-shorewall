@@ -19,7 +19,7 @@ define shorewall::rule6(
   $ensure          = 'present',
 ){
   shorewall::rule{
-    $name:
+    "${name}_IP6":
       ensure          => $ensure,
       action          => $action,
       source          => $source,
