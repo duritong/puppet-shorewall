@@ -19,6 +19,8 @@ class shorewall(
   $hosts                      = {},
   $hosts_defaults             = {},
   $policy                     = {},
+  $policy4                    = {},
+  $policy6                    = {},
   $policy_defaults            = {},
   $rules                      = {},
   $rules4                     = {},
@@ -136,6 +138,8 @@ class shorewall(
   create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
   create_resources('shorewall::host',$hosts,$hosts_defaults)
   create_resources('shorewall::policy',$policy,$policy_defaults)
+  create_resources('shorewall::policy4',$policy4,$policy_defaults)
+  create_resources('shorewall::policy6',$policy6,$policy_defaults)
   create_resources('shorewall::rule',$rules,$rules_defaults)
   create_resources('shorewall::rule4',$rules4,$rules_defaults)
   create_resources('shorewall::rule6',$rules6,$rules_defaults)
