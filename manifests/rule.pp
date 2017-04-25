@@ -18,7 +18,7 @@ define shorewall::rule(
   $helper          = '-',
   $order           = '500',
   $shorewall       = true,
-  $shorewall6      = false,
+  $shorewall6      = true,
   $ensure          = 'present',
 ){
   if versioncmp($shorewall_version,'4.5.7') >= 0 {
@@ -30,10 +30,11 @@ define shorewall::rule(
     # el5
     $line = ''
   }
+  $with_shorewall6 = $shorewall6 and $shorewall::with_shorewall6
   shorewall::entry{"rules-${order}-${name}":
     ensure     => $ensure,
     line       => "# ${name}\n${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}${line}",
     shorewall  => $shorewall,
-    shorewall6 => $shorewall6,
+    shorewall6 => $with_shorewall6,
   }
 }
