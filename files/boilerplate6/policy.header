@@ -1,0 +1,10 @@
+#
+# Shorewall6 -- /etc/shorewall6/policy
+#
+# For information about entries in this file, type "man shorewall6-policy"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages6/shorewall6-policy.html
+#
+###############################################################################
+#SOURCE		DEST		POLICY	LOGLEVEL	LIMIT	CONNLIMIT
