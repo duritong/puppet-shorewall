@@ -2,7 +2,8 @@
 class shorewall::rules::munin(
   $munin_port       = '4949',
   $munin_collector  = ['127.0.0.1'],
-  $collector_source = 'net'
+  $collector_source = 'net',
+  $shorewall6       = true,
 ){
   shorewall::params4{
     'MUNINPORT': value => $munin_port;
@@ -14,6 +15,7 @@ class shorewall::rules::munin(
     proto           => 'tcp',
     destinationport => '$MUNINPORT',
     order           => 240,
+    shorewall6      => $shorewall6,
     action          => 'ACCEPT';
   }
 }
