@@ -130,7 +130,7 @@ class shorewall(
       'mangle',
     ]:;
   }
-  Shorewall::Managed_file['zones','interfaces','params','rules']{
+  Shorewall::Managed_file['zones','interfaces','params','rules','policy']{
     shorewall6 => true,
   }
 
