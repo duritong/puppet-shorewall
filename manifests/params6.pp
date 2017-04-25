@@ -6,7 +6,7 @@ define shorewall::params6(
   $order ='100',
 ){
   shorewall::params{
-    $name:
+    "${name}_IP6":
       key        => $key,
       value      => $value,
       order      => $order,
