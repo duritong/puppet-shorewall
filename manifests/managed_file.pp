@@ -27,7 +27,8 @@ define shorewall::managed_file(
     }
     concat::fragment {
       "6${name}-header":
-        source => "puppet:///modules/shorewall/boilerplate6/${name}.header",
+        source => [ "puppet:///modules/shorewall/boilerplate6/${name}.header.${operatingsystem}.${operatingsystemmajrelease}",
+                    "puppet:///modules/shorewall/boilerplate6/${name}.header",],
         target => "/etc/shorewall6/puppet/${name}",
         order  => '000';
     }
