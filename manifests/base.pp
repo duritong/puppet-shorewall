@@ -65,10 +65,11 @@ class shorewall::base {
   exec{'shorewall_check':
     command     => 'shorewall check',
     refreshonly => true,
-    notify      => Service['shorewall'],
     require     => Package['shorewall'],
-  }
-  service{'shorewall':
+  } ~> exec{'shorewall_try':
+    command     => 'shorewall try /etc/shorewall/puppet',
+    refreshonly => true,
+  } -> service{'shorewall':
     ensure     => running,
     enable     => true,
     hasstatus  => true,
@@ -92,15 +93,15 @@ class shorewall::base {
     exec{'shorewall6_check':
       command     => 'shorewall6 check',
       refreshonly => true,
-      notify      => Service['shorewall6'],
       require     => Package['shorewall6'],
-    }
-    service{'shorewall6':
+    } ~> exec{'shorewall6_try':
+      command     => 'shorewall6 try /etc/shorewall6/puppet',
+      refreshonly => true,
+    } -> service{'shorewall6':
       ensure     => running,
       enable     => true,
       hasstatus  => true,
       hasrestart => true,
-      require    => Exec['shorewall6_check'],
     }
   }
 
