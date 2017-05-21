@@ -74,7 +74,6 @@ class shorewall::base {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => Exec['shorewall_check'],
   }
 
   if $shorewall::with_shorewall6 {
