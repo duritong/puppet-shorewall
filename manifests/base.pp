@@ -1,9 +1,7 @@
 # base things for shorewall
 class shorewall::base {
 
-  package { 'shorewall':
-    ensure => $shorewall::ensure_version,
-  }
+  ensure_packages({ 'shorewall' => { ensure => $shorewall::ensure_version }})
 
   # This file has to be managed in place, so shorewall can find it
   file {
