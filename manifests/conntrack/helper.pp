@@ -4,7 +4,6 @@
 # The $name defines the helper, so this needs to match one of the helpers
 # in the documentation.
 define shorewall::conntrack::helper(
-  $ensure = present,
   $options = '',
   $source = '-',
   $destination = '-',
@@ -26,7 +25,6 @@ define shorewall::conntrack::helper(
   }
 
   shorewall::entry{"conntrack-${order}-${name}":
-    ensure => $ensure,
     line => "?if ${_helper}\nCT:helper:${name}${_options}${_chain} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${$user} ${switch}\n?endif"
   }
 }

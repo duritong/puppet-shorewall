@@ -16,11 +16,9 @@ define shorewall::rule6(
   $switch          = '-',
   $helper          = '-',
   $order           = '500',
-  $ensure          = 'present',
 ){
   shorewall::rule{
     $name:
-      ensure          => $ensure,
       action          => $action,
       source          => $source,
       destination     => $destination,
