@@ -1,9 +1,9 @@
 # a core wrapper for all kinds of entries
 define shorewall::entry(
-    $ensure     = present,
-    $shorewall  = true,
-    $shorewall6 = false,
-    $line
+  $line,
+  $ensure     = present,
+  $shorewall  = true,
+  $shorewall6 = false,
 ){
   if $ensure == 'present' {
     $parts = split($name,'-')
