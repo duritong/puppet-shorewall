@@ -78,13 +78,6 @@ class shorewall(
   } else {
     $with_shorewall6 = str2bool($shorewall6)
   }
-  $with_shorewall6 = $shorewall6 ? {
-    'auto' => $ipaddress6 ? {
-      undef   => false,
-      default => true,
-    },
-    default => str2bool($shorewall6),
-  }
 
   case $::operatingsystem {
     'Gentoo': { include ::shorewall::gentoo }
