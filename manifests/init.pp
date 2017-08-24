@@ -68,6 +68,16 @@ class shorewall(
 
   $merged_settings = merge($def_settings,$settings)
 
+  # workaround https://tickets.puppetlabs.com/browse/FACT-1739
+  if $shorewall6 == 'auto' {
+    if $ipaddress6 and $ipaddress6 =~ /:/ {
+      $with_shorewall6 = true
+    } else {
+      $with_shorewall6 = false
+    }
+  } else {
+    $with_shorewall6 = str2bool($shorewall6)
+  }
   $with_shorewall6 = $shorewall6 ? {
     'auto' => $ipaddress6 ? {
       undef   => false,
