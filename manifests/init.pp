@@ -57,17 +57,6 @@ class shorewall(
   $daily_check                = true,
 ) {
 
-  $disable_ipv6 = $ipaddress6 ? {
-    undef   => 'Yes',
-    default => 'No',
-  }
-  $def_settings = {
-    'LOG_MARTIANS' => 'No',
-    'DISABLE_IPV6' => $disable_ipv6,
-  }
-
-  $merged_settings = merge($def_settings,$settings)
-
   # workaround https://tickets.puppetlabs.com/browse/FACT-1739
   if $shorewall6 == 'auto' {
     if $ipaddress6 and $ipaddress6 =~ /:/ {
@@ -78,6 +67,17 @@ class shorewall(
   } else {
     $with_shorewall6 = str2bool($shorewall6)
   }
+
+  $disable_ipv6 = $with_shorewall6 ? {
+    false   => 'Yes',
+    default => 'No',
+  }
+  $def_settings = {
+    'LOG_MARTIANS' => 'No',
+    'DISABLE_IPV6' => $disable_ipv6,
+  }
+
+  $merged_settings = merge($def_settings,$settings)
 
   case $::operatingsystem {
     'Gentoo': { include ::shorewall::gentoo }
