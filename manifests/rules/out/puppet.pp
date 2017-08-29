@@ -9,6 +9,7 @@ class shorewall::rules::out::puppet(
     puppetserver          => $puppetserver,
     puppetserver_port     => $puppetserver_port,
     puppetserver_signport => $puppetserver_signport,
+    shorewall6            => $shorewall6,
   }
   # we want to connect to the puppet server
   shorewall::rule { 'me-net-puppet_tcp':
