@@ -24,6 +24,24 @@ class shorewall::base {
     package{'shorewall6':
       ensure => 'installed'
     }
+    # serialize systemd where it's not yet done
+    if (versioncmp($facts['shorewall_version'],'5.1.6') < 0) and (versioncmp($facts['os']['release']['major'],'6') > 0) {
+      include ::systemd
+      file{
+        '/etc/systemd/system/shorewall6.service.d':
+          ensure => directory,
+          owner  => 'root',
+          group  => 'root',
+          mode   => '0644';
+        '/etc/systemd/system/shorewall6.service.d/after-ipv4.conf':
+          content => "[Unit]\nAfter=shorewall.service\n",
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          notify  => Exec['systemctl-daemon-reload'],
+      }
+      Exec['systemctl-daemon-reload'] -> Service['shorewall6']
+    }
     file {
       '/etc/shorewall6/shorewall6.conf':
         require => Package['shorewall6'],
