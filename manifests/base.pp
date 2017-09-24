@@ -22,7 +22,7 @@ class shorewall::base {
   }
   if $shorewall::with_shorewall6 {
     package{'shorewall6':
-      ensure => 'installed'
+      ensure => 'installed',
     }
     # serialize systemd where it's not yet done
     if (versioncmp($facts['shorewall_version'],'5.1.6') < 0) and (versioncmp($facts['os']['release']['major'],'6') > 0) {
