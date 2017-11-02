@@ -8,7 +8,7 @@ class shorewall(
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
-  $tor_user                   = $::operatingsystem ? {
+  $tor_user                   = $facts['operatingsystem'] ? {
     'Debian' => 'debian-tor',
     default  => 'tor'
   },
@@ -59,7 +59,7 @@ class shorewall(
 
   # workaround https://tickets.puppetlabs.com/browse/FACT-1739
   if $shorewall6 == 'auto' {
-    if $ipaddress6 and $ipaddress6 =~ /:/ {
+    if $facts['ipaddress6'] and $facts['ipaddress6'] =~ /:/ {
       $with_shorewall6 = true
     } else {
       $with_shorewall6 = false
@@ -79,12 +79,12 @@ class shorewall(
 
   $merged_settings = merge($def_settings,$settings)
 
-  case $::operatingsystem {
+  case $facts['operatingsystem'] {
     'Gentoo': { include ::shorewall::gentoo }
     'Debian','Ubuntu': { include ::shorewall::debian }
     'CentOS': { include ::shorewall::centos }
     default: {
-      notice "unknown operatingsystem: ${::operatingsystem}"
+      notice "unknown operatingsystem: ${facts['operatingsystem']}"
       include ::shorewall::base
     }
   }
