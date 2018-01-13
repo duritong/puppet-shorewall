@@ -9,5 +9,11 @@ class shorewall::centos inherits shorewall::base {
       require => Package['shorewall'],
       notify  => Exec['shorewall_check'],
     }
+    if $shorewall::with_shorewall6 {
+      package{'perl-Socket6':
+        ensure => 'installed',
+        before => Package['shorewall6'],
+      }
+    }
   }
 }

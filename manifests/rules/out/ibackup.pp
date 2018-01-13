@@ -1,5 +1,7 @@
 class shorewall::rules::out::ibackup(
-  $backup_host
+  $backup_host,
+  $shorewall  = true,
+  $shorewall6 = false,
 ){
   shorewall::rule { 'me-net-tcp_backupssh':
     source          => '$FW',
@@ -7,6 +9,8 @@ class shorewall::rules::out::ibackup(
     proto           => 'tcp',
     destinationport => 'ssh',
     order           => 240,
-    action          => 'ACCEPT';
+    action          => 'ACCEPT',
+    shorewall       => $shorewall,
+    shorewall6      => $shorewall6,
   }
 }
