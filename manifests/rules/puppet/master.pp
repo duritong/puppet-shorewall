@@ -3,7 +3,7 @@ class shorewall::rules::puppet::master {
     source          => 'net',
     destination     => '$FW',
     proto           => 'tcp',
-    destinationport => '$PUPPETSERVER_PORT,$PUPPETSERVER_SIGN_PORT',
+    destinationport => '$PUPPETSERVER_PORT',
     order           => 240,
     action          => 'ACCEPT';
   }

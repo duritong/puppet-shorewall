@@ -3,16 +3,12 @@ class shorewall::rules::puppet(
   $puppetserver          = "puppet.${::domain}",
   $puppetserver_v6       = undef,
   $puppetserver_port     = 8140,
-  $puppetserver_signport = 8141,
   $shorewall6            = true,
 ){
   shorewall::params{
     'PUPPETSERVER_PORT':
       value      => $puppetserver_port,
       shorewall6 => $shorewall6;
-    'PUPPETSERVER_SIGN_PORT':
-      value      => $puppetserver_signport,
-      shorewall6 => $shorewall6,
   }
   if is_ipv4_address($puppetserver){
     shorewall::params4{
