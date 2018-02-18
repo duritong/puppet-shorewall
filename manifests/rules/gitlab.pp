@@ -14,9 +14,10 @@ define shorewall::rules::gitlab(
       action          => 'ACCEPT';
     "${source}-me-ssh-gitlab-${name}":
       source          => $source,
-      destination     => "\$FW:${ip}:22",
+      destination     => "\$FW:${ip}:2222",
       proto           => 'tcp',
-      destinationport => '2222',
+      destinationport => '22',
+      originaldest    => '192.168.1.82',
       order           => 240,
       action          => 'DNAT',
       shorewall6      => false;
