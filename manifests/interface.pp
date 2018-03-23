@@ -50,7 +50,7 @@ define shorewall::interface(
     # routefilter is not available in the kernel for ipv6
     $all_options4 = regsubst($all_options3,',routefilter','')
     shorewall::entry { "interfaces-${order}-${name}_6":
-      line       => "${zone} ${name} ${all_options3}",
+      line       => "${zone} ${name} ${all_options4}",
       shorewall  => false,
       shorewall6 => true,
     }
