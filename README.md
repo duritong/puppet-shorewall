@@ -84,7 +84,6 @@ the following:
 * the rfc1918 file and norfc1918 option are deprecated
 * the tcrules file is deprecated, replaced by mangled
 * the routestopped file is deprecated and replaced by stoppedrules
-* as of shorewall 4.6.0, SECTION headers need a leading '?'
 
 You should migrate your own calls to this module to move to the currently
 supported methods, we will be dropping support for deprecated features as
