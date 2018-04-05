@@ -47,8 +47,10 @@ define shorewall::interface(
   if $shorewall::with_shorewall6 {
     # logmartians is not available on shorewall6
     $all_options3 = regsubst($all_options2,',logmartians','')
+    # routefilter is not available in the kernel for ipv6
+    $all_options4 = regsubst($all_options3,',routefilter','')
     shorewall::entry { "interfaces-${order}-${name}_6":
-      line       => "${zone} ${name} ${all_options3}",
+      line       => "${zone} ${name} ${all_options4}",
       shorewall  => false,
       shorewall6 => true,
     }
