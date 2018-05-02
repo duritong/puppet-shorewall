@@ -1,5 +1,6 @@
 define shorewall::host(
     $zone,
+    $host,
     $options = 'tcpflags',
     $order='100'
 ){
