@@ -2,6 +2,7 @@
 # in and outbound.
 class shorewall::rules::jabberserver(
   $open_stun = true,
+  $outgoing_ports = '5260,5269,5270,5271,5272'
 ) {
   shorewall::rule {
     'net-me-tcp_jabber':
@@ -15,7 +16,7 @@ class shorewall::rules::jabberserver(
         source          => '$FW',
         destination     => 'net',
         proto           => 'tcp',
-        destinationport => '5260,5269,5270,5271,5272',
+        destinationport => join(any2array($outgoing_ports),','),
         order           => 240,
         action          => 'ACCEPT';
   }
