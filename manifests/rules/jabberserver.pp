@@ -4,19 +4,15 @@ class shorewall::rules::jabberserver(
   $open_stun = true,
   $outgoing_ports = '5260,5269,5270,5271,5272'
 ) {
-  if versioncmp($facts['os']['release']['major'],'6') > 0 {
-    $incom_ports = '443,5222,5269,5443,7777'
-    shorewall::rule{
-      'net-me-redirect-jabber_web_redirect':
-        source          => 'net,$FW',
-        destination     => '5443',
-        proto           => 'tcp',
-        destinationport => '443',
-        order           => 240,
-        action          => 'REDIRECT';
-    }
-  } else {
-    $incom_ports = '5222,5223,5269'
+  $incom_ports = '443,5222,5223,5269,5443,7777'
+  shorewall::rule{
+    'net-me-redirect-jabber_web_redirect':
+      source          => 'net,$FW',
+      destination     => '5443',
+      proto           => 'tcp',
+      destinationport => '443',
+      order           => 240,
+      action          => 'REDIRECT';
   }
   shorewall::rule {
     'net-me-tcp_jabber':
