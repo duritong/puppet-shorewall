@@ -44,6 +44,10 @@ class shorewall(
   $params4                    = {},
   $params6                    = {},
   $params_defaults            = {},
+  $snat                       = {},
+  $snat4                      = {},
+  $snat6                      = {},
+  $snat_defaults              = {},
   $tcdevices                  = {},
   $tcdevices_defaults         = {},
   $tcrules                    = {},
@@ -115,6 +119,8 @@ class shorewall(
       'routestopped',
       # See http://www.shorewall.net/3.0/Documentation.htm#Variables
       'params',
+      # http://www.shorewall.net/manpages/shorewall-snat.html
+      'snat',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm
       'tcdevices',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm
@@ -133,7 +139,7 @@ class shorewall(
       'mangle',
     ]:;
   }
-  Shorewall::Managed_file['zones','interfaces','params','rules','policy']{
+  Shorewall::Managed_file['zones','interfaces','params','rules','policy','snat']{
     shorewall6 => true,
   }
 
@@ -147,6 +153,9 @@ class shorewall(
   create_resources('shorewall::rule4',$rules4,$rules_defaults)
   create_resources('shorewall::rule6',$rules6,$rules_defaults)
   create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults)
+  create_resources('shorewall::snat',$snat,$snat_defaults)
+  create_resources('shorewall::snat4',$snat4,$snat_defaults)
+  create_resources('shorewall::snat6',$snat6,$snat_defaults)
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)

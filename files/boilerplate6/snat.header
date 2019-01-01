@@ -1,0 +1,9 @@
+#
+# Shorewall6 -- /etc/shorewall6/snat
+#
+# For information about entries in this file, type "man shorewall6-snat"
+#
+# See http://shorewall.net/manpages6/shorewall6-snat.html for more information
+#
+###########################################################################################################################################
+#ACTION			SOURCE			DEST		PROTO	PORT	IPSEC	MARK	USER	SWITCH	ORIGDEST	PROBABILITY
