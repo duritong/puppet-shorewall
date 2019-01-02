@@ -37,7 +37,7 @@ define shorewall::fw_rule(
   $real_local_src_ifs.each |$li| {
     # network/masklen - CIDR
     $local_net = "${facts['networking']['interfaces'][$li]['network']}/${netmask_to_masklen($facts['networking']['interfaces'][$li]['netmask'])}"
-    shorewall::snat{
+    shorewall::snat4{
       "hairpin-${name}-${li}":
         action => "SNAT(${real_ext_ip4})",
         source => $local_net,
