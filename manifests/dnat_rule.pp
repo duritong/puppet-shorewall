@@ -7,7 +7,7 @@
 define shorewall::dnat_rule(
   $destination,
   $port,
-  $dnat_source   = undef,
+  $ext_source    = undef,
   $ext_ip4       = undef,
   $local_src_ifs = undef,
   $ext_interface = 'eth0',
@@ -16,7 +16,7 @@ define shorewall::dnat_rule(
   $dest_zone     = 'loc',
   $proto         = 'tcp',
 ){
-  $real_dnat_source = pick($dnat_source, $ext_zone)
+  $real_ext_source = pick($ext_source, $ext_zone)
   $real_ext_ip4 = pick($ext_ip4,$facts['networking']['interfaces'][$ext_interface]['ip'])
   $real_local_src_ifs = pick($local_src_ifs, Array($dest_if))
 
@@ -29,7 +29,7 @@ define shorewall::dnat_rule(
       order           => 140,
       action          => 'DNAT';
     "dnat-${name}":
-      source => $real_dnat_source;
+      source => $real_ext_source;
     "hairpin-${name}":
       source => $dest_zone;
   }
