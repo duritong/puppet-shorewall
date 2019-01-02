@@ -1,10 +1,10 @@
-# a wrapper for fw rules
+# a wrapper for firewall dnat rules
 # setting up rules for IPv4 DNAT
-# including hairpinning
+# including hairpinning for the local networks
 # according to http://www.shorewall.net/FAQ.htm#faq2
-# assumption is that
+# assumption is that by default
 # ext (eth0) -> loc (eth1)
-define shorewall::fw_rule(
+define shorewall::dnat_rule(
   $destination,
   $port,
   $dnat_source   = undef,
