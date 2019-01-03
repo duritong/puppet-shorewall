@@ -30,6 +30,8 @@ define shorewall::dnat_rule(
       action          => 'DNAT';
     "dnat-${name}":
       source => $real_ext_source;
+    "dnat-FW-${name}":
+      source => '$FW';
     "hairpin-${name}":
       source => $dest_zone;
   }
@@ -37,10 +39,17 @@ define shorewall::dnat_rule(
   $real_local_src_ifs.each |$li| {
     # network/masklen - CIDR
     $local_net = "${facts['networking']['interfaces'][$li]['network']}/${netmask_to_masklen($facts['networking']['interfaces'][$li]['netmask'])}"
+    # exclude the ip of the fw to be masqueraded as well
+    if $li == $dest_if {
+      $exclude_source = "!${facts['networking']['interfaces'][$destif]['ip']}"
+    } else {
+      $exclude_source = ''
+    }
+    $source = "${local_net}${exclude_source}"
     shorewall::snat4{
       "hairpin-${name}-${li}":
         action => "SNAT(${real_ext_ip4})",
-        source => $local_net,
+        source => $source,
         dest   => "${dest_if}:${destination}",
         proto  => $proto,
         port   => $port,
@@ -49,7 +58,7 @@ define shorewall::dnat_rule(
     shorewall::masq{
       "hairpin-${name}-${li}":
         interface => $li,
-        source    => $local_net,
+        source    => $source,
         address   => $ext_ip4,
         proto     => $proto,
         port      => $port,
