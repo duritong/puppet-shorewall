@@ -41,7 +41,7 @@ define shorewall::dnat_rule(
     $local_net = "${facts['networking']['interfaces'][$li]['network']}/${netmask_to_masklen($facts['networking']['interfaces'][$li]['netmask'])}"
     # exclude the ip of the fw to be masqueraded as well
     if $li == $dest_if {
-      $exclude_source = "!${facts['networking']['interfaces'][$destif]['ip']}"
+      $exclude_source = "!${facts['networking']['interfaces'][$dest_if]['ip']}"
     } else {
       $exclude_source = ''
     }
