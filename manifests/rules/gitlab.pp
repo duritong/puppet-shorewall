@@ -17,7 +17,7 @@ define shorewall::rules::gitlab(
       destination     => "\$FW:${ip}:2222",
       proto           => 'tcp',
       destinationport => '22',
-      originaldest    => '192.168.1.82',
+      originaldest    => $ip,
       order           => 240,
       action          => 'DNAT',
       shorewall6      => false;
