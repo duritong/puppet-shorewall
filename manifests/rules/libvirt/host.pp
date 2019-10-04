@@ -55,10 +55,17 @@ class shorewall::rules::libvirt::host (
   }
 
   if $masq_iface {
-    shorewall::masq {
-      "masq-${masq_iface}":
-        interface => $masq_iface,
-        source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+    if (versioncmp($facts['shorewall_version'], '5.2') == -1) {
+        shorewall::masq { "masq-${masq_iface}":
+            interface => $masq_iface,
+            source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+        }
+    } else {
+        shorewall::snat { "snat-${masq_iface}":
+            action => 'MASQUERADE',
+            dest   => $masq_iface,
+            source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+        }
     }
   }
 

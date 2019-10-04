@@ -42,6 +42,8 @@ class shorewall(
   $params4                    = {},
   $params6                    = {},
   $params_defaults            = {},
+  $snat                       = {},
+  $snat_defaults              = {},
   $tcdevices                  = {},
   $tcdevices_defaults         = {},
   $tcrules                    = {},
@@ -137,6 +139,9 @@ class shorewall(
   if (versioncmp($facts['shorewall_version'], '5.2') == -1) {
     shorewall::managed_file { 'masq': }
     create_resources('shorewall::masq',$masq,$masq_defaults)
+  } else {
+    shorewall::managed_file { 'snat': }
+    create_resources('shorewall::snat',$snat,$snat_defaults)
   }
 
   create_resources('shorewall::zone',$zones,$zones_defaults)
