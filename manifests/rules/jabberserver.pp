@@ -44,7 +44,7 @@ class shorewall::rules::jabberserver(
         source          => 'net',
         destination     => '$FW',
         proto           => 'udp,tcp',
-        destinationport => '3478',
+        destinationport => '3478,5349',
         order           => 240,
         action          => 'ACCEPT';
     }
