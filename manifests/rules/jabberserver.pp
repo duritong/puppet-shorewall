@@ -23,12 +23,12 @@ class shorewall::rules::jabberserver(
       order           => 240,
       action          => 'ACCEPT';
     'me-net-tcp_jabber_s2s':
-      source          => '$FW',
-      sourceport      => '5269',
-      destination     => 'net',
-      proto           => 'tcp',
-      order           => 240,
-      action          => 'ACCEPT';
+      source      => '$FW',
+      sourceport  => '5269',
+      destination => 'net',
+      proto       => 'tcp',
+      order       => 240,
+      action      => 'ACCEPT';
     'me-net-tcp_jabber_s2s_2':
       source          => '$FW',
       destination     => 'net',
