@@ -6,6 +6,12 @@ define shorewall::rules::gitlab(
     $ip      = $name,
   String
     $source  = 'net',
+  Optional[String]
+    $out_interface = $facts['default_interface'],
+  Optional[String]
+    $user = undef,
+  Optional[String]
+    $group = undef,
   Enum['ACCEPT','DROP','REJECT']
     $action  = 'ACCEPT',
 ) {
@@ -40,6 +46,16 @@ define shorewall::rules::gitlab(
         order           => 240,
         action          => 'DNAT',
         shorewall6      => false;
+    }
+    if !$user or !$group or !$out_interface {
+      fail("You need to pass user, group and out_interface parameter for ${name}")
+    }
+    shorewall::snat4{
+      "pin-outgoing-ip-${ip}-for-${name}":
+        action => "SNAT(${ip})",
+        source => "-",
+        dest   => $out_interface,
+        user   => "${user}:${group}",
     }
   }
   shorewall::rule {
