@@ -60,7 +60,8 @@ define shorewall::rules::gitlab(
     $default_rule_params = {
       action      => 'ACCEPT',
       source      => '$FW',
-      destination => '-',
+      # we assume source of incoming packets is our out dest
+      destination => $source,
     }
     $default_rules = {
       'https' => {
