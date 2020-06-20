@@ -14,8 +14,6 @@ define shorewall::rules::gitlab(
     $group = undef,
   Hash
     $out_rules = {},
-  Enum['ACCEPT','DROP','REJECT']
-    $action   = 'ACCEPT',
 ) {
 
   if $runtime == 'docker' {
