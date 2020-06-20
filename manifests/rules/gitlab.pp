@@ -60,6 +60,7 @@ define shorewall::rules::gitlab(
     $default_rule_params = {
       action      => 'ACCEPT',
       source      => '$FW',
+      proto       => 'tcp',
       # we assume source of incoming packets is our out dest
       destination => $source,
     }
