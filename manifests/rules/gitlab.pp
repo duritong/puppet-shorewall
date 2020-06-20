@@ -12,8 +12,10 @@ define shorewall::rules::gitlab(
     $user = undef,
   Optional[String]
     $group = undef,
+  Hash
+    $out_rules = {},
   Enum['ACCEPT','DROP','REJECT']
-    $action  = 'ACCEPT',
+    $action   = 'ACCEPT',
 ) {
 
   if $runtime == 'docker' {
@@ -56,6 +58,29 @@ define shorewall::rules::gitlab(
         source => "-",
         dest   => $out_interface,
         user   => "${user}:${group}",
+    }
+    $default_rule_params = {
+      action      => 'ACCEPT',
+      source      => '$FW',
+      destination => '-',
+    }
+    $default_rules = {
+      'https' => {
+        destinationport => '443',
+      },
+      'ssh' => {
+        destinationport => '22',
+      },
+      'git' => {
+        destinationport => '9148',
+      },
+    }
+    ($default_rules + $out_rules).each |$rule,$values| {
+      $rule_params = $default_rule_params + $values + { user => "${user}:${group}" }
+      shorewall::rule {
+        "gitlab-${name}-${rule}":
+          * => $rule_params,
+      }
     }
   }
   shorewall::rule {
