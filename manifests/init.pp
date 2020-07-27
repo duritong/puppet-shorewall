@@ -34,6 +34,8 @@ class shorewall(
   $proxyarp_defaults          = {},
   $nat                        = {},
   $nat_defaults               = {},
+  $rfc1918                    = {},
+  $rfc1918_defaults           = {},
   $routestopped               = {},
   $routestopped_defaults      = {},
   $stoppedrules               = {},
@@ -42,10 +44,12 @@ class shorewall(
   $params4                    = {},
   $params6                    = {},
   $params_defaults            = {},
+  $snat                       = {},
+  $snat4                      = {},
+  $snat6                      = {},
+  $snat_defaults              = {},
   $tcdevices                  = {},
   $tcdevices_defaults         = {},
-  $tcrules                    = {},
-  $tcrules_defaults           = {},
   $tcclasses                  = {},
   $tcclasses_defaults         = {},
   $tunnels                    = {},
@@ -105,17 +109,45 @@ class shorewall(
       'proxyarp',
       # See http://www.shorewall.net/manpages/shorewall-nat.html
       'nat',
+<<<<<<< HEAD
       # See http://www.shorewall.net/manpages/shorewall-stoppedrules.html
       'stoppedrules',
       # Deprecated http://www.shorewall.net/4.2/manpages/shorewall-routestopped.html
+||||||| merged common ancestors
+      # See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
+      'blacklist',
+      # See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
+      'rfc1918',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
+=======
+      # See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
+      'rfc1918',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
+>>>>>>> immerda/master
       'routestopped',
       # See http://www.shorewall.net/manpages/shorewall-params.html
       'params',
+<<<<<<< HEAD
       # See http://www.shorewall.net/manpages/shorewall-tcdevices.html
+||||||| merged common ancestors
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+=======
+      # http://www.shorewall.net/manpages/shorewall-snat.html
+      'snat',
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+>>>>>>> immerda/master
       'tcdevices',
+<<<<<<< HEAD
       # Deprecated http://www.shorewall.net/4.6/manpages/shorewall-tcrules.htmle 
       'tcrules',
       # See http://www.shorewall.net/manpages/shorewall-tcclasses.html
+||||||| merged common ancestors
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      'tcrules',
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+=======
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+>>>>>>> immerda/master
       'tcclasses',
       # See http://www.shorewall.net/manpages/shorewall-providers.html
       'providers',
@@ -129,7 +161,7 @@ class shorewall(
       'mangle',
     ]:;
   }
-  Shorewall::Managed_file['zones','interfaces','params','rules','policy']{
+  Shorewall::Managed_file['zones','interfaces','params','rules','policy','snat']{
     shorewall6 => true,
   }
 
@@ -143,18 +175,27 @@ class shorewall(
   create_resources('shorewall::rule4',$rules4,$rules_defaults)
   create_resources('shorewall::rule6',$rules6,$rules_defaults)
   create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults)
+  create_resources('shorewall::snat',$snat,$snat_defaults)
+  create_resources('shorewall::snat4',$snat4,$snat_defaults)
+  create_resources('shorewall::snat6',$snat6,$snat_defaults)
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)
+<<<<<<< HEAD
   create_resources('shorewall::stoppedrules',$stoppedrules,
     $stoppedrules_defaults)
+||||||| merged common ancestors
+  create_resources('shorewall::blacklist',$blacklist,$blacklist_defaults)
+  create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
+=======
+  create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
+>>>>>>> immerda/master
   create_resources('shorewall::routestopped',$routestopped,
     $routestopped_defaults)
   create_resources('shorewall::params',$params,$params_defaults)
   create_resources('shorewall::params4',$params4,$params_defaults)
   create_resources('shorewall::params6',$params6,$params_defaults)
   create_resources('shorewall::tcdevices',$tcdevices,$tcdevices_defaults)
-  create_resources('shorewall::tcrules',$tcrules,$tcrules_defaults)
   create_resources('shorewall::tcclasses',$tcclasses,$tcclasses_defaults)
   create_resources('shorewall::tunnel',$tunnels,$tunnels_defaults)
   create_resources('shorewall::rtrules',$rtrules,$rtrules_defaults)
