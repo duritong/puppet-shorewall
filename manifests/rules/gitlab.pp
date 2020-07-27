@@ -53,7 +53,7 @@ define shorewall::rules::gitlab(
     shorewall::snat4{
       "pin-outgoing-ip-${ip}-for-${name}":
         action => "SNAT(${ip})",
-        source => "-",
+        source => '-',
         dest   => $out_interface,
         user   => "${user}:${group}",
     }

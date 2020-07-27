@@ -38,7 +38,10 @@ define shorewall::dnat_rule(
 
   $real_local_src_ifs.each |$li| {
     # network/masklen - CIDR
-    $local_net = "${facts['networking']['interfaces'][$li]['network']}/${netmask_to_masklen($facts['networking']['interfaces'][$li]['netmask'])}"
+    $local_net = @("LOCAL_NET"/L)
+    "${facts['networking']['interfaces'][$li]['network']}/\
+    ${netmask_to_masklen($facts['networking']['interfaces'][$li]['netmask'])}"
+    |-LOCAL_NET
     # exclude the ip of the fw to be masqueraded as well
     if $li == $dest_if {
       $exclude_source = "!${facts['networking']['interfaces'][$dest_if]['ip']}"
