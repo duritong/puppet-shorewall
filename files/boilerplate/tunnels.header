@@ -1,5 +1,5 @@
 #
-# Shorewall -- /etc/shorewall/tunnels
+# Shorewall version 4 - Tunnels File
 #
 # For information about entries in this file, type "man shorewall-tunnels"
 #
@@ -7,4 +7,5 @@
 # http://www.shorewall.net/manpages/shorewall-tunnels.html
 #
 ###############################################################################
-#TYPE			ZONE		GATEWAY			GATEWAY_ZONE
+#TYPE			ZONE	GATEWAY		GATEWAY
+#						ZONE

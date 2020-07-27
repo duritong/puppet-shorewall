@@ -1,10 +1,9 @@
 #
-# Shorewall -- /etc/shorewall/masq
+# Shorewall version 3.4 - Masq file
 #
 # For information about entries in this file, type "man shorewall-masq"
 #
-# The manpage is also online at
-# http://www.shorewall.net/manpages/shorewall-masq.html
+# For additional information, see http://shorewall.net/Documentation.htm#Masq
 #
-###################################################################################################################################
-#INTERFACE		SOURCE		ADDRESS		PROTO	PORT	IPSEC	MARK	USER	SWITCH	ORIGDEST	PROBABILITY
+###############################################################################
+#INTERFACE              SOURCE          ADDRESS         PROTO   PORT(S) IPSEC   MARK
