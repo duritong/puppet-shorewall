@@ -6,7 +6,7 @@ class shorewall::rules::out::puppet(
   $shorewall6            = true,
 ) {
   class{'shorewall::rules::puppet':
-    puppetserver          => $puppetserver,
+    puppetserver          => join(any2array($puppetserver),','),
     puppetserver_port     => $puppetserver_port,
     puppetserver_signport => $puppetserver_signport,
     shorewall6            => $shorewall6,
