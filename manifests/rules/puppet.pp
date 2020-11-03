@@ -10,7 +10,7 @@ class shorewall::rules::puppet(
       value      => $puppetserver_port,
       shorewall6 => $shorewall6;
   }
-  if is_ipv4_address($puppetserver){
+  if ($puppetserver =~ Stdlib::IP::Address::V4){
     shorewall::params4{
       'PUPPETSERVER':
         value => $puppetserver;
@@ -21,7 +21,7 @@ class shorewall::rules::puppet(
           value => $puppetserver_v6;
       }
     }
-  } elsif is_ipv6_address($puppetserver){
+  } elsif ($puppetserver =~ Stdlib::IP::Address::V6){
     shorewall::params6{
       'PUPPETSERVER':
         value => $puppetserver;

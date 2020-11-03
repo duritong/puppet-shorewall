@@ -1,8 +1,10 @@
 #
-# Shorewall -- /etc/shorewall/start
+# Shorewall version 4 - Start File
 #
-# Add commands below that you want to be executed after shorewall has
-# been started, reloaded or restarted.
+# /etc/shorewall/start
+#
+#	Add commands below that you want to be executed after shorewall has
+#	been started or restarted.
 #
 # See http://shorewall.net/shorewall_extension_scripts.htm for additional
 # information.
