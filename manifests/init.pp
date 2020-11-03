@@ -135,6 +135,17 @@ class shorewall(
     shorewall6 => true,
   }
 
+  # shorewall-masq is deprecated and automatically converted
+  # to snat rules starting with release 5.2
+  # see http://shorewall.org/manpages/shorewall-masq.html
+  if (versioncmp($facts['shorewall_version'], '5.2') == -1) {
+    shorewall::managed_file { 'masq': }
+    create_resources('shorewall::masq',$masq,$masq_defaults)
+  } else {
+    shorewall::managed_file { 'snat': }
+    create_resources('shorewall::snat',$snat,$snat_defaults)
+  }
+
   create_resources('shorewall::zone',$zones,$zones_defaults)
   create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
   create_resources('shorewall::host',$hosts,$hosts_defaults)
