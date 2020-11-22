@@ -1,5 +1,5 @@
 #
-# Shorewall version 4 - Zones File
+# Shorewall -- /etc/shorewall/zones
 #
 # For information about this file, type "man shorewall-zones"
 #
@@ -7,6 +7,6 @@
 # http://www.shorewall.net/manpages/shorewall-zones.html
 #
 ###############################################################################
-#ZONE TYPE    OPTIONS   IN      OUT
-#         OPTIONS     OPTIONS
-fw  firewall
+#ZONE		TYPE		OPTIONS		IN_OPTIONS	OUT_OPTIONS
+
+fw		firewall

@@ -1,14 +1,12 @@
 #
-# Shorewall version 4 - Initdone File
+# Shorewall -- /etc/shorewall/initdone
 #
-# /etc/shorewall/initdone
-#
-#	Add commands below that you want to be executed during
-#	"shorewall start" or "shorewall restart" commands at the point where
-#	Shorewall has not yet added any perminent rules to the builtin chains.
+# Add commands below that you want to be executed during
+# "shorewall start", "shorewall reload" or "shorewall restart" commands
+# at the point where Shorewall has not yet added any permanent rules to
+# the builtin chains.
 #
 # For additional information, see
 # http://shorewall.net/shorewall_extension_scripts.htm
 #
 ###############################################################################
-
