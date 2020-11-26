@@ -9,4 +9,4 @@
 # FIXME: need to switch to format 2
 #?FORMAT 2
 ###############################################################################
-#ZONE		BROADCAST       INTERFACE		OPTIONS
+#ZONE   INTERFACE       BROADCAST       OPTIONS
