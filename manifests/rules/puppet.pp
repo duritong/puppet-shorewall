@@ -23,7 +23,7 @@ class shorewall::rules::puppet(
   if $shorewall6 and !empty($server_ipv6) {
     shorewall::params6{
       'PUPPETSERVER':
-        value => $server_ipv6.join(',');
+        value => "[${server_ipv6.join('],[')}]";
     }
   }
 }
