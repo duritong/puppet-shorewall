@@ -1,3 +1,4 @@
+# outgoing rules for puppet
 class shorewall::rules::puppet::master {
   shorewall::rule { 'net-me-tcp_puppet-main':
     source          => 'net',
