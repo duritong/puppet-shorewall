@@ -1,25 +1,11 @@
+# shorewall rules for a libvirt host
 class shorewall::rules::libvirt::host (
   $vmz           = 'vmz',
   $masq_iface    = $facts['networking']['primary'],
   $debproxy_port = 8000,
   $accept_dhcp   = true,
   $vmz_iface     = 'virbr0',
-  ) {
-
-  define shorewall::rule::accept::from_vmz (
-    $proto           = '-',
-    $destinationport = '-',
-    $action          = 'ACCEPT'
-    ) {
-      shorewall::rule { $name:
-        source          => $shorewall::rules::libvirt::host::vmz,
-        destination     => '$FW',
-        order           => 300,
-        proto           => $proto,
-        destinationport => $destinationport,
-        action          => $action;
-      }
-    }
+) {
 
   shorewall::policy {
     'fw-to-vmz':
@@ -40,7 +26,9 @@ class shorewall::rules::libvirt::host (
       order           => 800;
   }
 
-  shorewall::rule::accept::from_vmz {
+  shorewall::rules::accept_from_vmz {
+    default:
+      source => $vmz_iface;
     'accept_dns_from_vmz':
       action          => 'DNS(ACCEPT)';
     'accept_tftp_from_vmz':
