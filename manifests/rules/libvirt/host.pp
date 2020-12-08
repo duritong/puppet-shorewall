@@ -23,21 +23,21 @@ class shorewall::rules::libvirt::host (
 
   shorewall::policy {
     'fw-to-vmz':
-      sourcezone              =>      '$FW',
-      destinationzone         =>      $vmz,
-      policy                  =>      'ACCEPT',
-      order                   =>      110;
+      sourcezone      => '$FW',
+      destinationzone => $vmz,
+      policy          => 'ACCEPT',
+      order           => 110;
     'vmz-to-net':
-      sourcezone              =>      $vmz,
-      destinationzone         =>      'net',
-      policy                  =>      'ACCEPT',
-      order                   =>      200;
+      sourcezone      => $vmz,
+      destinationzone => 'net',
+      policy          => 'ACCEPT',
+      order           => 200;
     'vmz-to-all':
-      sourcezone              =>      $vmz,
-      destinationzone         =>      'all',
-      policy                  =>      'DROP',
-      shloglevel              =>      'info',
-      order                   =>      800;
+      sourcezone      => $vmz,
+      destinationzone => 'all',
+      policy          => 'DROP',
+      shloglevel      => 'info',
+      order           => 800;
   }
 
   shorewall::rule::accept::from_vmz {
