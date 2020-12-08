@@ -10,7 +10,7 @@ define shorewall::dnat_rule(
   $ext_source    = undef,
   $ext_ip4       = undef,
   $local_src_ifs = undef,
-  $ext_interface = 'eth0',
+  $ext_interface = $facts['networking']['primary'],
   $dest_if       = 'eth1',
   $ext_zone      = 'net',
   $dest_zone     = 'loc',

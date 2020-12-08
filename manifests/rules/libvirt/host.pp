@@ -1,6 +1,6 @@
 class shorewall::rules::libvirt::host (
   $vmz           = 'vmz',
-  $masq_iface    = 'eth0',
+  $masq_iface    = $facts['networking']['primary'],
   $debproxy_port = 8000,
   $accept_dhcp   = true,
   $vmz_iface     = 'virbr0',
