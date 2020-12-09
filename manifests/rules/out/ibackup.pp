@@ -6,13 +6,13 @@ class shorewall::rules::out::ibackup(
   $backup_hosts_ipv6 = $backup_hosts.filter |$e| { $e =~ Stdlib::IP::Address::V6::Nosubnet }
 
   if !empty($backup_hosts_ipv4) {
-    shorewall::param4{
+    shorewall::params4{
       'IBACKUP_HOST': value => "[${backup_hosts_ipv4.join('],[')}]",
     }
   }
 
   if !empty($backup_hosts_ipv6) {
-    shorewall::param6{
+    shorewall::params6{
       'IBACKUP_HOST': value => "[${backup_hosts_ipv6.join('],[')}]",
     }
   }
