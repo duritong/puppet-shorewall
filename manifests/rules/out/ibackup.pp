@@ -19,7 +19,7 @@ class shorewall::rules::out::ibackup(
 
   shorewall::rule { 'me-net-tcp_backupssh':
     source          => '$FW',
-    destination     => 'net:IBACKUP_HOST',
+    destination     => 'net:$IBACKUP_HOST',
     proto           => 'tcp',
     destinationport => 'ssh',
     order           => 240,
