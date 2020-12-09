@@ -34,6 +34,8 @@ class shorewall(
   $proxyarp_defaults          = {},
   $nat                        = {},
   $nat_defaults               = {},
+  $blacklist                  = {},
+  $blacklist_defaults         = {},
   $rfc1918                    = {},
   $rfc1918_defaults           = {},
   $routestopped               = {},
@@ -48,6 +50,8 @@ class shorewall(
   $snat_defaults              = {},
   $tcdevices                  = {},
   $tcdevices_defaults         = {},
+  $tcrules                    = {},
+  $tcrules_defaults           = {},
   $tcclasses                  = {},
   $tcclasses_defaults         = {},
   $tunnels                    = {},
@@ -107,6 +111,8 @@ class shorewall(
       'proxyarp',
       # See http://www.shorewall.net/3.0/Documentation.htm#NAT
       'nat',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Blacklist
+      'blacklist',
       # See http://www.shorewall.net/3.0/Documentation.htm#rfc1918
       'rfc1918',
       # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
@@ -117,6 +123,8 @@ class shorewall(
       'snat',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm
       'tcdevices',
+      # See http://www.shorewall.net/3.0/traffic_shaping.htm
+      'tcrules',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm
       'tcclasses',
       # http://www.shorewall.net/manpages/shorewall-providers.html
@@ -135,6 +143,7 @@ class shorewall(
     shorewall6 => true,
   }
 
+  create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults) 
   create_resources('shorewall::zone',$zones,$zones_defaults)
   create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
   create_resources('shorewall::host',$hosts,$hosts_defaults)
@@ -151,6 +160,7 @@ class shorewall(
   create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)
+  create_resources('shorewall::blacklist',$blacklist,$blacklist_defaults)
   create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
   create_resources('shorewall::routestopped',$routestopped,
     $routestopped_defaults)
@@ -158,6 +168,7 @@ class shorewall(
   create_resources('shorewall::params4',$params4,$params_defaults)
   create_resources('shorewall::params6',$params6,$params_defaults)
   create_resources('shorewall::tcdevices',$tcdevices,$tcdevices_defaults)
+  create_resources('shorewall::tcrules',$tcrules,$tcrules_defaults)
   create_resources('shorewall::tcclasses',$tcclasses,$tcclasses_defaults)
   create_resources('shorewall::tunnel',$tunnels,$tunnels_defaults)
   create_resources('shorewall::rtrules',$rtrules,$rtrules_defaults)

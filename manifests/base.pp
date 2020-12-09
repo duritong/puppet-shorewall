@@ -1,8 +1,10 @@
 # base things for shorewall
 class shorewall::base {
 
-  package { 'shorewall':
-    ensure => $shorewall::ensure_version,
+  if ! defined(Package['shorewall']) {
+    package { 'shorewall':
+      ensure => $shorewall::ensure_version,
+    }
   }
 
   # This file has to be managed in place, so shorewall can find it
@@ -21,8 +23,10 @@ class shorewall::base {
       mode    => '0644';
   }
   if $shorewall::with_shorewall6 {
-    package{'shorewall6':
-      ensure => 'installed',
+    if ! defined(Package['shorewall6']) {
+      package{'shorewall6':
+        ensure => 'installed',
+      }
     }
     # serialize systemd where it's not yet done
     if (versioncmp($facts['shorewall_version'],'5.1.6') < 0) and (versioncmp($facts['os']['release']['major'],'6') > 0) {
@@ -80,12 +84,24 @@ class shorewall::base {
         settings => $shorewall::merged_settings;
     }
   }
+
+  $path        = [
+    '/usr/local/sbin',
+    '/usr/local/bin',
+    '/usr/sbin',
+    '/usr/bin',
+    '/sbin',
+    '/bin',
+  ]
+
   exec{'shorewall_check':
     command     => 'shorewall check',
     refreshonly => true,
+    path        => $path,
     require     => Package['shorewall'],
   } ~> exec{'shorewall_try':
-    command     => 'shorewall try /etc/shorewall/puppet',
+    command     => 'shorewall try /etc/shorewall',
+    path        => $path,
     refreshonly => true,
   } -> service{'shorewall':
     ensure     => running,
@@ -110,9 +126,11 @@ class shorewall::base {
     exec{'shorewall6_check':
       command     => 'shorewall6 check',
       refreshonly => true,
+      path        => $path,
       require     => Package['shorewall6'],
     } ~> exec{'shorewall6_try':
-      command     => 'shorewall6 try /etc/shorewall6/puppet',
+      command     => 'shorewall6 try /etc/shorewall6',
+      path        => $path,
       refreshonly => true,
     } -> service{'shorewall6':
       ensure     => running,
