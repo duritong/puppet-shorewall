@@ -1,6 +1,6 @@
-# outgoing rules for puppet
-class shorewall::rules::puppet::master {
-  shorewall::rule { 'net-me-tcp_puppet-main':
+# incoming puppet connection
+class shorewall::rules::puppet::server {
+  shorewall::rule { 'net-me-tcp_puppet-server':
     source          => 'net',
     destination     => '$FW',
     proto           => 'tcp',
