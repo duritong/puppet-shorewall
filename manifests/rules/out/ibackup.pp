@@ -7,7 +7,7 @@ class shorewall::rules::out::ibackup(
 
   if !empty($backup_hosts_ipv4) {
     shorewall::params4{
-      'IBACKUP_HOST': value => "[${backup_hosts_ipv4.join('],[')}]",
+      'IBACKUP_HOST': value => "${backup_hosts_ipv4.join(',')}",
     }
   }
 
