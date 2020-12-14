@@ -143,7 +143,7 @@ class shorewall(
     shorewall6 => true,
   }
 
-  create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults) 
+  create_resources('shorewall::rule_section',$rulesections,$rulesections_defaults)
   create_resources('shorewall::zone',$zones,$zones_defaults)
   create_resources('shorewall::interface',$interfaces,$interfaces_defaults)
   create_resources('shorewall::host',$hosts,$hosts_defaults)

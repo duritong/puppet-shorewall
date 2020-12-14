@@ -7,13 +7,9 @@
 # information.
 #
 ###############################################################################
-<% if @whitelists -%>
 <% @whitelists.each do |value| -%>
 WHITELIST       <%= value %>
 <% end -%>
-<% end -%>
-<% if @drops -%>
 <% @drops.each do |value| -%>
 REJECT <%= value %>
-<% end -%>
 <% end -%>

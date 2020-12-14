@@ -1,3 +1,4 @@
+#shorewall::tcclasses
 define shorewall::tcclasses(
     $interface,
     $rate,

@@ -1,3 +1,4 @@
+#shorewall::mangle
 define shorewall::mangle(
   $source,
   $destination,

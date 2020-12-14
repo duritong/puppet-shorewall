@@ -21,9 +21,9 @@ define shorewall::rule(
   $shorewall6      = true,
   $ensure          = 'present',
 ){
-  if versioncmp($shorewall_version,'4.5.7') >= 0 {
+  if versioncmp($facts['shorewall_version'],'4.5.7') >= 0 {
     $line = " ${connlimit} ${time} ${headers} ${switch} ${helper}"
-  } elsif versioncmp($shorewall_version,'4.4.24') >= 0 {
+  } elsif versioncmp($facts['shorewall_version'],'4.4.24') >= 0 {
     # el6
     $line = " ${connlimit} ${time} ${headers} ${switch}"
   } else {
