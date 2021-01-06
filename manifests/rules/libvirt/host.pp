@@ -1,31 +1,34 @@
+# shorewall rules for a libvirt host
 class shorewall::rules::libvirt::host (
   $vmz           = 'vmz',
-  $masq_iface    = 'eth0',
+  $masq_iface    = $facts['networking']['primary'],
   $debproxy_port = 8000,
   $accept_dhcp   = true,
   $vmz_iface     = 'virbr0',
-  ) {
+) {
 
   shorewall::policy {
     'fw-to-vmz':
-      sourcezone              =>      '$FW',
-      destinationzone         =>      $vmz,
-      policy                  =>      'ACCEPT',
-      order                   =>      110;
+      sourcezone      => '$FW',
+      destinationzone => $vmz,
+      policy          => 'ACCEPT',
+      order           => 110;
     'vmz-to-net':
-      sourcezone              =>      $vmz,
-      destinationzone         =>      'net',
-      policy                  =>      'ACCEPT',
-      order                   =>      200;
+      sourcezone      => $vmz,
+      destinationzone => 'net',
+      policy          => 'ACCEPT',
+      order           => 200;
     'vmz-to-all':
-      sourcezone              =>      $vmz,
-      destinationzone         =>      'all',
-      policy                  =>      'DROP',
-      shloglevel              =>      'info',
-      order                   =>      800;
+      sourcezone      => $vmz,
+      destinationzone => 'all',
+      policy          => 'DROP',
+      shloglevel      => 'info',
+      order           => 800;
   }
 
-  shorewall::rules::libvirt::host::from_vmz {
+  shorewall::rules::accept_from_vmz {
+    default:
+      source => $vmz_iface;
     'accept_dns_from_vmz':
       action          => 'DNS(ACCEPT)';
     'accept_tftp_from_vmz':
@@ -47,7 +50,7 @@ class shorewall::rules::libvirt::host (
   }
 
   if $debproxy_port {
-    shorewall::rules::libvirt::host::from_vmz { 'accept_debproxy_from_vmz':
+    shorewall::rule::accept::from_vmz { 'accept_debproxy_from_vmz':
       proto           => 'tcp',
       destinationport => $debproxy_port,
       action          => 'ACCEPT';
@@ -55,17 +58,10 @@ class shorewall::rules::libvirt::host (
   }
 
   if $masq_iface {
-    if (versioncmp($facts['shorewall_version'], '5.2') == -1) {
-        shorewall::masq { "masq-${masq_iface}":
-            interface => $masq_iface,
-            source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
-        }
-    } else {
-        shorewall::snat { "snat-${masq_iface}":
-            action => 'MASQUERADE',
-            dest   => $masq_iface,
-            source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
-        }
+    shorewall::masq {
+      "masq-${masq_iface}":
+        interface => $masq_iface,
+        source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
     }
   }
 

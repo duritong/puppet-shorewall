@@ -1,13 +1,16 @@
 # outgoing puppet traffic
 class shorewall::rules::out::puppet(
-  $puppetserver          = "puppet.${::domain}",
-  $puppetserver_port     = 8140,
-  $shorewall6            = true,
+  Array[Stdlib::IP::Address]
+    $puppetserver,
+  Stdlib::Port
+    $puppetserver_port = 8140,
+  Boolean
+    $shorewall6        = true,
 ) {
   class{'shorewall::rules::puppet':
-    puppetserver          => $puppetserver,
-    puppetserver_port     => $puppetserver_port,
-    shorewall6            => $shorewall6,
+    puppetserver      => $puppetserver,
+    puppetserver_port => $puppetserver_port,
+    shorewall6        => $shorewall6,
   }
   # we want to connect to the puppet server
   shorewall::rule { 'me-net-puppet_tcp':
