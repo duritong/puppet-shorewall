@@ -17,6 +17,10 @@ class shorewall::base {
       owner   => 'root',
       group   => 'root',
       mode    => '0644';
+    '/etc/shorewall/puppet/shorewall.conf':
+      ensure  => link,
+      target  => '/etc/shorewall/shorewall.conf',
+      require => File['/etc/shorewall/shorewall.conf']
   }
   if $shorewall::with_shorewall6 {
     package{'shorewall6':
