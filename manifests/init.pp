@@ -109,6 +109,8 @@ class shorewall(
       'rfc1918',
       # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
       'routestopped',
+      # http://www.shorewall.net/manpages/shorewall-snat.html
+      'snat',
       # See http://www.shorewall.net/3.0/Documentation.htm#Variables
       'params',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm
