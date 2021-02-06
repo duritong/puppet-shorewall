@@ -3,3 +3,4 @@ Facter.add('shorewall_version') do
     Facter::Util::Resolution.exec('shorewall version')
   end
 end
+

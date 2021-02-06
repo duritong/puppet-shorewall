@@ -1,9 +1,7 @@
 # base things for shorewall
 class shorewall::base {
 
-  package { 'shorewall':
-    ensure => $shorewall::ensure_version,
-  }
+  ensure_packages({ 'shorewall' => { ensure => $shorewall::ensure_version }})
 
   # This file has to be managed in place, so shorewall can find it
   file {
@@ -85,7 +83,7 @@ class shorewall::base {
     refreshonly => true,
     require     => Package['shorewall'],
   } ~> exec{'shorewall_try':
-    command     => 'shorewall try /etc/shorewall/puppet',
+    command     => 'shorewall try /etc/shorewall',
     refreshonly => true,
   } -> service{'shorewall':
     ensure     => running,
@@ -112,7 +110,7 @@ class shorewall::base {
       refreshonly => true,
       require     => Package['shorewall6'],
     } ~> exec{'shorewall6_try':
-      command     => 'shorewall6 try /etc/shorewall6/puppet',
+      command     => 'shorewall6 try /etc/shorewall6',
       refreshonly => true,
     } -> service{'shorewall6':
       ensure     => running,

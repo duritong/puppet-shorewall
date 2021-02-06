@@ -101,8 +101,6 @@ class shorewall(
       'policy',
       # See http://www.shorewall.net/3.0/Documentation.htm#Rules
       'rules',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Masq
-      'masq',
       # See http://www.shorewall.net/3.0/Documentation.htm#ProxyArp
       'proxyarp',
       # See http://www.shorewall.net/3.0/Documentation.htm#NAT
@@ -111,10 +109,10 @@ class shorewall(
       'rfc1918',
       # See http://www.shorewall.net/3.0/Documentation.htm#Routestopped
       'routestopped',
-      # See http://www.shorewall.net/3.0/Documentation.htm#Variables
-      'params',
       # http://www.shorewall.net/manpages/shorewall-snat.html
       'snat',
+      # See http://www.shorewall.net/3.0/Documentation.htm#Variables
+      'params',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm
       'tcdevices',
       # See http://www.shorewall.net/3.0/traffic_shaping.htm

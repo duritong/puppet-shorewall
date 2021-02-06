@@ -1,8 +1,8 @@
 define shorewall::host(
     $zone,
-    $host = $name,
-    $options = 'tcpflags,blacklist,norfc1918',
-    $order ='100'
+    $host,
+    $options = 'tcpflags',
+    $order='100'
 ){
 
     shorewall::entry{"hosts-${order}-${name}":

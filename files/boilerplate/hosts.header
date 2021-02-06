@@ -1,9 +1,10 @@
 #
-# Shorewall version 3.4 - Hosts file
+# Shorewall -- /etc/shorewall/hosts
 #
 # For information about entries in this file, type "man shorewall-hosts"
 #
-# For additional information, see http://shorewall.net/Documentation.htm#Hosts
+# The manpage is also online at
+# http://www.shorewall.net/manpages/shorewall-hosts.html
 #
 ###############################################################################
-#ZONE   HOST(S)                                 OPTIONS
+#ZONE		HOSTS				OPTIONS
