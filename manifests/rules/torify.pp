@@ -12,12 +12,11 @@
 # - destinations: every element of this array must be valid in
 #   shorewall rules original destination column.
 
-define shorewall::rules::torify(
+define shorewall::rules::torify (
   $users        = ['-'],
   $destinations = ['-'],
   $allow_rfc1918 = true
-){
-
+) {
   $originaldest = join($destinations,',')
 
   shorewall::rules::torify::user {
@@ -25,5 +24,4 @@ define shorewall::rules::torify(
       originaldest  => $originaldest,
       allow_rfc1918 => $allow_rfc1918;
   }
-
 }

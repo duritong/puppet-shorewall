@@ -1,13 +1,13 @@
 # http://www.shorewall.net/manpages/shorewall-policy.html
-define shorewall::policy4(
+define shorewall::policy4 (
   $sourcezone,
   $destinationzone,
   $policy,
   $order,
   $shloglevel = '-',
   $limitburst = '-',
-){
-  shorewall::policy{
+) {
+  shorewall::policy {
     $name:
       sourcezone      => $sourcezone,
       destinationzone => $destinationzone,
@@ -19,4 +19,3 @@ define shorewall::policy4(
       shorewall6      => false,
   }
 }
-

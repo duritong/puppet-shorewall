@@ -1,5 +1,5 @@
 # Manage shorewall on your system
-class shorewall(
+class shorewall (
   $startup                    = true,
   $conf_source                = false,
   $settings                   = {},
@@ -8,7 +8,7 @@ class shorewall(
   $ensure_version             = 'present',
   $tor_transparent_proxy_host = '127.0.0.1',
   $tor_transparent_proxy_port = '9040',
-  $tor_user                   = $facts['operatingsystem'] ? {
+  $tor_user                   = $facts['os']['name'] ? {
     'Debian' => 'debian-tor',
     default  => 'tor'
   },
@@ -56,10 +56,9 @@ class shorewall(
   $rtrules_defaults           = {},
   $daily_check                = true,
 ) {
-
   # workaround https://tickets.puppetlabs.com/browse/FACT-1739
   if $shorewall6 == 'auto' {
-    if $facts['ipaddress6'] and $facts['ipaddress6'] =~ /:/ {
+    if $facts['networking']['ip6'] and $facts['networking']['ip6'] =~ /:/ {
       $with_shorewall6 = true
     } else {
       $with_shorewall6 = false
@@ -79,17 +78,17 @@ class shorewall(
 
   $merged_settings = merge($def_settings,$settings)
 
-  case $facts['operatingsystem'] {
-    'Gentoo': { include ::shorewall::gentoo }
-    'Debian','Ubuntu': { include ::shorewall::debian }
-    'CentOS': { include ::shorewall::centos }
+  case $facts['os']['name'] {
+    'Gentoo': { include shorewall::gentoo }
+    'Debian','Ubuntu': { include shorewall::debian }
+    'CentOS': { include shorewall::centos }
     default: {
-      notice "unknown operatingsystem: ${facts['operatingsystem']}"
-      include ::shorewall::base
+      notice "unknown operatingsystem: ${facts['os']['name']}"
+      include shorewall::base
     }
   }
 
-  shorewall::managed_file{
+  shorewall::managed_file {
     [
       # See http://www.shorewall.net/3.0/Documentation.htm#Zones
       'zones',
@@ -129,7 +128,7 @@ class shorewall(
       'mangle',
     ]:;
   }
-  Shorewall::Managed_file['zones','interfaces','params','rules','policy','snat']{
+  Shorewall::Managed_file['zones','interfaces','params','rules','policy','snat'] {
     shorewall6 => true,
   }
 
@@ -151,7 +150,7 @@ class shorewall(
   create_resources('shorewall::nat',$nat,$nat_defaults)
   create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)
   create_resources('shorewall::routestopped',$routestopped,
-    $routestopped_defaults)
+  $routestopped_defaults)
   create_resources('shorewall::params',$params,$params_defaults)
   create_resources('shorewall::params4',$params4,$params_defaults)
   create_resources('shorewall::params6',$params6,$params_defaults)

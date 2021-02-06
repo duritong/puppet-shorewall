@@ -1,5 +1,5 @@
 # http://www.shorewall.net/manpages/shorewall-snat.html
-define shorewall::snat4(
+define shorewall::snat4 (
   $action,
   $source,
   $dest,
@@ -13,8 +13,8 @@ define shorewall::snat4(
   $probability = '-',
   $order       = '500',
   $ensure      = 'present',
-){
-  shorewall::snat{
+) {
+  shorewall::snat {
     $name:
       ensure      => $ensure,
       action      => $action,

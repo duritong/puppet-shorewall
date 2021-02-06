@@ -6,7 +6,6 @@ class shorewall::rules::libvirt::host (
   $accept_dhcp   = true,
   $vmz_iface     = 'virbr0',
 ) {
-
   shorewall::policy {
     'fw-to-vmz':
       sourcezone      => '$FW',
@@ -64,5 +63,4 @@ class shorewall::rules::libvirt::host (
         source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
     }
   }
-
 }

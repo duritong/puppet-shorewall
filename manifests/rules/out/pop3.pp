@@ -1,5 +1,5 @@
 # outoging oper3
-class shorewall::rules::out::pop3(
+class shorewall::rules::out::pop3 (
   $shorewall6 = true,
 ) {
   shorewall::rule {

@@ -1,6 +1,6 @@
 # manage ipsec rules for zone specified in
 # $name
-define shorewall::rules::ipsec() {
+define shorewall::rules::ipsec () {
   shorewall::rule {
     "${name}-me-ipsec-udp":
       source          => $name,
@@ -17,16 +17,16 @@ define shorewall::rules::ipsec() {
       order           => 240,
       action          => 'ACCEPT';
     "${name}-me-ipsec":
-      source          => $name,
-      destination     => '$FW',
-      proto           => 'esp',
-      order           => 240,
-      action          => 'ACCEPT';
+      source      => $name,
+      destination => '$FW',
+      proto       => 'esp',
+      order       => 240,
+      action      => 'ACCEPT';
     "me-${name}-ipsec":
-      source          => '$FW',
-      destination     => $name,
-      proto           => 'esp',
-      order           => 240,
-      action          => 'ACCEPT';
+      source      => '$FW',
+      destination => $name,
+      proto       => 'esp',
+      order       => 240,
+      action      => 'ACCEPT';
   }
 }

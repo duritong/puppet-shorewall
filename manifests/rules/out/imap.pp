@@ -1,5 +1,5 @@
 # outgoing imap
-class shorewall::rules::out::imap(
+class shorewall::rules::out::imap (
   $shorewall6 = true,
 ) {
   shorewall::rule {

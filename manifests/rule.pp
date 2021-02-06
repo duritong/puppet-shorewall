@@ -1,6 +1,6 @@
 # http://www.shorewall.net/manpages/shorewall-rules.html
 # http://www.shorewall.net/manpages6/shorewall6-rules.html
-define shorewall::rule(
+define shorewall::rule (
   $action,
   $source,
   $destination,
@@ -20,7 +20,7 @@ define shorewall::rule(
   $shorewall       = true,
   $shorewall6      = true,
   $ensure          = 'present',
-){
+) {
   if versioncmp($shorewall_version,'4.5.7') >= 0 {
     $line = " ${connlimit} ${time} ${headers} ${switch} ${helper}"
   } elsif versioncmp($shorewall_version,'4.4.24') >= 0 {
@@ -28,10 +28,10 @@ define shorewall::rule(
     $line = " ${connlimit} ${time} ${headers} ${switch}"
   } else {
     # el5
-    $line = ''
+    $line = undef
   }
   $with_shorewall6 = $shorewall6 and $shorewall::with_shorewall6
-  shorewall::entry{"rules-${order}-${name}":
+  shorewall::entry { "rules-${order}-${name}":
     ensure     => $ensure,
     line       => "# ${name}\n${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${originaldest} ${ratelimit} ${user} ${mark}${line}",
     shorewall  => $shorewall,

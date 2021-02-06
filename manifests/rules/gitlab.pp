@@ -1,21 +1,20 @@
 # manage gitlab ports
-define shorewall::rules::gitlab(
+define shorewall::rules::gitlab (
   Enum['podman','docker']
-    $runtime = 'podman',
+  $runtime = 'podman',
   String
-    $ip      = $name,
+  $ip      = $name,
   String
-    $source  = 'net',
+  $source  = 'net',
   Optional[String]
-    $out_interface = $facts['default_interface'],
+  $out_interface = $facts['default_interface'],
   Optional[String]
-    $user = undef,
+  $user = undef,
   Optional[String]
-    $group = undef,
+  $group = undef,
   Hash
-    $out_rules = {},
+  $out_rules = {},
 ) {
-
   if $runtime == 'docker' {
     shorewall::rule {
       "${source}-me-httpS-gitlab-${name}":
@@ -50,7 +49,7 @@ define shorewall::rules::gitlab(
     if !$user or !$group or !$out_interface {
       fail("You need to pass user, group and out_interface parameter for ${name}")
     }
-    shorewall::snat4{
+    shorewall::snat4 {
       "pin-outgoing-ip-${ip}-for-${name}":
         action => "SNAT(${ip})",
         source => '-',

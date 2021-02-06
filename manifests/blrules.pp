@@ -18,12 +18,11 @@
 #                       ],
 #  }
 
-
 class shorewall::blrules (
   $whitelists,
   $drops,
 ) {
-  file{'/etc/shorewall/puppet/blrules':
+  file { '/etc/shorewall/puppet/blrules':
     content => template('shorewall/blrules.erb'),
     require => Package['shorewall'],
     notify  => Exec['shorewall_check'],

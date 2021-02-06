@@ -4,7 +4,7 @@
 # according to http://www.shorewall.net/FAQ.htm#faq2
 # assumption is that by default
 # ext (eth0) -> loc (eth1)
-define shorewall::dnat_rule(
+define shorewall::dnat_rule (
   $destination,
   $port,
   $ext_source    = undef,
@@ -15,12 +15,12 @@ define shorewall::dnat_rule(
   $ext_zone      = 'net',
   $dest_zone     = 'loc',
   $proto         = 'tcp',
-){
+) {
   $real_ext_source = pick($ext_source, $ext_zone)
   $real_ext_ip4 = pick($ext_ip4,$facts['networking']['interfaces'][$ext_interface]['ip'])
   $real_local_src_ifs = pick($local_src_ifs, Array($dest_if))
 
-  shorewall::rule4{
+  shorewall::rule4 {
     default:
       destination     => "${dest_zone}:${destination}",
       originaldest    => $real_ext_ip4,
@@ -46,10 +46,10 @@ define shorewall::dnat_rule(
     if $li == $dest_if {
       $exclude_source = "!${facts['networking']['interfaces'][$dest_if]['ip']}"
     } else {
-      $exclude_source = ''
+      $exclude_source = undef
     }
     $source = "${local_net}${exclude_source}"
-    shorewall::snat4{
+    shorewall::snat4 {
       "hairpin-${name}-${li}":
         action => "SNAT(${real_ext_ip4})",
         source => $source,
@@ -58,7 +58,7 @@ define shorewall::dnat_rule(
         port   => $port,
     }
 
-    shorewall::masq{
+    shorewall::masq {
       "hairpin-${name}-${li}":
         interface => $li,
         source    => $source,

@@ -1,14 +1,14 @@
 # manage a shorewall-interface entry
 # http://www.shorewall.net/manpages/shorewall-interfaces.html
-define shorewall::interface(
+define shorewall::interface (
   $zone,
   $broadcast   = 'detect',
   $options     = 'tcpflags,routefilter,nosmurfs,logmartians',
-  $add_options = '',
+  $add_options = undef,
   $rfc1918     = false,
   $dhcp        = false,
   $order       = 100,
-){
+) {
   $added_opts = $add_options ? {
     ''      => '',
     default => ",${add_options}",
@@ -25,7 +25,7 @@ define shorewall::interface(
       default => '',
     }
   } else {
-    $rfc1918_opt = ''
+    $rfc1918_opt = undef
   }
   $all_options = "${options}${dhcp_opt}${rfc1918_opt}${added_opts}"
   if versioncmp($shorewall_version,'4.5') >= 0 {

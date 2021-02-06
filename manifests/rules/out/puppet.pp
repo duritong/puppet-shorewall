@@ -1,13 +1,13 @@
 # outgoing puppet traffic
-class shorewall::rules::out::puppet(
+class shorewall::rules::out::puppet (
   Array[Stdlib::IP::Address]
-    $puppetserver,
+  $puppetserver,
   Stdlib::Port
-    $puppetserver_port = 8140,
+  $puppetserver_port = 8140,
   Boolean
-    $shorewall6        = true,
+  $shorewall6        = true,
 ) {
-  class{'shorewall::rules::puppet':
+  class { 'shorewall::rules::puppet':
     puppetserver      => $puppetserver,
     puppetserver_port => $puppetserver_port,
     shorewall6        => $shorewall6,

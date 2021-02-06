@@ -1,4 +1,4 @@
-define shorewall::mangle(
+define shorewall::mangle (
   $source,
   $destination,
   $action          = $name,
@@ -13,8 +13,8 @@ define shorewall::mangle(
   $helper          = '-',
   $headers         = '-',
   $order           = '100'
-){
-  shorewall::entry{"mangle-${order}-${name}":
-    line => "${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${user} ${test} ${length} ${tos} ${connbytes} ${helper} ${headers}"
+) {
+  shorewall::entry { "mangle-${order}-${name}":
+    line => "${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport} ${user} ${test} ${length} ${tos} ${connbytes} ${helper} ${headers}",
   }
 }

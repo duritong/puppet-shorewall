@@ -1,5 +1,5 @@
 # manage incoming ssh access
-class shorewall::rules::ssh(
+class shorewall::rules::ssh (
   $ports,
   $source = 'net'
 ) {

@@ -1,4 +1,4 @@
-define shorewall::rules::sobby::instance( $port ){
+define shorewall::rules::sobby::instance ( $port ) {
   shorewall::rule {
     "net-me-tcp_sobby_${name}":
       source          => 'net',

@@ -1,11 +1,11 @@
 # outgoing puppet params
 class shorewall::rules::puppet (
   Array[Stdlib::IP::Address]
-    $puppetserver,
+  $puppetserver,
   Stdlib::Port
-    $puppetserver_port = 8140,
+  $puppetserver_port = 8140,
   Boolean
-    $shorewall6        = true,
+  $shorewall6        = true,
 ) {
   shorewall::params {
     'PUPPETSERVER_PORT':

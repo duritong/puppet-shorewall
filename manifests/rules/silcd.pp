@@ -1,5 +1,5 @@
 class shorewall::rules::silcd {
-  shorewall::rule{
+  shorewall::rule {
     'net-me-silcd-tcp':
       source          => 'net',
       destination     => '$FW',
@@ -14,6 +14,5 @@ class shorewall::rules::silcd {
       destinationport => '706',
       order           => 240,
       action          => 'ACCEPT';
-
   }
 }

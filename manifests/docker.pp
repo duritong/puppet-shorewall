@@ -6,12 +6,12 @@ class shorewall::docker {
       value => 'yes',
   }
 
-  shorewall::zone{
+  shorewall::zone {
     'dock':
-      type => 'ipv4'
+      type => 'ipv4',
   }
 
-  shorewall::policy{
+  shorewall::policy {
     'dock-to-FW':
       sourcezone      => 'dock',
       destinationzone => '$FW',
@@ -24,7 +24,7 @@ class shorewall::docker {
       order           => '210';
   }
 
-  shorewall::interface{
+  shorewall::interface {
     'docker0':
       zone    => 'dock',
       options => 'bridge',

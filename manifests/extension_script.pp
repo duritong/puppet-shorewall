@@ -1,5 +1,5 @@
 # See http://shorewall.net/shorewall_extension_scripts.htm
-define shorewall::extension_script(
+define shorewall::extension_script (
   $script
 ) {
   case $name {

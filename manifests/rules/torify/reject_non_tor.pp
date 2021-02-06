@@ -1,9 +1,8 @@
-define shorewall::rules::torify::reject_non_tor(
+define shorewall::rules::torify::reject_non_tor (
   $user = '-',
   $originaldest = '-',
   $allow_rfc1918 = true
-){
-
+) {
   # hash the destination as it may contain slashes
   $originaldest_sha1 = sha1($originaldest)
   $rule = "reject-non-tor-from-${user}-to=${originaldest_sha1}"
@@ -17,16 +16,15 @@ define shorewall::rules::torify::reject_non_tor(
     $originaldest_real = $originaldest
   }
 
-  if !defined(Shorewall::Rule["$rule"]) {
+  if !defined(Shorewall::Rule[$rule]) {
     shorewall::rule {
-      "$rule":
-        source          => '$FW',
-        destination     => 'all',
-        originaldest    => $originaldest_real,
-        user            => $user,
-        order           => 120,
-        action          => 'REJECT';
+      $rule:
+        source       => '$FW',
+        destination  => 'all',
+        originaldest => $originaldest_real,
+        user         => $user,
+        order        => 120,
+        action       => 'REJECT';
     }
   }
-
 }

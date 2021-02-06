@@ -1,7 +1,7 @@
 # things needed on centos
 class shorewall::centos inherits shorewall::base {
   if ($facts['os']['name'] == 'CentOS') and versioncmp($facts['os']['release']['major'],'7') < 0 {
-    augeas{'enable_shorewall':
+    augeas { 'enable_shorewall':
       context => '/files/etc/sysconfig/shorewall',
       changes => 'set startup 1',
       lens    => 'Shellvars.lns',
@@ -10,7 +10,7 @@ class shorewall::centos inherits shorewall::base {
       notify  => Exec['shorewall_check'],
     }
     if $shorewall::with_shorewall6 {
-      package{'perl-Socket6':
+      package { 'perl-Socket6':
         ensure => 'installed',
         before => Package['shorewall6'],
       }

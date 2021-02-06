@@ -1,5 +1,5 @@
 # open dns port
-define shorewall::rules::dns_rules(
+define shorewall::rules::dns_rules (
   $source = $name,
   $action = 'ACCEPT',
 ) {

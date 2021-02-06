@@ -1,6 +1,6 @@
 # gentoo specific things
 class shorewall::gentoo inherits shorewall::base {
-  Package['shorewall']{
+  Package['shorewall'] {
     category => 'net-firewall',
   }
 }

@@ -1,11 +1,11 @@
 # open ports used by a jabberserver
 # in and outbound.
-class shorewall::rules::jabberserver(
+class shorewall::rules::jabberserver (
   $open_stun = true,
   $outgoing_ports = '5260,5269,5270,5271,5272'
 ) {
   $incom_ports = '443,5222,5223,5269,5443,7777'
-  shorewall::rule{
+  shorewall::rule {
     'net-me-redirect-jabber_web_redirect':
       source          => 'net,$FW',
       destination     => '5443',

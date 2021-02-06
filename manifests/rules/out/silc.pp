@@ -1,5 +1,5 @@
 class shorewall::rules::out::silc {
-  shorewall::rule{
+  shorewall::rule {
     'me-net-silc-tcp':
       source          => '$FW',
       destination     => 'net',
@@ -14,6 +14,5 @@ class shorewall::rules::out::silc {
       destinationport => '706',
       order           => 240,
       action          => 'ACCEPT';
-
   }
 }

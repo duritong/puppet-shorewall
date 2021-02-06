@@ -1,7 +1,6 @@
 # base things for shorewall
 class shorewall::base {
-
-  ensure_packages({ 'shorewall' => { ensure => $shorewall::ensure_version }})
+  ensure_packages( { 'shorewall' => { ensure => $shorewall::ensure_version } })
 
   # This file has to be managed in place, so shorewall can find it
   file {
@@ -19,13 +18,13 @@ class shorewall::base {
       mode    => '0644';
   }
   if $shorewall::with_shorewall6 {
-    package{'shorewall6':
+    package { 'shorewall6':
       ensure => 'installed',
     }
     # serialize systemd where it's not yet done
     if (versioncmp($facts['shorewall_version'],'5.1.6') < 0) and (versioncmp($facts['os']['release']['major'],'6') > 0) {
-      include ::systemd
-      file{
+      include systemd
+      file {
         '/etc/systemd/system/shorewall6.service.d':
           ensure => directory,
           owner  => 'root',
@@ -62,30 +61,30 @@ class shorewall::base {
     $startup_str = 'No'
   }
   if $shorewall::conf_source {
-    File['/etc/shorewall/shorewall.conf']{
+    File['/etc/shorewall/shorewall.conf'] {
       source => $shorewall::conf_source,
     }
   } else {
-    shorewall::config_setting{
+    shorewall::config_setting {
       'CONFIG_PATH':
         value => "\"\${CONFDIR}/shorewall/puppet:\${CONFDIR}/shorewall:\${SHAREDIR}/shorewall\"";
       'STARTUP_ENABLED':
         value => $startup_str;
     }
     $cfs =  keys($shorewall::merged_settings)
-    shorewall::config_settings{
+    shorewall::config_settings {
       $cfs:
         settings => $shorewall::merged_settings;
     }
   }
-  exec{'shorewall_check':
+  exec { 'shorewall_check':
     command     => 'shorewall check',
     refreshonly => true,
     require     => Package['shorewall'],
-  } ~> exec{'shorewall_try':
+  } ~> exec { 'shorewall_try':
     command     => 'shorewall try /etc/shorewall',
     refreshonly => true,
-  } -> service{'shorewall':
+  } -> service { 'shorewall':
     ensure     => running,
     enable     => true,
     hasstatus  => true,
@@ -93,26 +92,26 @@ class shorewall::base {
   }
 
   if $shorewall::with_shorewall6 {
-    shorewall::config6_setting{
+    shorewall::config6_setting {
       'CONFIG_PATH':
         value => "\"\${CONFDIR}/shorewall6/puppet:\${CONFDIR}/shorewall6:/usr/share/shorewall6:\${SHAREDIR}/shorewall\"";
       'STARTUP_ENABLED':
         value => $startup_str;
     }
     $cfs6 =  keys($shorewall::settings6)
-    shorewall::config6_settings{
+    shorewall::config6_settings {
       $cfs6:
         settings => $shorewall::settings6;
     }
 
-    exec{'shorewall6_check':
+    exec { 'shorewall6_check':
       command     => 'shorewall6 check',
       refreshonly => true,
       require     => Package['shorewall6'],
-    } ~> exec{'shorewall6_try':
+    } ~> exec { 'shorewall6_try':
       command     => 'shorewall6 try /etc/shorewall6',
       refreshonly => true,
-    } -> service{'shorewall6':
+    } -> service { 'shorewall6':
       ensure     => running,
       enable     => true,
       hasstatus  => true,
@@ -120,14 +119,14 @@ class shorewall::base {
     }
   }
 
-  file{'/etc/cron.daily/shorewall_check':}
+  file { '/etc/cron.daily/shorewall_check': }
   if $shorewall::daily_check {
     if $shorewall::with_shorewall6 {
       $shorewall6_check_str = ' && shorewall6 check'
     } else {
-      $shorewall6_check_str = ''
+      $shorewall6_check_str = undef
     }
-    File['/etc/cron.daily/shorewall_check']{
+    File['/etc/cron.daily/shorewall_check'] {
       content => "#!/bin/bash
 
 output=\$((shorewall check${shorewall6_check_str}) 2>&1)
@@ -147,7 +146,7 @@ exit 0
       Service['shorewall6'] -> File['/etc/cron.daily/shorewall_check']
     }
   } else {
-    File['/etc/cron.daily/shorewall_check']{
+    File['/etc/cron.daily/shorewall_check'] {
       ensure => absent,
     }
   }

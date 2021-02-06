@@ -1,5 +1,5 @@
 # http://www.shorewall.net/manpages/shorewall6-snat.html
-define shorewall::snat6(
+define shorewall::snat6 (
   $action,
   $source,
   $dest,
@@ -13,8 +13,8 @@ define shorewall::snat6(
   $probability = '-',
   $order       = '500',
   $ensure      = 'present',
-){
-  shorewall::snat{
+) {
+  shorewall::snat {
     "${name}_IP6":
       ensure      => $ensure,
       action      => $action,

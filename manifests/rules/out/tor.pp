@@ -1,6 +1,6 @@
 # open outgoing port to connect to the network
 class shorewall::rules::out::tor {
-  shorewall::rule{'me-net-tor-tcp':
+  shorewall::rule { 'me-net-tor-tcp':
     source          => '$FW',
     destination     => 'net',
     proto           => 'tcp',

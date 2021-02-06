@@ -1,4 +1,4 @@
-define shorewall::stoppedrules(
+define shorewall::stoppedrules (
   $action          = 'ACCEPT',
   $source          = '-',
   $destination     = '-',
@@ -6,8 +6,8 @@ define shorewall::stoppedrules(
   $destinationport = '-',
   $sourceport      = '-',
   $order           = '100'
-){
-  shorewall::entry{"stoppedrules-${order}-${name}":
-    line => "${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport}"
+) {
+  shorewall::entry { "stoppedrules-${order}-${name}":
+    line => "${action} ${source} ${destination} ${proto} ${destinationport} ${sourceport}",
   }
 }

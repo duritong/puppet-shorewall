@@ -1,5 +1,5 @@
 # http://www.shorewall.net/manpages/shorewall-rules.html
-define shorewall::rule4(
+define shorewall::rule4 (
   $action,
   $source,
   $destination,
@@ -17,8 +17,8 @@ define shorewall::rule4(
   $helper          = '-',
   $order           = '500',
   $ensure          = 'present',
-){
-  shorewall::rule{
+) {
+  shorewall::rule {
     $name:
       ensure          => $ensure,
       action          => $action,

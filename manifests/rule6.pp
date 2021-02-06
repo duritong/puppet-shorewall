@@ -1,5 +1,5 @@
 # http://www.shorewall.net/manpages6/shorewall6-rules.html
-define shorewall::rule6(
+define shorewall::rule6 (
   $action,
   $source,
   $destination,
@@ -17,8 +17,8 @@ define shorewall::rule6(
   $helper          = '-',
   $order           = '500',
   $ensure          = 'present',
-){
-  shorewall::rule{
+) {
+  shorewall::rule {
     "${name}_IP6":
       ensure          => $ensure,
       action          => $action,
