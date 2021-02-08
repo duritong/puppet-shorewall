@@ -11,6 +11,7 @@ define shorewall::interface (
 ) {
   $added_opts = $add_options ? {
     ''      => '',
+    undef   => '',
     default => ",${add_options}",
   }
 

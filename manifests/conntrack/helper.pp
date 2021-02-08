@@ -18,10 +18,11 @@ define shorewall::conntrack::helper (
 ) {
   $_helper = sprintf('__%s_HELPER', upcase($name))
   $_chain = ":${chain}"
-  $_options = undef
 
-  if ($options != '') {
+  if $options and ($options != '') {
     $_options = "(${options})"
+  } else {
+    $_options = undef
   }
 
   shorewall::entry { "conntrack-${order}-${name}":
