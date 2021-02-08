@@ -20,7 +20,7 @@ define shorewall::interface (
     default => ',dhcp',
   }
 
-  if versioncmp($shorewall_version,'4.5') < 0 {
+  if versioncmp($facts['shorewall_version'],'4.5') < 0 {
     $rfc1918_opt = $rfc1918 ? {
       false   => ',norfc1918',
       default => '',
@@ -29,12 +29,12 @@ define shorewall::interface (
     $rfc1918_opt = undef
   }
   $all_options = "${options}${dhcp_opt}${rfc1918_opt}${added_opts}"
-  if versioncmp($shorewall_version,'4.5') >= 0 {
+  if versioncmp($facts['shorewall_version'],'4.5') >= 0 {
     $all_options1 = regsubst($all_options,',(no)?rfc1918','')
   } else {
     $all_options1 = $all_options
   }
-  if versioncmp($shorewall_major_version,'5') >= 0 {
+  if versioncmp($facts['shorewall_major_version'],'5') >= 0 {
     $all_options2 = regsubst($all_options1,',blacklist','')
   } else {
     $all_options2 = $all_options1
