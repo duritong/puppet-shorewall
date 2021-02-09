@@ -28,8 +28,6 @@ class shorewall (
   $rules_defaults             = {},
   $rulesections               = {},
   $rulesections_defaults      = {},
-  $masq                       = {},
-  $masq_defaults              = {},
   $proxyarp                   = {},
   $proxyarp_defaults          = {},
   $nat                        = {},
@@ -145,7 +143,6 @@ class shorewall (
   create_resources('shorewall::snat',$snat,$snat_defaults)
   create_resources('shorewall::snat4',$snat4,$snat_defaults)
   create_resources('shorewall::snat6',$snat6,$snat_defaults)
-  create_resources('shorewall::masq',$masq,$masq_defaults)
   create_resources('shorewall::proxyarp',$proxyarp,$proxyarp_defaults)
   create_resources('shorewall::nat',$nat,$nat_defaults)
   create_resources('shorewall::rfc1918',$rfc1918,$rfc1918_defaults)

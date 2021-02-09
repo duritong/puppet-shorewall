@@ -1,7 +1,7 @@
 # shorewall rules for a libvirt host
 class shorewall::rules::libvirt::host (
   $vmz           = 'vmz',
-  $masq_iface    = $facts['networking']['primary'],
+  $snat_iface    = $facts['networking']['primary'],
   $debproxy_port = 8000,
   $accept_dhcp   = true,
   $vmz_iface     = 'virbr0',
@@ -56,11 +56,11 @@ class shorewall::rules::libvirt::host (
     }
   }
 
-  if $masq_iface {
-    shorewall::masq {
-      "masq-${masq_iface}":
-        interface => $masq_iface,
-        source    => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
+  if $snat_iface {
+    shorewall::snat {
+      "snat-${snat_iface}":
+        action => "SNAT(${facts['networking']['interfaces'][$snat_iface]['ip']})",
+        source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
     }
   }
 }
