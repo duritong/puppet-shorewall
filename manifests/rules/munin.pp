@@ -16,7 +16,7 @@ class shorewall::rules::munin (
   }
   if $shorewall6 {
     shorewall::params6 {
-      'MUNINCOLLECTOR': value => "[${join(Array($munin_collector6),']/128,')}]/128";
+      'MUNINCOLLECTOR': value => "[${join(Array($munin_collector6),']/128,[')}]/128";
     }
   }
   shorewall::rule { 'net-me-munin-tcp':
