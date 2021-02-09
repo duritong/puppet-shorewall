@@ -13,6 +13,9 @@ class shorewall::base {
     '/etc/shorewall/puppet':
       ensure  => directory,
       require => Package['shorewall'],
+      recurse => true,
+      purge   => true,
+      force   => true,
       owner   => 'root',
       group   => 'root',
       mode    => '0644';
@@ -49,6 +52,9 @@ class shorewall::base {
       '/etc/shorewall6/puppet':
         ensure  => directory,
         require => Package['shorewall6'],
+        recurse => true,
+        purge   => true,
+        force   => true,
         owner   => 'root',
         group   => 'root',
         mode    => '0600';
