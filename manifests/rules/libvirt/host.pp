@@ -60,6 +60,7 @@ class shorewall::rules::libvirt::host (
     shorewall::snat {
       "snat-${snat_iface}":
         action => "SNAT(${facts['networking']['interfaces'][$snat_iface]['ip']})",
+        dest   => $snat_iface,
         source => '10.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16';
     }
   }
