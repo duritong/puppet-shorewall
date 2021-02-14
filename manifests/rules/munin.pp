@@ -1,6 +1,6 @@
 # outgoing munin rules
 class shorewall::rules::munin (
-  Stdlib::Port $munin_port = '4949',
+  Stdlib::Port $munin_port = 4949,
   Array[Stdlib::IP::Address::V4::Nosubnet] $munin_collector = ['127.0.0.1'],
   Array[Stdlib::IP::Address::V6::Nosubnet] $munin_collector6 = ['::1'],
   Array[Sring[1]] $collector_source = ['net'],
