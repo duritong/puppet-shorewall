@@ -19,6 +19,10 @@ class shorewall::base {
       owner   => 'root',
       group   => 'root',
       mode    => '0644';
+    '/etc/shorewall/puppet/shorewall.conf':
+      ensure  => link,
+      target  => '/etc/shorewall/shorewall.conf',
+      require => File['/etc/shorewall/shorewall.conf']
   }
   if $shorewall::with_shorewall6 {
     package { 'shorewall6':
@@ -88,7 +92,7 @@ class shorewall::base {
     refreshonly => true,
     require     => Package['shorewall'],
   } ~> exec { 'shorewall_try':
-    command     => 'shorewall try /etc/shorewall',
+    command     => 'shorewall try /etc/shorewall/puppet',
     refreshonly => true,
   } -> service { 'shorewall':
     ensure     => running,
@@ -115,7 +119,7 @@ class shorewall::base {
       refreshonly => true,
       require     => Package['shorewall6'],
     } ~> exec { 'shorewall6_try':
-      command     => 'shorewall6 try /etc/shorewall6',
+      command     => 'shorewall6 try /etc/shorewall6/puppet',
       refreshonly => true,
     } -> service { 'shorewall6':
       ensure     => running,
