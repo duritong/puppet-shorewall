@@ -3,7 +3,7 @@ class shorewall::rules::munin (
   Stdlib::Port $munin_port = 4949,
   Array[Stdlib::IP::Address::V4::Nosubnet] $munin_collector = ['127.0.0.1'],
   Array[Stdlib::IP::Address::V6::Nosubnet] $munin_collector6 = ['::1'],
-  Array[Sring[1]] $collector_source = ['net'],
+  Array[String[1]] $collector_source = ['net'],
   Boolean $shorewall6 = true,
 ) {
   shorewall::params {
