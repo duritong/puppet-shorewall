@@ -1,19 +1,12 @@
 # manage gitlab ports
 define shorewall::rules::gitlab (
-  Enum['podman','docker']
-  $runtime = 'podman',
-  String
-  $ip      = $name,
-  String
-  $source  = 'net',
-  Optional[String]
-  $out_interface = $facts['default_interface'],
-  Optional[String]
-  $user = undef,
-  Optional[String]
-  $group = undef,
-  Hash
-  $out_rules = {},
+  Enum['podman','docker'] $runtime = 'podman',
+  String $ip = $name,
+  String $source = 'net',
+  Optional[String] $out_interface = $facts['networking']['primary'],
+  Optional[String] $user = undef,
+  Optional[String] $group = undef,
+  Hash $out_rules = {},
 ) {
   if $runtime == 'docker' {
     shorewall::rule {
