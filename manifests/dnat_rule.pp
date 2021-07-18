@@ -48,11 +48,12 @@ define shorewall::dnat_rule (
     $source = "${local_net}${exclude_source}"
     shorewall::snat4 {
       "hairpin-${name}-${li}":
-        action => "SNAT(${real_ext_ip4})",
-        source => $source,
-        dest   => "${dest_if}:${destination}",
-        proto  => $proto,
-        port   => $port,
+        action   => "SNAT(${real_ext_ip4})",
+        source   => $source,
+        dest     => "${dest_if}:${destination}",
+        proto    => $proto,
+        port     => $port,
+        origdest => $real_ext_ip4,
     }
   }
 }
