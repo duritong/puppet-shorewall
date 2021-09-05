@@ -1,3 +1,4 @@
+#shorewall::proxyarp
 define shorewall::proxyarp(
     $interface,
     $external,

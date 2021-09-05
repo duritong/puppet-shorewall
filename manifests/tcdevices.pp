@@ -1,3 +1,4 @@
+#shorewall::tcdevices
 define shorewall::tcdevices(
     $in_bandwidth,
     $out_bandwidth,

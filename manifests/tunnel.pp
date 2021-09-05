@@ -1,3 +1,4 @@
+#shorewall::tunnel
 define shorewall::tunnel(
     $tunnel_type,
     $zone,

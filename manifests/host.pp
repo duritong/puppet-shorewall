@@ -1,3 +1,4 @@
+#shorewall::host
 define shorewall::host(
     $zone,
     $host = $name,

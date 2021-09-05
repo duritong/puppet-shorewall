@@ -1,3 +1,4 @@
+#shorewall::nat
 define shorewall::nat(
     $interface,
     $internal,
@@ -7,5 +8,5 @@ define shorewall::nat(
 ){
     shorewall::entry{"nat-${order}-${name}":
         line => "${name} ${interface} ${internal} ${all} ${local}"
-    }           
+    }
 }
